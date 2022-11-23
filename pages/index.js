@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import Link from "next/link";
 import styled from 'styled-components';
 
@@ -8,9 +7,6 @@ const StyledMain = styled.main`
     display: grid;
     justify-content: center;
     align-content: center;
-`;
-
-const StyledUl = styled.ul`
 `;
 
 const StyledLi = styled.li`
@@ -23,7 +19,7 @@ export default function Home() {
     return (
         <>
             <StyledMain>
-                <StyledUl>
+                <ul>
                     <StyledLi>
                         <Link href="/about">about</Link>
                     </StyledLi>
@@ -33,7 +29,7 @@ export default function Home() {
                     <StyledLi>
                         <Link href="/blog">blog</Link>
                     </StyledLi>
-                </StyledUl>
+                </ul>
             </StyledMain>
         </>
     )
