@@ -7,7 +7,7 @@ export default function ProjectList() {
 
     return (
         <>
-            <p>This is the main page</p>
+            <p>This is another projects page</p>
         </>
     )
 }

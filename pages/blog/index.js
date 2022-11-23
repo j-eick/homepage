@@ -4,7 +4,7 @@ export default function Projects() {
     return (
         <>
         <Link href="/">go back</Link>
-            <p>This is the Project page</p>
+            <p>This is the Blog page</p>
         </>
     )
 }
