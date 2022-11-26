@@ -8,7 +8,8 @@ export const GlobalStyle = createGlobalStyle`
 	}
 
 	:root {
-		--fontsize-profileButtons: 1.5rem;
+		--fontsize_profileButtons: 1.5rem;
+		--fontsize_pageTitles: 1.25rem;
 	}
 
 	html, body, div, span, applet, object, iframe,

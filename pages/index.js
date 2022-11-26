@@ -10,7 +10,7 @@ const StyledMain = styled.main`
 `;
 
 const StyledLi = styled.li`
-    font-size: var(--fontsize-profileButtons);
+    font-size: var(--fontsize_profileButtons);
     text-align: center;
     list-style: none;
     margin: 50px 0; 
