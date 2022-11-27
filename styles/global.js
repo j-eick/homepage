@@ -10,6 +10,7 @@ export const GlobalStyle = createGlobalStyle`
 	:root {
 		--fontsize_profileButtons: 1.5rem;
 		--fontsize_pageTitles: 1.25rem;
+		--fontsize_pageTopLinks: 1.15rem;
 	}
 
 	html, body, div, span, applet, object, iframe,
