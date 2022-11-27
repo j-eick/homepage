@@ -1,11 +1,10 @@
-import Link from "next/link";
-import PageHeader from "../../components/PageHeader";
+import PageHeader from "../../components/header/PageHeader";
 
-export default function About() {
+export default function About(props) {
     return (
         <>
-            <PageHeader />
-            <p>This is the about page</p>
+            <PageHeader title="Hi! I'm Josh"/>
+            <p>Here is some text about me.</p>
         </>
     )
 }
