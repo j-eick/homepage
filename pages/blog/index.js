@@ -1,17 +1,7 @@
-import Link from "next/link";
 import styled from "styled-components";
-import PageHeader from "../../components/header/PageHeader";
+import TopNav from "../../components/header/TopNav";
+import PageTitle from "../../components/header/PageTitle";
 
-const StyledHeader = styled.header`
-    padding: 30px 30px 20px 30px;
-    text-align: right;
-    font-size: var(--fontsize_pageTitles);
-`;
-const StyledH1 = styled.h1`
-    padding: 0 30px 0 30px;
-    text-align: right;
-    font-size: var(--fontsize_pageTitles);
-`;
 const StyledSection = styled.section`
     padding: 30px;
 `;
@@ -28,7 +18,8 @@ const StyledP = styled.p`
 export default function Projects() {
     return (
         <>
-            <PageHeader /> 
+            <TopNav /> 
+            <PageTitle /> 
             <StyledSection>
                 <StyledArticle>
                     <StyledH2>Topic 1</StyledH2>

@@ -10,16 +10,16 @@ const StyledLi = styled.li`
   list-style: none;
 `;
 
-export default function TopNav() {
+export default function TopNav({firstLink, secondLink}) {
   return (
     <StyledDiv>
       <nav>
         <ul>
           <StyledLi>
-            <Link href="/"></Link>
+            <Link href="/">{firstLink}</Link>
           </StyledLi>
           <StyledLi>
-            <Link href="/"></Link>
+            <Link href="/">{secondLink}</Link>
           </StyledLi>
           <StyledLi>
             <Link href="/">⬅</Link>
