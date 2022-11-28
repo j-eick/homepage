@@ -1,11 +1,11 @@
-// import BackArrow from "./BackArrow";
-// import PageTitle from "./PageTitle";
+import BackArrow from "./BackArrow";
+import TopNav from "./TopNav";
 
-// export default function PageHeader({title}) {
-//   return (
-//       <>
-//         <BackArrow />
-//         <PageTitle title={title}/>
-//       </>
-//   )
-// }
+export default function PageHeader() {
+  return (
+    <>
+      <TopNav />
+      <BackArrow />
+    </>
+  )
+}

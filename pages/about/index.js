@@ -1,9 +1,11 @@
-// import PageHeader from "../../components/header/PageHeader";
+import PageHeader from "../../components/header/PageHeader";
+import PageTitle from "../../components/header/PageTitle";
 
-export default function About(props) {
+export default function About({title}) {
     return (
         <>
-            <p>Here is some text about me.</p>
+            <PageHeader />
+            <PageTitle title={"Title: About me"}/>
         </>
     )
 }
