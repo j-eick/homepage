@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
-import PageHeader from "../../components/header/PageHeader";
+// import PageHeader from "../../components/header/PageHeader";
 
 const StyledHeader = styled.header`
     padding: 30px 30px 20px 30px;
@@ -28,7 +28,7 @@ const StyledP = styled.p`
 export default function Projects() {
     return (
         <>
-            <PageHeader /> 
+            {/* <PageHeader />  */}
             <StyledSection>
                 <StyledArticle>
                     <StyledH2>Topic 1</StyledH2>
