@@ -10,20 +10,22 @@ const StyledLi = styled.li`
   list-style: none;
 `;
 
-export default function TopNav({ linkA, linkB }) {
+console.clear();
+
+export default function TopNav({data}) {
+
+  const array = [1, 2, 3];
+    
   return (
     <StyledDiv>
       <nav>
         <ul>
-          <StyledLi>
-            <Link href="/">Home</Link>
-          </StyledLi>
-          <StyledLi>
-            <Link href="/">{linkA}</Link>
-          </StyledLi>
-          <StyledLi>
-            <Link href="/">{linkB}</Link>
-          </StyledLi>
+          {data.map(item => (
+              <StyledLi key={item.name}>
+                <Link href={item.href}>{item.name}</Link>
+              </StyledLi>
+              )
+          )}
         </ul>
       </nav>
     </StyledDiv>
