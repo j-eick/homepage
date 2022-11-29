@@ -6,6 +6,9 @@ const StyledDiv = styled.div`
   text-align: right;
   font-size: var(--fontsize_pageTopLinks);
 `;
+const StyledUl = styled.ul`
+  display: grid;
+`;
 const StyledLi = styled.li`
   list-style: none;
 `;
@@ -19,14 +22,14 @@ export default function TopNav({data}) {
   return (
     <StyledDiv>
       <nav>
-        <ul>
+        <StyledUl>
           {data.map(item => (
               <StyledLi key={item.name}>
                 <Link href={item.href}>{item.name}</Link>
               </StyledLi>
               )
           )}
-        </ul>
+        </StyledUl>
       </nav>
     </StyledDiv>
   )
