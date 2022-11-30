@@ -3,6 +3,12 @@ import { useRouter } from "next/router";
 import styled from 'styled-components';
 import TopNav from "../components/header/TopNav";
 
+/**
+ * // TODO Conditional Based Routing as suggested on StackOverflow: 
+ * - https://stackoverflow.com/questions/74601623/how-to-prop-drill-varying-hrefs-for-various-link-components-down-to-the-original?noredirect=1&lq=1
+ * - Unclear how to implement
+ */
+
 const StyledMain = styled.main`
     width: 100vw;
     height: 100vh;
