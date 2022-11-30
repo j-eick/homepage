@@ -1,7 +1,5 @@
 // import PageHeader from "../../components/header/PageHeader";
 import PageHeader from "../../components/header/PageHeader";
-import PageTitle from "../../components/header/PageTitle";
-import TopNav from "../../components/header/TopNav";
 
 export default function About() {
 
