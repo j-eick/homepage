@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import styled from 'styled-components';
 
 const StyledMain = styled.main`
@@ -17,8 +18,41 @@ const StyledLi = styled.li`
 `;
 
 export default function Home() {
+    const {asPath} = useRouter();
+
+    const getData = () => {
+        if (asPath ==="/about") {
+          return (
+            [
+              {href: "/projects", name: "about"},
+              {href: "/blog", name: "blog"},
+              {href: "/", name: "home"}
+            ]
+          );
+        }
+        if (asPath ==="/projects") {
+          return (
+            [
+              {href: "/about", name: "about"},
+              {href: "/blog", name: "blog"},
+              {href: "/", name: "home"}
+            ]
+          );
+        }
+        if (asPath === "/blog") {
+            return (
+                [
+                    {href: "/about", name: "about"},
+                    {href: "/projects", name: "projects"},
+                    {href: "/", name: "home"}
+                ]
+            )
+        }
+      }
+
     return (
         <>
+        <TopNav data={getData()} />
             <StyledMain>
                 <ul>
                     <StyledLi>
