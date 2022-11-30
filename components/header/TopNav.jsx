@@ -16,8 +16,6 @@ const StyledLi = styled.li`
 console.clear();
 
 export default function TopNav({data}) {
-
-  const array = [1, 2, 3];
     
   return (
     <StyledDiv>
