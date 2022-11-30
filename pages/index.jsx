@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styled from 'styled-components';
+import TopNav from "../components/header/TopNav";
 
 const StyledMain = styled.main`
     width: 100vw;
@@ -40,13 +41,13 @@ export default function Home() {
           );
         }
         if (asPath === "/blog") {
-            return (
-                [
-                    {href: "/about", name: "about"},
-                    {href: "/projects", name: "projects"},
-                    {href: "/", name: "home"}
-                ]
-            )
+          return (
+            [
+              {href: "/about", name: "about"},
+              {href: "/projects", name: "projects"},
+              {href: "/", name: "home"}
+            ]
+          )
         }
       }
 
