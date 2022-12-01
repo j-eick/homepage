@@ -1,5 +1,5 @@
-// import PageHeader from "../../components/header/PageHeader";
 import PageHeader from "../../components/header/PageHeader";
+import Main from "../../components/aboutPage/Main";
 
 export default function About() {
 
@@ -13,6 +13,7 @@ export default function About() {
                     }
                 title={"Hi!"}
             />
+            <Main />
         </>
     )
 }
