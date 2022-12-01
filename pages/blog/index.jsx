@@ -1,6 +1,5 @@
-import Link from "next/link";
 import styled from "styled-components";
-// import PageHeader from "../../components/header/PageHeader";
+import TopNav from "../../components/header/TopNav";
 
 const StyledHeader = styled.header`
     padding: 30px 30px 20px 30px;
@@ -25,10 +24,16 @@ const StyledP = styled.p`
     padding: 0 0 10px 0;
 `;
 
-export default function Projects() {
+export default function Blog() {
     return (
         <>
-            {/* <PageHeader />  */}
+            <TopNav data={
+                [
+                    {href: "/about", name: "about"},
+                    {href: "/projects", name: "projects"},
+                    {href: "/", name: "home"}
+                ]
+            } />
             <StyledSection>
                 <StyledArticle>
                     <StyledH2>Topic 1</StyledH2>
