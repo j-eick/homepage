@@ -1,4 +1,3 @@
-// import PageHeader from "../../components/header/PageHeader";
 import PageHeader from "../../components/header/PageHeader";
 
 export default function About() {
@@ -13,6 +12,7 @@ export default function About() {
                     }
                 title={"Hi!"}
             />
+
         </>
     )
 }
