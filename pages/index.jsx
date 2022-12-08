@@ -1,6 +1,7 @@
 import { ThemeProvider } from "styled-components";
 import Link from "next/link";
 import styled from "styled-components";
+import { lightTheme } from "../components/lightTheme";
 
 const StyledContainer = styled.div`
   width: 100vw;
@@ -31,17 +32,9 @@ const StyledLi = styled.li`
   margin: 50px 0;
 `;
 
-const theme = {
-  colors: {
-    header: "#88e0f6",
-    body: "#fff",
-    footer: "#458a9b",
-  },
-};
-
 export default function Home() {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={lightTheme}>
       <>
         <StyledContainer>
           <StyledMain>
