@@ -1,3 +1,4 @@
+import { ThemeProvider } from "styled-components";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -30,24 +31,34 @@ const StyledLi = styled.li`
   margin: 50px 0;
 `;
 
+const theme = {
+  colors: {
+    header: "#88e0f6",
+    body: "#fff",
+    footer: "#458a9b",
+  },
+};
+
 export default function Home() {
   return (
-    <>
-      <StyledContainer>
-        <StyledMain>
-          <ul>
-            <StyledLi>
-              <Link href="/about">about</Link>
-            </StyledLi>
-            <StyledLi>
-              <Link href="/projects">projects</Link>
-            </StyledLi>
-            <StyledLi>
-              <Link href="/blog">blog</Link>
-            </StyledLi>
-          </ul>
-        </StyledMain>
-      </StyledContainer>
-    </>
+    <ThemeProvider theme={theme}>
+      <>
+        <StyledContainer>
+          <StyledMain>
+            <ul>
+              <StyledLi>
+                <Link href="/about">about</Link>
+              </StyledLi>
+              <StyledLi>
+                <Link href="/projects">projects</Link>
+              </StyledLi>
+              <StyledLi>
+                <Link href="/blog">blog</Link>
+              </StyledLi>
+            </ul>
+          </StyledMain>
+        </StyledContainer>
+      </>
+    </ThemeProvider>
   );
 }
