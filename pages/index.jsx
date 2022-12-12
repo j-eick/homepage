@@ -1,7 +1,5 @@
-import { ThemeProvider } from "styled-components";
 import Link from "next/link";
 import styled from "styled-components";
-import { lightTheme } from "../components/lightTheme";
 
 const StyledContainer = styled.div`
   width: 100vw;
@@ -34,24 +32,22 @@ const StyledLi = styled.li`
 
 export default function Home() {
   return (
-    <ThemeProvider theme={lightTheme}>
-      <>
-        <StyledContainer>
-          <StyledMain>
-            <ul>
-              <StyledLi>
-                <Link href="/about">about</Link>
-              </StyledLi>
-              <StyledLi>
-                <Link href="/projects">projects</Link>
-              </StyledLi>
-              <StyledLi>
-                <Link href="/blog">blog</Link>
-              </StyledLi>
-            </ul>
-          </StyledMain>
-        </StyledContainer>
-      </>
-    </ThemeProvider>
+    <>
+      <StyledContainer>
+        <StyledMain>
+          <ul>
+            <StyledLi>
+              <Link href="/about">about</Link>
+            </StyledLi>
+            <StyledLi>
+              <Link href="/projects">projects</Link>
+            </StyledLi>
+            <StyledLi>
+              <Link href="/blog">blog</Link>
+            </StyledLi>
+          </ul>
+        </StyledMain>
+      </StyledContainer>
+    </>
   );
 }
