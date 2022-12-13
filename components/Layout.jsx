@@ -1,9 +1,12 @@
-import PageCanvas from "../styles/Layout.module.css";
+import Canvas from "../styles/MainLayout.module.css";
 
 export default function Layout({ children }) {
   return (
     <>
-      <div className={PageCanvas.canvas}>{children}</div>;
+      <div className={Canvas.canvas}>
+        <div className={Canvas.main}>{children}</div>
+      </div>
+      ;
     </>
   );
 }
