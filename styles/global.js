@@ -42,9 +42,14 @@ export const GlobalStyle = createGlobalStyle`
 	text-decoration: none;
 	}
 
-	* {
-	box-sizing: border-box;
+	li {
+		list-style: none;
 	}
+
+	.canvas {
+  background-color: green;
+}
+
 
 	/* @media (prefers-color-scheme: dark) {
 	html {

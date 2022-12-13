@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Layout from "../components/Layout";
 import styled from "styled-components";
 
 const StyledContainer = styled.div`
@@ -33,21 +34,23 @@ const StyledLi = styled.li`
 export default function Home() {
   return (
     <>
-      <StyledContainer>
-        <StyledMain>
-          <ul>
-            <StyledLi>
-              <Link href="/about">about</Link>
-            </StyledLi>
-            <StyledLi>
-              <Link href="/projects">projects</Link>
-            </StyledLi>
-            <StyledLi>
-              <Link href="/blog">blog</Link>
-            </StyledLi>
-          </ul>
-        </StyledMain>
-      </StyledContainer>
+      <Layout>
+        <StyledContainer>
+          <StyledMain>
+            <ul>
+              <StyledLi>
+                <Link href="/about">about</Link>
+              </StyledLi>
+              <StyledLi>
+                <Link href="/projects">projects</Link>
+              </StyledLi>
+              <StyledLi>
+                <Link href="/blog">blog</Link>
+              </StyledLi>
+            </ul>
+          </StyledMain>
+        </StyledContainer>
+      </Layout>
     </>
   );
 }
