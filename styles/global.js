@@ -1,4 +1,4 @@
-import {createGlobalStyle} from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
 	*,
@@ -34,8 +34,7 @@ export const GlobalStyle = createGlobalStyle`
 	}
 
 	body {
-	width: 100vw;
-	height: 100vh;
+		
 	}
 
 	a {
@@ -43,9 +42,14 @@ export const GlobalStyle = createGlobalStyle`
 	text-decoration: none;
 	}
 
-	* {
-	box-sizing: border-box;
+	li {
+		list-style: none;
 	}
+
+	.canvas {
+  background-color: green;
+}
+
 
 	/* @media (prefers-color-scheme: dark) {
 	html {
