@@ -1,7 +1,6 @@
 import PageHeader from "../../components/header/PageHeader";
 import Main from "../../components/aboutPage/Main";
-import styled from "styled-components";
-import Layout from "../../components/Layout";
+import Layout from "../../components/SubpageLayout";
 
 export default function About() {
   return (
