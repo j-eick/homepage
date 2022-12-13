@@ -23,20 +23,18 @@ const StyledLi = styled.li`
 
 console.clear();
 
-export default function TopNav({data}) {
-    
+export default function TopNav({ data }) {
   return (
     <StyledDiv>
       <nav>
         <StyledUl>
-          {data.map(item => (
-              <StyledLi key={item.name}>
-                <Link href={item.href}>{item.name}</Link>
-              </StyledLi>
-              )
-          )}
+          {data.map((item) => (
+            <StyledLi key={item.name}>
+              <Link href={item.href}>{item.name}</Link>
+            </StyledLi>
+          ))}
         </StyledUl>
       </nav>
     </StyledDiv>
-  )
+  );
 }
