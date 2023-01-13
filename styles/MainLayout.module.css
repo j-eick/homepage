@@ -13,7 +13,7 @@
 }
 
 @media screen and (min-width: 400px) {
-  .main {
+  .responsiveCanvas {
     width: 375px;
     height: 667px;
     border: 1px solid black;
