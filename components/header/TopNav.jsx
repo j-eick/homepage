@@ -10,7 +10,6 @@ const StyledUl = styled.ul`
   display: grid;
   grid-template-columns: 1.5fr 1.5fr 2fr;
   gap: 5px 5px;
-  /* grid-template-rows: 100%; */
   padding: 20px 20px;
   background-color: red;
 `;
@@ -27,7 +26,6 @@ console.clear();
 
 export default function TopNav({ data }) {
   return (
-    // <StyledDiv>
     <nav>
       <StyledUl>
         {data.map((item) => (
@@ -37,6 +35,5 @@ export default function TopNav({ data }) {
         ))}
       </StyledUl>
     </nav>
-    // </StyledDiv>
   );
 }
