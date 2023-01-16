@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const StyledH1 = styled.h1`
-  padding: 50px 30px 30px 50px;
-  text-align: left;
+  padding: 50px 30px;
+  text-align: center;
   font-size: var(--fontsize_pageTitles);
   background-color: lightblue;
 `;
