@@ -3,10 +3,10 @@ import Layout from "../components/Layout";
 import styled from "styled-components";
 
 const StyledLi = styled.li`
-  font-size: var(--fontsize_profileButtons);
+  font-size: var(--fontsize_landingpageFontsize);
   text-align: center;
   list-style: none;
-  margin: 50px 0;
+  margin: 60px 0;
 `;
 
 export default function Home() {
