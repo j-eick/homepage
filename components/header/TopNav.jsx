@@ -3,6 +3,7 @@ import Link from "next/link";
 
 const StyledUl = styled.ul`
   display: grid;
+  width: 100%;
   grid-template-columns: 1.5fr 1.5fr 2fr;
   justify-items: center;
   gap: 5px 5px;
