@@ -1,17 +1,7 @@
 import styled from "styled-components";
 
-const StyledHeader = styled.header`
-  padding: 30px 30px 20px 30px;
-  text-align: right;
-  font-size: var(--fontsize_pageTitles);
-`;
-const StyledH1 = styled.h1`
-  padding: 0 30px 0 30px;
-  text-align: right;
-  font-size: var(--fontsize_pageTitles);
-`;
 const StyledSection = styled.section`
-  padding: 30px;
+  padding: 30px 40px;
 `;
 const StyledArticle = styled.article`
   padding: 0 0 30px 0;
