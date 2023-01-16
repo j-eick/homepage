@@ -13,7 +13,7 @@ export default function About() {
         ]}
         title={"Hi!"}
       />
-      {/* <Main /> */}
+      <Main />
     </Layout>
   );
 }
