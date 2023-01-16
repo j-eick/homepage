@@ -1,24 +1,19 @@
 import styled from "styled-components";
 import Link from "next/link";
 
-// const StyledDiv = styled.div`
-//   padding: 40px 50px 20px 50px;
-//   text-align: right;
-//   font-size: var(--fontsize_pageTopLinks);
-// `;
 const StyledUl = styled.ul`
   display: grid;
   grid-template-columns: 1.5fr 1.5fr 2fr;
   justify-items: center;
   gap: 5px 5px;
   padding: 30px 20px 30px 20px;
-  background-color: red;
+  /* background-color: red; */
 `;
 const StyledLi = styled.li`
   width: 80%;
+  font-size: var(--fontsize_profileButtons);
   list-style: none;
   text-align: center;
-  border: 1px solid black;
   &:last-child {
     text-align: right;
   }
