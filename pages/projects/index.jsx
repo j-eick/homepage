@@ -1,5 +1,6 @@
 import PageHeader from "../../components/header/PageHeader";
 import Layout from "../../components/Layout-Subpage";
+import Main from "../../components/projectPage/Main";
 
 export default function Projects() {
   return (
@@ -12,7 +13,7 @@ export default function Projects() {
         ]}
         title={"Hi!"}
       />
-      <p>This is the Project page</p>
+      <Main />
     </Layout>
   );
 }
