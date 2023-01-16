@@ -9,11 +9,13 @@ import Link from "next/link";
 const StyledUl = styled.ul`
   display: grid;
   grid-template-columns: 1.5fr 1.5fr 2fr;
+  justify-items: center;
   gap: 5px 5px;
-  padding: 20px 20px;
+  padding: 30px 20px 30px 20px;
   background-color: red;
 `;
 const StyledLi = styled.li`
+  width: 80%;
   list-style: none;
   text-align: center;
   border: 1px solid black;
