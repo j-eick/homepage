@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
 const StyledSection = styled.section`
-  padding: 30px 40px;
+  padding: 30px 50px;
 `;
 const StyledArticle = styled.article`
   padding: 0 0 30px 0;
 `;
 const StyledH2 = styled.h2`
-  padding: 0 0 10px 0;
+  padding: 0 0 10px 20px;
 `;
 const StyledP = styled.p`
   padding: 0 0 10px 0;
