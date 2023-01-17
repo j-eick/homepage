@@ -4,6 +4,7 @@ import styled from "styled-components";
 const StyledP = styled.p`
   padding: 20px 50px;
   text-align: center;
+  font-size: var(--fontsize_pageText);
 `;
 
 export default function Main() {
