@@ -7,7 +7,7 @@ const StyledUl = styled.ul`
   grid-template-columns: 1.5fr 1.5fr 2fr;
   justify-items: center;
   gap: 5px 5px;
-  padding: 30px 20px 30px 20px;
+  padding: 40px 20px 30px 20px;
   /* background-color: red; */
 `;
 const StyledLi = styled.li`

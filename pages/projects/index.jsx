@@ -11,7 +11,7 @@ export default function Projects() {
           { href: "/blog", name: "blog" },
           { href: "/", name: "home" },
         ]}
-        title={"Hi!"}
+        title={"A little overview..."}
       />
       <Main />
     </Layout>
