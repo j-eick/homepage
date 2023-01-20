@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { StyledUl, StyledLi, StyledP } from "./Main.styles.js";
+import { StyledUl } from "./Main.styles.js";
 import ProjectTile from "./ProjectTile.jsx";
 
 console.clear();
