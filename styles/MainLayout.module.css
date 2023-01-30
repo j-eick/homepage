@@ -1,8 +1,16 @@
+.background {
+  background-image: url("../public/raindropsOnWindow.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
 .canvas {
-  /* width: 100vw; */
   height: 100vh;
   display: grid;
   place-items: center;
+
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
 }
 
 .responsiveCanvas {
@@ -16,5 +24,9 @@
     height: 667px;
     border: 1px solid black;
     border-radius: 30px;
+
+    /* background-image: url("../public/raindropsOnWindow.jpg");
+    background-position: center;
+    background-size: cover; */
   }
 }
