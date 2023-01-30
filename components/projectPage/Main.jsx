@@ -1,5 +1,5 @@
-import Link from "next/link";
-import styled from "styled-components";
+// import Link from "next/link";
+// import styled from "styled-components";
 import { StyledUl } from "./Main.styles.js";
 import ProjectTile from "./ProjectTile.jsx";
 
