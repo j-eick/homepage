@@ -1,15 +1,13 @@
 .canvas {
-  width: 100vw;
+  /* width: 100vw; */
   height: 100vh;
   display: grid;
-  justify-content: center;
-  align-content: center;
+  place-items: center;
 }
 
 .responsiveCanvas {
   display: grid;
-  justify-content: center;
-  align-content: center;
+  place-items: center;
 }
 
 @media screen and (min-width: 400px) {
@@ -17,6 +15,6 @@
     width: 375px;
     height: 667px;
     border: 1px solid black;
-    margin: 0 auto;
+    border-radius: 30px;
   }
 }
