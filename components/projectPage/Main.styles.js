@@ -16,7 +16,7 @@ export const StyledLi = styled.li`
   border-radius: 20px;
   transition: all 0.1s ease-in-out;
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
   &:hover::after {
     opacity: 1;
