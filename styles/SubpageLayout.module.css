@@ -10,14 +10,14 @@
 }
 
 .responsiveCanvas {
-  min-height: 100vh;
-  width: 100vw;
+  width: 375px;
+  min-height: 667px;
 
   background: rgba(250, 250, 250, 0.1);
   backdrop-filter: blur(10px);
 }
 
-@media (min-width: 380px) {
+@media (min-width: 376px) {
   .responsiveCanvas {
     width: 375px;
     height: 667px;
@@ -27,20 +27,3 @@
     backdrop-filter: blur(10px);
   }
 }
-
-/* @media screen and (min-width: 400px) {
-  .canvas {
-    width: 100vw;
-    height: 100vh;
-    display: grid;
-    justify-content: center;
-    align-content: center;
-  }
-
-  .responsiveCanvas {
-    width: 375px;
-    height: 667px;
-    border: 1px solid black;
-    margin: 0 auto;
-  }
-} */
