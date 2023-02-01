@@ -1,5 +1,3 @@
-console.clear();
-
 import PageHeader from "../../components/header/PageHeader";
 import Layout from "../../components/Layout-Subpage";
 import Main from "../../components/projectPage/Main";

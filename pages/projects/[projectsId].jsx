@@ -1,13 +1,13 @@
 import { useRouter } from "next/router";
 
 export default function ProjectList() {
-    const router = useRouter();
+  const router = useRouter();
 
-    console.log(router.query.projectsId); 
+  console.log(router.query.projectsId);
 
-    return (
-        <>
-            <p>This is another projects page</p>
-        </>
-    )
+  return (
+    <>
+      <p>This is another projects page</p>
+    </>
+  );
 }
