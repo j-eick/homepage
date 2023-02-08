@@ -1,6 +1,7 @@
 import PageHeader from "../../components/header/PageHeader";
 import Layout from "../../components/Layout-Subpage";
 import Main from "../../components/projectPage/Main";
+import Link from "next/link";
 
 export default function Projects() {
   return (
@@ -13,7 +14,9 @@ export default function Projects() {
         ]}
         title={"A little overview..."}
       />
+      {/* <Link href="/"> */}
       <Main />
+      {/* </Link> */}
     </Layout>
   );
 }
