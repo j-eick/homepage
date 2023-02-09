@@ -9,34 +9,34 @@ export default function Projects() {
   const [projects, setProjects] = useState([
     {
       id: "p1",
-      name: "some name",
+      name: "Run-Graph",
       description: "some description",
       href: "/projects/run-graph",
     },
     {
       id: "p2",
-      name: "some name name",
-      description: "some description",
+      name: "Vocab-Dojo",
+      description: "more soon...",
     },
     {
       id: "p3",
-      name: "some name name name",
-      description: "some description",
+      name: "Code2Gather",
+      description: "more soon...",
     },
     {
       id: "p4",
-      name: "some name name name name",
-      description: "some description",
+      name: "Color Game",
+      description: "Guess the RGB color",
     },
     {
       id: "p5",
-      name: "some name name name name name",
-      description: "some description",
+      name: "Cocacola",
+      description: "",
     },
     {
       id: "p6",
-      name: "some name name name name name name",
-      description: "some description",
+      name: "Cocacola",
+      description: "",
     },
   ]);
 

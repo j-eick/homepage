@@ -1,7 +1,3 @@
-// import Link from "next/link";
-// import styled from "styled-components";
-// import ProjectTile from "./ProjectTile.jsx";
-import Link from "next/link.js";
 import { StyledP, StyledLi, StyledUl } from "./Main.styles.js";
 
 console.clear();
