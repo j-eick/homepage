@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 export const StyledUl = styled.ul`
+  padding: 0 50px 80px 50px;
+
   display: grid;
   grid-template-columns: 1fr;
   gap: 30px;
-  padding: 0px 50px;
 `;
 export const StyledLi = styled.li`
   display: grid;
