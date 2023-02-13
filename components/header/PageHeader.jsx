@@ -9,7 +9,6 @@ const StyledHeader = styled.header`
   width: 80%;
 
   background-color: pink;
-  opacity: 1;
 `;
 
 export default function PageHeader({ data }) {
