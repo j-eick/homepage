@@ -1,11 +1,21 @@
-import PageTitle from "./PageTitle";
+// import PageTitle from "./PageTitle";
+import styled from "styled-components";
 import TopNav from "./TopNav";
 
-export default function PageHeader({data, title}) {
+const StyledHeader = styled.header`
+  position: sticky;
+  top: 0;
+
+  width: 80%;
+
+  background-color: pink;
+  opacity: 1;
+`;
+
+export default function PageHeader({ data }) {
   return (
-    <>
-      <TopNav data={data}/>
-      <PageTitle title={title}/>
-    </>
-  )
+    <StyledHeader>
+      <TopNav data={data} />
+    </StyledHeader>
+  );
 }
