@@ -2,6 +2,7 @@ import { useState } from "react";
 import PageHeader from "../../components/header/PageHeader";
 import Layout from "../../components/Layout-Subpage";
 import Main from "../../components/projectPage";
+import Footer from "../../components/footer";
 
 console.clear();
 
@@ -52,6 +53,7 @@ export default function Projects() {
       />
       <Main projects={projects} />
       {console.log(projects)}
+      <Footer />
     </Layout>
   );
 }
