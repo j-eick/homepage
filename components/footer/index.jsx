@@ -12,9 +12,7 @@ const StyledDiv = styled.div`
 export default function Footer() {
   return (
     <>
-      <StyledDiv>
-        <p>test</p>
-      </StyledDiv>
+      <StyledDiv></StyledDiv>
     </>
   );
 }
