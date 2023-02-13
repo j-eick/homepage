@@ -1,15 +1,13 @@
 import styled from "styled-components";
 
 export const StyledUl = styled.ul`
-  position: sticky;
-
   padding: 50px 50px 50px 50px;
 
   display: grid;
   grid-template-columns: 1fr;
   gap: 30px;
 
-  min-height: calc(100vh - 100px);
+  /* min-height: calc(100% - 100px); */
 `;
 export const StyledLi = styled.li`
   display: grid;

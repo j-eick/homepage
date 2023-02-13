@@ -24,21 +24,6 @@ export default function Projects() {
       name: "Code2Gather",
       description: "more soon...",
     },
-    {
-      id: "p4",
-      name: "Color Game",
-      description: "Guess the RGB color",
-    },
-    {
-      id: "p5",
-      name: "Cocacola",
-      description: "",
-    },
-    {
-      id: "p6",
-      name: "Cocacola",
-      description: "",
-    },
   ]);
 
   return (

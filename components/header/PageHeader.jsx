@@ -5,10 +5,6 @@ import TopNav from "./TopNav";
 const StyledHeader = styled.header`
   position: sticky;
   top: 0;
-
-  width: 80%;
-
-  background-color: pink;
 `;
 
 export default function PageHeader({ data }) {
