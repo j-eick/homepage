@@ -4,7 +4,7 @@ import Link from "next/link";
 import styled from "styled-components";
 
 const StyledP = styled.p`
-  padding: 20px 50px;
+  padding: 100px 50px 0 50px;
   text-align: center;
   font-size: var(--fontsize_pageText);
 `;

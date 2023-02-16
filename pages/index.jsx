@@ -7,7 +7,7 @@ const StyledLi = styled.li`
   font-size: var(--fontsize_landingpageFontsize);
   text-align: center;
   list-style: none;
-  margin: 60px 0;
+  margin: 80px 0;
 `;
 
 export default function Home() {

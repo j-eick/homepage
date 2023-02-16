@@ -11,7 +11,7 @@ export const GlobalStyle = createGlobalStyle`
 		--fontsize_landingpageFontsize: 1.5rem;
 		--fontsize_profileButtons: 1.25rem;
 		--fontsize_pageTitles: 1.2rem;
-		--fontsize_pageText: 1.1rem;
+		--fontsize_pageText: 1.15rem;
 	}
 
 	html, body, div, span, applet, object, iframe,
