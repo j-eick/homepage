@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledUl = styled.ul`
-  padding: 50px 70px 50px 70px;
+  padding: 100px 70px 50px 70px;
 
   display: grid;
   grid-template-columns: 1fr;

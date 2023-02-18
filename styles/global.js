@@ -37,6 +37,8 @@ export const GlobalStyle = createGlobalStyle`
 
 	body {
 		min-height: 100vh;
+		line-height: 130%;
+		color: #1c2127;
 	}
 
 	a {
