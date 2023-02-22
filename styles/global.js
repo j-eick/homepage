@@ -25,7 +25,7 @@ export const GlobalStyle = createGlobalStyle`
 	table, caption, tbody, tfoot, thead, tr, th, td,
 	article, aside, canvas, details, embed, 
 	figure, figcaption, footer, header, hgroup, 
-	menu, nav, output, ruby, section, summary,
+	menu, nav output, ruby, section, summary,
 	time, mark, audio, video {
 		margin: 0;
 		padding: 0;
@@ -37,7 +37,6 @@ export const GlobalStyle = createGlobalStyle`
 
 	body {
 		min-height: 100vh;
-		line-height: 130%;
 		color: #1c2127;
 	}
 
@@ -53,15 +52,4 @@ export const GlobalStyle = createGlobalStyle`
 	.canvas {
   background-color: green;
 }
-
-
-	/* @media (prefers-color-scheme: dark) {
-	html {
-		color-scheme: dark;
-	}
-	body {
-		color: white;
-		background: black;
-	}
-	} */
 `;

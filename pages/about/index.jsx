@@ -1,5 +1,5 @@
 import PageHeader from "../../components/header/PageHeader";
-import Layout from "../../components/Layout-Subpage";
+import Layout_Subpage from "../../components/Layout-Subpage";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -11,14 +11,13 @@ const StyledP = styled.p`
 
 export default function About() {
   return (
-    <Layout>
+    <Layout_Subpage>
       <PageHeader
         data={[
           { href: "/projects", name: "projects" },
           { href: "/blog", name: "blog" },
           { href: "/", name: "home" },
         ]}
-        title={"Hi!"}
       />
       <StyledP>
         My name is Josh and I craft applications for the web.
@@ -33,6 +32,6 @@ export default function About() {
         My <Link href="/blog">blog page</Link> addresses topics that are meaningful to me. This is a chance to get to
         know me a little better.
       </StyledP>
-    </Layout>
+    </Layout_Subpage>
   );
 }

@@ -4,9 +4,7 @@ export default function Layout({ children }) {
   return (
     <>
       <div className={Canvas.canvas}>
-        <div className={Canvas.glassModal}>
-          <div className={Canvas.responsiveCanvas}>{children}</div>
-        </div>
+        <div className={Canvas.responsiveCanvas}>{children}</div>
       </div>
     </>
   );
