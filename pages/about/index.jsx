@@ -1,4 +1,5 @@
-import PageHeader from "../../components/header/PageHeader";
+// import PageHeader from "../../components/header/PageHeader";
+import Header from "../../components/header/Header";
 import Layout_Subpage from "../../components/Layout-Subpage";
 import Link from "next/link";
 import styled from "styled-components";
@@ -12,7 +13,7 @@ const StyledP = styled.p`
 export default function About() {
   return (
     <Layout_Subpage>
-      <PageHeader
+      <Header
         data={[
           { href: "/projects", name: "projects" },
           { href: "/blog", name: "blog" },

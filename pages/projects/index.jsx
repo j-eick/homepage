@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PageHeader from "../../components/header/PageHeader";
 import Layout_Subpage from "../../components/Layout-Subpage";
-import { StyledP, StyledLi, StyledUl } from "../../components/projectPage/Main.styles";
+import { StyledP, StyledLi, StyledUl } from "./styles.js";
 import Footer from "../../components/footer";
 
 console.clear();
