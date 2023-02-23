@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Layout_Subpage from "../../components/Layout-Subpage";
-import { StyledLi, StyledUl } from "./projects.styles.js";
+import { StyledLi, StyledUl } from "../../components/projectPage/styles.js";
 import Footer from "../../components/footer";
 import Header from "../../components/header/Header";
 import Link from "next/link";
