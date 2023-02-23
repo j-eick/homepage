@@ -5,8 +5,6 @@ import Footer from "../../components/footer";
 import Header from "../../components/header/Header";
 import Link from "next/link";
 
-console.clear();
-
 export default function Projects() {
   const [projects, setProjects] = useState([
     {
