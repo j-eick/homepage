@@ -16,9 +16,8 @@ export const StyledLi = styled.li`
 
   height: 100px;
   position: relative;
-  /* background: rgba(108, 137, 153, 0.6); */
-  /* background: rgb(35, 53, 65); */
-  /* background: linear-gradient(20deg, rgba(37, 51, 59, 0.5) 0%, rgba(63, 147, 162, 0.5) 98%); */
+
+  background: linear-gradient(20deg, rgba(37, 51, 59, 0.5) 0%, rgba(130, 162, 167, 0.5) 98%);
   backdrop-filter: blur(20px);
   box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   border-radius: 25px;
@@ -39,7 +38,4 @@ export const StyledLi = styled.li`
     opacity: 0;
     transition: opacity 0.1s ease-in-out;
   }
-`;
-export const StyledP = styled.p`
-  font-size: var(--fontsize_pageText);
 `;

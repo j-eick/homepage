@@ -5,6 +5,10 @@ import Link from "next/link";
 import styled from "styled-components";
 import Footer from "../../components/footer";
 
+// const Wrapper = styled.div`
+//   margin-top: 180px;
+//   background-color: lightblue;
+// `;
 const StyledP = styled.p`
   padding: 180px 50px 0 50px;
   text-align: center;
@@ -21,6 +25,7 @@ export default function About() {
           { href: "/", name: "home" },
         ]}
       />
+      {/* <Wrapper> */}
       <StyledP>
         My name is Josh and I craft applications for the web.
         <br />
@@ -34,6 +39,7 @@ export default function About() {
         My <Link href="/blog">blog page</Link> addresses topics that are meaningful to me. This is a chance to get to
         know me a little better.
       </StyledP>
+      {/* </Wrapper> */}
       <Footer />
     </Layout_Subpage>
   );

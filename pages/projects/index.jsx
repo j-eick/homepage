@@ -1,8 +1,9 @@
 import { useState } from "react";
 import Layout_Subpage from "../../components/Layout-Subpage";
-import { StyledP, StyledLi, StyledUl } from "./projects.styles.js";
+import { StyledLi, StyledUl } from "./projects.styles.js";
 import Footer from "../../components/footer";
 import Header from "../../components/header/Header";
+import Link from "next/link";
 
 console.clear();
 
@@ -18,11 +19,13 @@ export default function Projects() {
       id: "p2",
       name: "Vocab-Dojo",
       description: "more soon...",
+      href: "/projects/vocab-dojo",
     },
     {
       id: "p3",
       name: "Code2Gather",
       description: "more soon...",
+      href: "/projects/code2gather",
     },
   ]);
 
@@ -38,7 +41,7 @@ export default function Projects() {
       <StyledUl>
         {projects.map((project) => (
           <StyledLi key={project.id}>
-            <StyledP>{project.name}</StyledP>
+            <Link href={project.href}>{project.name}</Link>
           </StyledLi>
         ))}
       </StyledUl>

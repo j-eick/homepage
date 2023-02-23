@@ -1,13 +1,13 @@
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 
-export default function BlogList() {
-    const router = useRouter();
+// export default function BlogList() {
+//     const router = useRouter();
 
-    console.log(router.query.BlogList); 
+//     console.log(router.query.BlogList);
 
-    return (
-        <>
-            <p>This is another blog page</p>
-        </>
-    )
-}
+//     return (
+//         <>
+//             <p>This is another blog page</p>
+//         </>
+//     )
+// }
