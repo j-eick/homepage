@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledUl = styled.ul`
+const StyledUl = styled.ul`
   margin-top: 180px;
   padding: 0px 70px 50px 70px;
 
@@ -10,7 +10,7 @@ export const StyledUl = styled.ul`
 
   /* min-height: calc(100% - 100px); */
 `;
-export const StyledLi = styled.li`
+const StyledLi = styled.li`
   display: grid;
   place-items: center;
 
@@ -39,3 +39,5 @@ export const StyledLi = styled.li`
     transition: opacity 0.1s ease-in-out;
   }
 `;
+
+export { StyledUl, StyledLi };
