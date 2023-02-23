@@ -3,9 +3,10 @@ import Header from "../../components/header/Header";
 import Layout_Subpage from "../../components/Layout-Subpage";
 import Link from "next/link";
 import styled from "styled-components";
+import Footer from "../../components/footer";
 
 const StyledP = styled.p`
-  padding: 100px 50px 0 50px;
+  padding: 180px 50px 0 50px;
   text-align: center;
   font-size: var(--fontsize_pageText);
 `;
@@ -33,6 +34,7 @@ export default function About() {
         My <Link href="/blog">blog page</Link> addresses topics that are meaningful to me. This is a chance to get to
         know me a little better.
       </StyledP>
+      <Footer />
     </Layout_Subpage>
   );
 }

@@ -1,8 +1,8 @@
 import { useState } from "react";
-import PageHeader from "../../components/header/PageHeader";
 import Layout_Subpage from "../../components/Layout-Subpage";
-import { StyledP, StyledLi, StyledUl } from "./styles.js";
+import { StyledP, StyledLi, StyledUl } from "./projects.styles.js";
 import Footer from "../../components/footer";
+import Header from "../../components/header/Header";
 
 console.clear();
 
@@ -28,7 +28,7 @@ export default function Projects() {
 
   return (
     <Layout_Subpage>
-      <PageHeader
+      <Header
         data={[
           { href: "/about", name: "about" },
           { href: "/blog", name: "blog" },
