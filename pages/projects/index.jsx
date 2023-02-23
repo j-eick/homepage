@@ -5,25 +5,27 @@ import Footer from "../../components/footer";
 import Header from "../../components/header/Header";
 import Link from "next/link";
 
+console.clear();
+
 export default function Projects() {
   const [projects, setProjects] = useState([
     {
       id: "p1",
       name: "Run-Graph",
-      description: "some description",
       href: "/projects/run-graph",
+      description: "some description",
     },
     {
       id: "p2",
       name: "Vocab-Dojo",
-      description: "more soon...",
       href: "/projects/vocab-dojo",
+      description: "more soon...",
     },
     {
       id: "p3",
       name: "Code2Gather",
-      description: "more soon...",
       href: "/projects/code2gather",
+      description: "more soon...",
     },
   ]);
 
