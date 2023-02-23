@@ -44,6 +44,7 @@ export default function Projects() {
             <Link href={project.href}>{project.name}</Link>
           </StyledLi>
         ))}
+        {console.log(projects)}
       </StyledUl>
       <Footer />
     </Layout_Subpage>
