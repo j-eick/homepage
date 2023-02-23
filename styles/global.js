@@ -11,7 +11,7 @@ export const GlobalStyle = createGlobalStyle`
 		--fontsize_landingpageFontsize: 1.5rem;
 		--fontsize_profileButtons: 1.25rem;
 		--fontsize_pageTitles: 1.2rem;
-		--fontsize_pageText: 1.1rem;
+		--fontsize_pageText: 1.15rem;
 	}
 
 	html, body, div, span, applet, object, iframe,
@@ -25,7 +25,7 @@ export const GlobalStyle = createGlobalStyle`
 	table, caption, tbody, tfoot, thead, tr, th, td,
 	article, aside, canvas, details, embed, 
 	figure, figcaption, footer, header, hgroup, 
-	menu, nav, output, ruby, section, summary,
+	menu, nav output, ruby, section, summary,
 	time, mark, audio, video {
 		margin: 0;
 		padding: 0;
@@ -37,6 +37,7 @@ export const GlobalStyle = createGlobalStyle`
 
 	body {
 		min-height: 100vh;
+		color: #1c2127;
 	}
 
 	a {
@@ -51,15 +52,4 @@ export const GlobalStyle = createGlobalStyle`
 	.canvas {
   background-color: green;
 }
-
-
-	/* @media (prefers-color-scheme: dark) {
-	html {
-		color-scheme: dark;
-	}
-	body {
-		color: white;
-		background: black;
-	}
-	} */
 `;

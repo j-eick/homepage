@@ -9,10 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next/font": "^13.1.6",
     "babel-preset-next": "^1.4.0",
-    "next": "13.0.4",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "next": "^13.1.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "styled-components": "^5.3.6",
     "zustand": "^4.1.4"
   },

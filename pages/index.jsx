@@ -1,17 +1,22 @@
 import Link from "next/link";
 import Layout from "../components/Layout";
 import styled from "styled-components";
+import Head from "next/head";
 
 const StyledLi = styled.li`
   font-size: var(--fontsize_landingpageFontsize);
   text-align: center;
   list-style: none;
-  margin: 60px 0;
+  margin: 80px 0;
 `;
 
 export default function Home() {
   return (
     <Layout>
+      <Head>
+        <title key="title">Welcome to this</title>
+        <meta key="description" name="description" content="This is my project" />
+      </Head>
       <ul>
         <StyledLi>
           <Link href="/about">about</Link>
