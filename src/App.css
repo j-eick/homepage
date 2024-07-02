@@ -1,0 +1,25 @@
+#root {
+  /* max-width: 1280px; */
+  /* text-align: center; */
+}
+
+main {
+  width: 100vw;
+  height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  gap: 2rem;
+}
+
+.leftSide {
+  /* height: auto; */
+  width: 40%;
+  display: flex;
+  flex-direction: row;
+  background-color: green;
+}
+.rightSide {
+  /* height: auto; */
+  width: 60%;
+  background-color: red;
+}
