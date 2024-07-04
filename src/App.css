@@ -3,14 +3,6 @@
   /* text-align: center; */
 }
 
-main {
-  width: 100vw;
-  height: 100vh;
-  margin: 0 auto;
-  display: flex;
-  gap: 2rem;
-}
-
 .leftSide {
   /* height: auto; */
   width: 40%;
@@ -22,4 +14,13 @@ main {
   /* height: auto; */
   width: 60%;
   background-color: red;
+}
+
+.mask {
+  -webkit-mask-image: radial-gradient(circle, black 50%, rgba(0, 0, 0, 0.5) 50%);
+  mask-image: radial-gradient(circle, rgb(255, 255, 255) 50%, rgba(0, 0, 0, 0.5) 50%);
+}
+
+.profileImg__mask {
+  width: 50%;
 }
