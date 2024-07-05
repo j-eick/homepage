@@ -71,11 +71,12 @@ body {
   font-family: "Montserrat Variable";
 }
 
+html,
 main {
-  /* min-height: 100vh; */
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 img {
@@ -89,4 +90,23 @@ ul {
 
 li {
   list-style: none;
+}
+
+p {
+  width: 80%;
+  margin: 0 auto;
+  text-wrap: pretty;
+}
+
+a {
+  text-decoration: none;
+  font-weight: 400;
+}
+
+a:visited {
+  color: black;
+}
+
+.frame {
+  border: 2px solid black;
 }
