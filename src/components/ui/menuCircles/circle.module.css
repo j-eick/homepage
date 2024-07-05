@@ -7,11 +7,15 @@
   box-shadow: rgba(142, 145, 146, 0.7) 0px 20px 4px 0px, rgba(144, 145, 145, 0.32) 0px 2px 16px 0px;
 }
 
-.color--profile {
+.color--about {
   background-color: #7e8b9b;
 }
 
 .color--work {
+  background-color: #7e8b9b;
+}
+
+.color--home {
   background-color: #7e8b9b;
 }
 

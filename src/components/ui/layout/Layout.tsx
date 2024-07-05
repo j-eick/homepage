@@ -7,11 +7,9 @@ type LayoutProps = {
 };
 
 export default function Layout({ children }: LayoutProps) {
-  return <div className={clsx(styles.layout)}>{children}</div>;
+  return (
+    <div className={clsx(styles.layout)}>
+      <div className={clsx(styles.backdrop)}>{children}</div>
+    </div>
+  );
 }
-
-// const styles = {
-//   layout: {
-//     backgroundColor: "black",
-//   },
-// };
