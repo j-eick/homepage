@@ -4,6 +4,7 @@ import start from "./start.module.css";
 import Circle from "../../components/ui/menuCircles/Circle";
 import clsx from "clsx";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function Start() {
   return (
@@ -17,7 +18,7 @@ export default function Start() {
             </h1>
             <p>
               <span className={start["hero--text"]}>
-                I'm a frontend engineer. <br /> Read up about me.
+                I'm a frontend engineer. <br /> Read up <Link to={"/profile"}>more</Link> about me.
               </span>
             </p>
             <ul>
@@ -42,9 +43,14 @@ export default function Start() {
             </ul>
           </div>
         </div>
-        <motion.ul initial={{ x: 100, opacity: 0 }} animate={{ x: 0, opacity: 1 }} className={start.nav}>
+        <motion.ul
+          initial={{ x: 100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.25 }}
+          className={start.nav}
+        >
           <li>
-            <Circle name="profile" />
+            <Circle name="profile" onClick={() => <Link to={"/profile"}></Link>} />
           </li>
           <li>
             <Circle name="work" />

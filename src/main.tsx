@@ -4,7 +4,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Start from "./pages/start/start";
-import Overview from "./pages/Overview.tsx";
+import Profile from "./pages/profile/profile";
 import Layout from "./components/ui/layout/Layout.tsx";
 
 const router = createBrowserRouter([
@@ -12,7 +12,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <Start />,
   },
-  { path: "/overview", element: <Overview /> },
+  { path: "/profile", element: <Profile /> },
 ]);
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

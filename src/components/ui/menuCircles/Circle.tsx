@@ -1,13 +1,13 @@
 import { useMemo } from "react";
 import clsx from "clsx";
 import styles from "./circle.module.css";
-import { motion } from "framer-motion";
 
 type CircleProps = {
   name: "profile" | "work" | "hello";
+  onClick?: () => void;
 };
 
-export default function Circle({ name }: CircleProps) {
+export default function Circle({ name, onClick }: CircleProps) {
   const nameTag = useMemo(() => {
     switch (name) {
       case "profile":
@@ -21,7 +21,7 @@ export default function Circle({ name }: CircleProps) {
   }, []);
 
   return (
-    <div className={clsx(styles.circle, nameTag, styles.blur)}>
+    <div className={clsx(styles.circle, nameTag, styles.blur)} onClick={onClick}>
       <span className={styles["circle--name"]}>{name}</span>
     </div>
   );
