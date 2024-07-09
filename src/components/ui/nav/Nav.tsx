@@ -3,6 +3,7 @@ import Circle from "../menuCircles/Circle";
 import { motion } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import { HiOutlineHome } from "react-icons/hi2";
+import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
 
 export default function Nav() {
   const path = useLocation().pathname;
@@ -42,15 +43,16 @@ export default function Nav() {
       {path === "/work" && (
         <>
           <li>
-            <Link to={"/about"}>
-              <Circle>about</Circle>
-            </Link>
+            <Circle>
+              <FaLongArrowAltLeft />
+            </Circle>
+            <Circle>
+              <FaLongArrowAltRight />
+            </Circle>
           </li>
           <li>
-            <Link to={"/"}>
-              <Circle>
-                <HiOutlineHome />
-              </Circle>
+            <Link to={"/about"}>
+              <Circle>about</Circle>
             </Link>
           </li>
         </>
