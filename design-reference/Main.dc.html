@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Joschka Eickhoff — Homepage</title>
+  <script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap");
+    body { margin: 0; font-family: "Inter", system-ui, sans-serif; background: #eef3f8; color: #0f2340; }
+    a { color: #0f2340; } a:hover { color: #2f5fd6; }
+    ::selection { background: rgba(47,95,214,0.18); }
+  </style>
+</helmet>
+
+<div style="position: relative; min-height: 100vh; overflow-x: clip;">
+
+  <!-- soft ambient wash -->
+  <div style="position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(680px 460px at 82% 6%, rgba(47,95,214,0.10), transparent 70%),
+      radial-gradient(520px 520px at 6% 60%, rgba(255,255,255,0.6), transparent 70%);">
+  </div>
+
+  <!-- NAV -->
+  <div style="position: relative; z-index: 3; max-width: 1280px; margin: 0 auto; padding: 28px 32px 0; display: flex; align-items: center; justify-content: space-between;">
+    <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.05rem; color: #0f2340;">Joschka Eickhoff</span>
+    <nav style="display: flex; gap: 28px; font-size: 0.88rem; color: #5c7290;">
+      <a href="#projekte" style="text-decoration: none; color: inherit;">Projekte</a>
+      <a href="#" style="text-decoration: none; color: inherit;">Blog</a>
+      <a href="#kontakt" style="text-decoration: none; color: inherit;">Kontakt</a>
+    </nav>
+  </div>
+
+  <!-- HERO -->
+  <section style="position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 72px 32px 300px; box-sizing: border-box;">
+
+    <div style="max-width: 560px; display: flex; flex-direction: column; gap: 22px;">
+      <span style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: #2f5fd6;">
+        Aktuell bei der Arbeit
+      </span>
+
+      <h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(2.4rem, 4.6vw, 3.4rem); line-height: 1.1; letter-spacing: -0.015em; color: #0f2340;">
+        Joschka Eickhoff<br>
+        <span style="color: #5c7290; font-weight: 500;">Technical</span> <span style="color: #2f5fd6;">Operations</span>
+      </h1>
+
+      <p style="margin: 0; max-width: 480px; color: #46577a; font-size: 1.05rem; line-height: 1.65;">
+        Ich halte Technik, Produkt und Betrieb zusammen — koordiniere Teams, baue die Tools dafür selbst und sorge dafür, dass es im Alltag einfach läuft.
+      </p>
+
+      <nav style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px;">
+        <a href="#" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 8px; padding: 13px 22px; border-radius: 12px; background: #0f2340; color: #fff; text-decoration: none; font-size: 0.9rem; font-weight: 600;">
+          LinkedIn
+        </a>
+        <a href="#" download="" style="display: flex; align-items: center; gap: 8px; padding: 13px 22px; border-radius: 12px; border: 1px solid rgba(15,35,64,0.15); background: #fff; color: #0f2340; text-decoration: none; font-size: 0.9rem; font-weight: 500;">
+          Lebenslauf (PDF)
+        </a>
+        <a href="#" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 8px; padding: 13px 18px; border-radius: 12px; border: 1px solid rgba(15,35,64,0.12); background: transparent; color: #5c7290; text-decoration: none; font-size: 0.9rem; font-weight: 500;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.52 17.34c-.24.36-.66.48-1.02.24-2.76-1.68-6.3-2.1-10.44-1.14-.42.12-.78-.18-.9-.54-.12-.42.18-.78.54-.9 4.56-1.02 8.52-.6 11.58 1.32.42.18.48.66.24 1.02zm1.44-3.3c-.3.42-.84.6-1.26.3-3.18-1.92-7.92-2.52-11.58-1.38-.48.12-1.02-.12-1.14-.6-.12-.48.12-1.02.6-1.14 4.26-1.26 9.48-.66 13.08 1.56.36.18.54.84.3 1.26zm.12-3.42C15.3 8.4 8.76 8.16 5.1 9.3c-.6.18-1.2-.18-1.38-.72-.18-.6.18-1.2.72-1.38 4.26-1.26 11.4-1.02 15.84 1.62.54.3.72 1.02.42 1.56-.3.42-1.02.6-1.62.24z"></path></svg>
+          Spotify
+        </a>
+      </nav>
+    </div>
+
+    <!-- CARD DECK — fanned up-left from a pile, anchored top-right -->
+    <div style="position: absolute; top: -20px; right: -20px; width: 640px; height: 480px; pointer-events: none;">
+
+      <!-- base of the pile -->
+      <div style="position: absolute; top: 260px; left: 330px; width: 280px; height: 180px; border-radius: 20px;
+        background: #d7e0ef;
+        border: 1px solid rgba(15,35,64,0.06);
+        transform: rotate(8deg);
+        box-shadow: 0 10px 24px rgba(15,35,64,0.12);">
+      </div>
+
+      <!-- card 3: music, slightly left and up -->
+      <div style="position: absolute; top: 190px; left: 290px; width: 280px; height: 180px; border-radius: 20px; pointer-events: auto;
+        background: #fff;
+        border: 1px solid rgba(15,35,64,0.08);
+        transform: rotate(3deg);
+        box-shadow: 0 14px 32px rgba(15,35,64,0.14);
+        display: flex; flex-direction: column; justify-content: space-between; padding: 22px;">
+        <span style="font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: #8a9ab8;">Gerade läuft</span>
+        <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.05rem; color: #0f2340;">[Track] – [Artist]</span>
+      </div>
+
+      <!-- card 2: focus project, further left and up -->
+      <a href="#projekte" aria-label="Zu Projekten" style="position: absolute; top: 110px; left: 240px; width: 280px; height: 180px; border-radius: 20px; text-decoration: none; pointer-events: auto;
+        background: #fff;
+        border: 1px solid rgba(15,35,64,0.08);
+        transform: rotate(-2deg);
+        box-shadow: 0 18px 36px rgba(15,35,64,0.16);
+        display: flex; flex-direction: column; justify-content: space-between; padding: 22px;">
+        <span style="font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: #8a9ab8;">Fokus</span>
+        <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.05rem; color: #0f2340;">Alarm on Drugs</span>
+      </a>
+
+      <!-- card 1: blog, further left and up still -->
+      <a href="#" aria-label="Zum Blog" style="position: absolute; top: 40px; left: 170px; width: 280px; height: 180px; border-radius: 20px; text-decoration: none; pointer-events: auto;
+        background: #fff;
+        border: 1px solid rgba(15,35,64,0.08);
+        transform: rotate(-7deg);
+        box-shadow: 0 22px 44px rgba(15,35,64,0.18);
+        display: flex; flex-direction: column; justify-content: space-between; padding: 22px;">
+        <span style="font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: #8a9ab8;">Schreiben</span>
+        <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.15rem; color: #0f2340;">Blog →</span>
+      </a>
+
+      <!-- card 0: portfolio, top of the pulled deck, highest and most tilted -->
+      <a href="#projekte" aria-label="Portfolio ansehen" style="position: absolute; top: -20px; left: 80px; width: 280px; height: 180px; border-radius: 20px; text-decoration: none; pointer-events: auto;
+        background: linear-gradient(135deg, #2f5fd6, #16306e);
+        transform: rotate(-13deg);
+        box-shadow: 0 28px 54px rgba(15,35,64,0.24);
+        display: flex; flex-direction: column; justify-content: space-between; padding: 22px;">
+        <span style="font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.75);">Portfolio</span>
+        <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.15rem; color: #fff;">Projekte →</span>
+      </a>
+
+    </div>
+  </section>
+
+  <div style="position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 0 32px 64px; display: flex; flex-direction: column; gap: 96px;">
+
+    <!-- FOKUS / SKILLS -->
+    <section style="display: flex; flex-direction: column; gap: 28px;">
+      <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.3rem; color: #0f2340;">
+        Fokus
+      </h2>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;">
+
+        <div style="padding: 24px 20px; border-radius: 16px; border: 1px solid rgba(15,35,64,0.08); background: #fff;">
+          <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(47,95,214,0.1); display: grid; place-items: center; margin-bottom: 14px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2f5fd6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+          </div>
+          <h3 style="margin: 0 0 6px; font-size: 1rem; font-weight: 600; color: #0f2340;">Koordination</h3>
+          <p style="margin: 0; color: #5c7290; font-size: 0.9rem; line-height: 1.55;">Teams, Zeitpläne und Schnittstellen zusammenhalten, damit Projekte liefern.</p>
+        </div>
+
+        <div style="padding: 24px 20px; border-radius: 16px; border: 1px solid rgba(15,35,64,0.08); background: #fff;">
+          <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(47,95,214,0.1); display: grid; place-items: center; margin-bottom: 14px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2f5fd6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          </div>
+          <h3 style="margin: 0 0 6px; font-size: 1rem; font-weight: 600; color: #0f2340;">Entwicklung</h3>
+          <p style="margin: 0; color: #5c7290; font-size: 0.9rem; line-height: 1.55;">Apps und Tools selbst bauen, vom Prototyp bis zum laufenden Betrieb.</p>
+        </div>
+
+        <div style="padding: 24px 20px; border-radius: 16px; border: 1px solid rgba(15,35,64,0.08); background: #fff;">
+          <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(47,95,214,0.1); display: grid; place-items: center; margin-bottom: 14px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2f5fd6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          </div>
+          <h3 style="margin: 0 0 6px; font-size: 1rem; font-weight: 600; color: #0f2340;">Betrieb</h3>
+          <p style="margin: 0; color: #5c7290; font-size: 0.9rem; line-height: 1.55;">Prozesse strukturieren und am Laufen halten — technisch wie organisatorisch.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PROJEKTE -->
+    <section id="projekte" style="display: flex; flex-direction: column; gap: 28px;">
+      <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.3rem; color: #0f2340;">
+        Projekte
+      </h2>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+
+        <a href="#" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 22px; border-radius: 14px; border: 1px solid rgba(15,35,64,0.08); background: #fff; text-decoration: none;">
+          <div style="display: flex; flex-direction: column; gap: 4px;">
+            <span style="font-weight: 600; font-size: 0.98rem; color: #0f2340;">Alarm on Drugs</span>
+            <span style="color: #5c7290; font-size: 0.85rem;">Mobile App · Expo / React Native</span>
+          </div>
+          <span style="color: #8a9ab8;" aria-hidden="true">→</span>
+        </a>
+
+        <a href="#" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 22px; border-radius: 14px; border: 1px solid rgba(15,35,64,0.08); background: #fff; text-decoration: none;">
+          <div style="display: flex; flex-direction: column; gap: 4px;">
+            <span style="font-weight: 600; font-size: 0.98rem; color: #0f2340;">Weiteres Projekt</span>
+            <span style="color: #5c7290; font-size: 0.85rem;">Kurzbeschreibung ergänzen</span>
+          </div>
+          <span style="color: #8a9ab8;" aria-hidden="true">→</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- KONTAKT -->
+    <section id="kontakt" style="display: flex; flex-direction: column; gap: 20px; padding: 36px 32px; border-radius: 20px; border: 1px solid rgba(47,95,214,0.2); background: rgba(47,95,214,0.06); text-align: center; align-items: center;">
+      <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.4rem; color: #0f2340;">
+        Lass uns sprechen
+      </h2>
+      <p style="margin: 0; max-width: 420px; color: #46577a; font-size: 0.95rem; line-height: 1.6;">
+        Projekt, Idee oder einfach Hallo sagen — melde dich gerne.
+      </p>
+      <nav style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+        <a href="mailto:maneulgyopo@gmail.com" style="padding: 11px 18px; border-radius: 10px; border: 1px solid rgba(15,35,64,0.1); background: #fff; text-decoration: none; font-size: 0.88rem; font-weight: 500; color: #0f2340;">E-Mail</a>
+        <a href="#" target="_blank" rel="noopener" style="padding: 11px 18px; border-radius: 10px; border: 1px solid rgba(15,35,64,0.1); background: #fff; text-decoration: none; font-size: 0.88rem; font-weight: 500; color: #0f2340;">LinkedIn</a>
+        <a href="#" download="" style="padding: 11px 18px; border-radius: 10px; border: 1px solid rgba(15,35,64,0.1); background: #fff; text-decoration: none; font-size: 0.88rem; font-weight: 500; color: #0f2340;">Lebenslauf</a>
+      </nav>
+    </section>
+
+    <footer style="text-align: center; color: #8a9ab8; font-size: 0.75rem;">
+      © 2026 · Joschka Eickhoff
+    </footer>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2160}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

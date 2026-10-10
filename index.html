@@ -3,26 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- TODO: Titel anpassen -->
-    <title>Dein Name</title>
-    <meta name="description" content="Persönliche Visitenkarte von Dein Name" />
+    <title>Joschka Eickhoff — Homepage</title>
+    <meta name="description" content="Persönliche Homepage von Joschka Eickhoff — Technical Operations" />
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap");
 
       * {
         box-sizing: border-box;
-        margin: 0;
-        padding: 0;
       }
 
       :root {
-        --bg: #0a0a0f;
-        --card: rgba(255, 255, 255, 0.03);
-        --border: rgba(255, 255, 255, 0.08);
-        --text: #ededf2;
-        --muted: #8a8a99;
-        --accent: #7c5cff;
-        --accent-soft: rgba(124, 92, 255, 0.15);
+        --bg: #eef3f8;
+        --ink: #0f2340;
+        --ink-soft: #46577a;
+        --muted: #5c7290;
+        --muted-soft: #8a9ab8;
+        --accent: #2f5fd6;
+        --accent-dark: #16306e;
+        --border: rgba(15, 35, 64, 0.08);
+        --border-strong: rgba(15, 35, 64, 0.15);
+        --surface: #fff;
       }
 
       html {
@@ -30,221 +30,568 @@
       }
 
       body {
+        margin: 0;
         font-family: "Inter", system-ui, sans-serif;
         background: var(--bg);
-        color: var(--text);
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        padding: 24px;
-        overflow-x: hidden;
+        color: var(--ink);
       }
 
-      /* Soft ambient glow in the background — placeholder for future 3D layer */
-      body::before {
+      a {
+        color: var(--ink);
+      }
+      a:hover {
+        color: var(--accent);
+      }
+      ::selection {
+        background: rgba(47, 95, 214, 0.18);
+      }
+
+      .page {
+        position: relative;
+        min-height: 100vh;
+        overflow-x: clip;
+      }
+
+      /* ambient wash */
+      .page::before {
         content: "";
         position: fixed;
         inset: 0;
         z-index: 0;
-        background:
-          radial-gradient(
-            600px 400px at 70% 20%,
-            rgba(124, 92, 255, 0.12),
-            transparent 70%
-          ),
-          radial-gradient(
-            500px 500px at 20% 80%,
-            rgba(60, 120, 255, 0.08),
-            transparent 70%
-          );
         pointer-events: none;
+        background:
+          radial-gradient(680px 460px at 82% 6%, rgba(47, 95, 214, 0.1), transparent 70%),
+          radial-gradient(520px 520px at 6% 60%, rgba(255, 255, 255, 0.6), transparent 70%);
       }
 
-      .card {
+      /* NAV */
+      .nav {
         position: relative;
-        z-index: 1;
-        width: 100%;
-        max-width: 380px;
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 20px;
-        padding: 40px 32px 32px;
-        text-align: center;
-        backdrop-filter: blur(12px);
-        box-shadow:
-          0 1px 0 rgba(255, 255, 255, 0.04) inset,
-          0 20px 60px rgba(0, 0, 0, 0.5);
-      }
-
-      /* Intro animation — only applied on the very first visit (see script) */
-      .animate-in .card {
-        animation: rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-      }
-
-      /* Monogram / avatar — replace with an image later if you like */
-      .avatar {
-        width: 72px;
-        height: 72px;
-        margin: 0 auto 20px;
-        border-radius: 50%;
-        display: grid;
-        place-items: center;
-        font-family: "Space Grotesk", sans-serif;
-        font-weight: 700;
-        font-size: 1.6rem;
-        color: #fff;
-        background: linear-gradient(135deg, var(--accent), #4a7bff);
-        box-shadow: 0 8px 24px var(--accent-soft);
-      }
-
-      .name {
-        font-family: "Space Grotesk", sans-serif;
-        font-weight: 600;
-        font-size: 1.5rem;
-        letter-spacing: -0.01em;
-      }
-
-      .role {
-        margin-top: 6px;
-        color: var(--muted);
-        font-size: 0.95rem;
-      }
-
-      .bio {
-        margin-top: 18px;
-        color: var(--muted);
-        font-size: 0.9rem;
-        line-height: 1.6;
-      }
-
-      .links {
-        margin-top: 28px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      .link {
+        z-index: 3;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 28px 32px 0;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 12px;
-        padding: 13px 16px;
-        border-radius: 12px;
-        border: 1px solid var(--border);
-        background: rgba(255, 255, 255, 0.02);
-        color: var(--text);
-        text-decoration: none;
-        font-size: 0.9rem;
-        font-weight: 500;
-        transition:
-          transform 0.18s ease,
-          border-color 0.18s ease,
-          background 0.18s ease;
       }
 
-      .link:hover {
-        transform: translateY(-2px);
-        border-color: var(--accent);
-        background: var(--accent-soft);
+      .nav .brand {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 600;
+        font-size: 1.05rem;
       }
 
-      .link .label {
+      .nav-links {
         display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .link .arrow {
+        gap: 28px;
+        font-size: 0.88rem;
         color: var(--muted);
-        transition: transform 0.18s ease;
       }
 
-      .link:hover .arrow {
-        transform: translateX(3px);
+      .nav-links a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      /* HERO */
+      .hero {
+        position: relative;
+        z-index: 1;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 72px 32px 64px;
+      }
+
+      .hero-content {
+        max-width: 560px;
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+      }
+
+      .eyebrow {
+        font-weight: 600;
+        font-size: 0.75rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
         color: var(--accent);
       }
 
-      .footer {
-        margin-top: 28px;
+      .hero-title {
+        margin: 0;
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 600;
+        font-size: clamp(2.2rem, 4.6vw, 3.4rem);
+        line-height: 1.1;
+        letter-spacing: -0.015em;
+        color: var(--ink);
+      }
+
+      .hero-title .light {
         color: var(--muted);
+        font-weight: 500;
+      }
+
+      .hero-title .accent {
+        color: var(--accent);
+      }
+
+      .hero-sub {
+        margin: 0;
+        max-width: 480px;
+        color: var(--ink-soft);
+        font-size: 1.05rem;
+        line-height: 1.65;
+      }
+
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 10px;
+      }
+
+      .btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 13px 22px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      .btn-primary {
+        background: var(--ink);
+        color: #fff;
+      }
+
+      .btn-secondary {
+        padding: 13px 22px;
+        border: 1px solid var(--border-strong);
+        background: var(--surface);
+        color: var(--ink);
+        font-weight: 500;
+      }
+
+      .btn-ghost {
+        padding: 13px 18px;
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      /* CARD DECK — fanned, desktop only */
+      .card-deck {
+        position: relative;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 32px 48px;
+        display: none;
+      }
+
+      .card-deck-inner {
+        position: relative;
+        width: 640px;
+        height: 480px;
+        margin-left: auto;
+        margin-top: -420px;
+        pointer-events: none;
+      }
+
+      .deck-card {
+        position: absolute;
+        width: 280px;
+        height: 180px;
+        border-radius: 20px;
+        padding: 22px;
+        box-sizing: border-box;
+      }
+
+      .deck-base {
+        top: 260px;
+        left: 330px;
+        background: #d7e0ef;
+        border: 1px solid rgba(15, 35, 64, 0.06);
+        transform: rotate(8deg);
+        box-shadow: 0 10px 24px rgba(15, 35, 64, 0.12);
+      }
+
+      .deck-music {
+        top: 190px;
+        left: 290px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        transform: rotate(3deg);
+        box-shadow: 0 14px 32px rgba(15, 35, 64, 0.14);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .deck-focus {
+        top: 110px;
+        left: 240px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        transform: rotate(-2deg);
+        box-shadow: 0 18px 36px rgba(15, 35, 64, 0.16);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        text-decoration: none;
+        pointer-events: auto;
+      }
+
+      .deck-blog {
+        top: 40px;
+        left: 170px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        transform: rotate(-7deg);
+        box-shadow: 0 22px 44px rgba(15, 35, 64, 0.18);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        text-decoration: none;
+        pointer-events: auto;
+      }
+
+      .deck-portfolio {
+        top: -20px;
+        left: 80px;
+        background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+        transform: rotate(-13deg);
+        box-shadow: 0 28px 54px rgba(15, 35, 64, 0.24);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        text-decoration: none;
+        pointer-events: auto;
+      }
+
+      .deck-label {
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted-soft);
+      }
+
+      .deck-portfolio .deck-label {
+        color: rgba(255, 255, 255, 0.75);
+      }
+
+      .deck-value {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 600;
+        font-size: 1.05rem;
+        color: var(--ink);
+      }
+
+      .deck-blog .deck-value,
+      .deck-portfolio .deck-value {
+        font-weight: 700;
+        font-size: 1.15rem;
+      }
+
+      .deck-portfolio .deck-value {
+        color: #fff;
+      }
+
+      @media (min-width: 900px) {
+        .card-deck {
+          display: block;
+        }
+        .hero {
+          padding-bottom: 300px;
+        }
+      }
+
+      /* SECTIONS */
+      .sections {
+        position: relative;
+        z-index: 1;
+        max-width: 880px;
+        margin: 0 auto;
+        padding: 0 32px 64px;
+        display: flex;
+        flex-direction: column;
+        gap: 72px;
+      }
+
+      .section-title {
+        margin: 0 0 28px;
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 600;
+        font-size: 1.3rem;
+      }
+
+      .focus-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      @media (max-width: 640px) {
+        .focus-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .focus-card {
+        padding: 24px 20px;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+      }
+
+      .focus-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: rgba(47, 95, 214, 0.1);
+        display: grid;
+        place-items: center;
+        margin-bottom: 14px;
+      }
+
+      .focus-card h3 {
+        margin: 0 0 6px;
+        font-size: 1rem;
+        font-weight: 600;
+      }
+
+      .focus-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+
+      .projects-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .project-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 20px 22px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        text-decoration: none;
+      }
+
+      .project-name {
+        display: block;
+        font-weight: 600;
+        font-size: 0.98rem;
+        color: var(--ink);
+      }
+
+      .project-desc {
+        display: block;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+
+      .project-arrow {
+        color: var(--muted-soft);
+      }
+
+      .contact-section {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 36px 32px;
+        border-radius: 20px;
+        border: 1px solid rgba(47, 95, 214, 0.2);
+        background: rgba(47, 95, 214, 0.06);
+        text-align: center;
+        align-items: center;
+      }
+
+      .contact-section h2 {
+        margin: 0;
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 600;
+        font-size: 1.4rem;
+      }
+
+      .contact-section p {
+        margin: 0;
+        max-width: 420px;
+        color: var(--ink-soft);
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      .contact-ctas {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      .contact-ctas a {
+        padding: 11px 18px;
+        border-radius: 10px;
+        border: 1px solid var(--border-strong);
+        background: var(--surface);
+        text-decoration: none;
+        font-size: 0.88rem;
+        font-weight: 500;
+      }
+
+      footer {
+        text-align: center;
+        color: var(--muted-soft);
         font-size: 0.75rem;
-        opacity: 0.6;
-      }
-
-      @keyframes rise {
-        from {
-          opacity: 0;
-          transform: translateY(16px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      /* Stagger the links a touch on load — first visit only */
-      .animate-in .links .link {
-        animation: rise 0.6s ease both;
-      }
-      .animate-in .links .link:nth-child(1) {
-        animation-delay: 0.15s;
-      }
-      .animate-in .links .link:nth-child(2) {
-        animation-delay: 0.22s;
-      }
-      .animate-in .links .link:nth-child(3) {
-        animation-delay: 0.29s;
-      }
-      .animate-in .links .link:nth-child(4) {
-        animation-delay: 0.36s;
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        * {
-          animation: none !important;
-          transition: none !important;
-        }
+        padding-bottom: 32px;
       }
     </style>
-    <script>
-      // Show the intro animation only on the very first visit.
-      // Runs before <body> renders, so there is no flash on later loads.
-      if (!localStorage.getItem("introSeen")) {
-        document.documentElement.classList.add("animate-in");
-        localStorage.setItem("introSeen", "1");
-      }
-    </script>
   </head>
   <body>
-    <main class="card">
-      <!-- TODO: Initialen oder ein <img> als Avatar -->
-      <div class="avatar">DN</div>
+    <div class="page">
+      <div class="nav">
+        <span class="brand">Joschka Eickhoff</span>
+        <nav class="nav-links">
+          <a href="#projekte">Projekte</a>
+          <!-- TODO: Blog-URL einsetzen -->
+          <a href="#">Blog</a>
+          <a href="#kontakt">Kontakt</a>
+        </nav>
+      </div>
 
-      <!-- TODO: Dein Name -->
-      <h1 class="name">Joschka Eickhoff</h1>
-      <!-- TODO: Was du machst -->
-      <p class="role">Technical Operationsmanagement</p>
+      <section class="hero">
+        <div class="hero-content">
+          <span class="eyebrow">Aktuell bei der Arbeit</span>
 
-      <!-- TODO: Ein, zwei Sätze über dich -->
-      <p class="bio">I coordinate, build and implement<br /></p>
-      <nav class="links">
-        <a class="link" href="mailto:maneulgyopo@gmail.com">
-          <span class="label">E-Mail</span>
-          <span class="arrow">→</span>
-        </a>
-        <!-- TODO: echte URLs einsetzen -->
-        <a class="link" href="#" target="_blank" rel="noopener">
-          <span class="label">LinkedIn</span>
-          <span class="arrow">→</span>
-        </a>
-        <a class="link" href="#" target="_blank" rel="noopener">
-          <span class="label">Portfolio</span>
-          <span class="arrow">→</span>
-        </a>
-      </nav>
+          <h1 class="hero-title">
+            Joschka Eickhoff<br />
+            <span class="light">Technical</span> <span class="accent">Operations</span>
+          </h1>
 
-      <p class="footer">© 2026 · Dein Name</p>
-    </main>
+          <p class="hero-sub">
+            Ich halte Technik, Produkt und Betrieb zusammen — koordiniere Teams, baue die Tools dafür selbst und sorge dafür, dass es im Alltag einfach läuft.
+          </p>
+
+          <nav class="cta-row">
+            <!-- TODO: echte LinkedIn-URL einsetzen -->
+            <a class="btn btn-primary" href="#" target="_blank" rel="noopener">LinkedIn</a>
+            <!-- TODO: Lebenslauf-PDF verlinken -->
+            <a class="btn btn-secondary" href="#" download>Lebenslauf (PDF)</a>
+            <!-- TODO: echte Spotify-URL einsetzen -->
+            <a class="btn btn-ghost" href="#" target="_blank" rel="noopener">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.52 17.34c-.24.36-.66.48-1.02.24-2.76-1.68-6.3-2.1-10.44-1.14-.42.12-.78-.18-.9-.54-.12-.42.18-.78.54-.9 4.56-1.02 8.52-.6 11.58 1.32.42.18.48.66.24 1.02zm1.44-3.3c-.3.42-.84.6-1.26.3-3.18-1.92-7.92-2.52-11.58-1.38-.48.12-1.02-.12-1.14-.6-.12-.48.12-1.02.6-1.14 4.26-1.26 9.48-.66 13.08 1.56.36.18.54.84.3 1.26zm.12-3.42C15.3 8.4 8.76 8.16 5.1 9.3c-.6.18-1.2-.18-1.38-.72-.18-.6.18-1.2.72-1.38 4.26-1.26 11.4-1.02 15.84 1.62.54.3.72 1.02.42 1.56-.3.42-1.02.6-1.62.24z"></path></svg>
+              Spotify
+            </a>
+          </nav>
+        </div>
+      </section>
+
+      <div class="card-deck">
+        <div class="card-deck-inner">
+          <div class="deck-card deck-base"></div>
+
+          <div class="deck-card deck-music">
+            <span class="deck-label">Gerade läuft</span>
+            <!-- TODO: aktuellen Track/Artist einsetzen -->
+            <span class="deck-value">[Track] – [Artist]</span>
+          </div>
+
+          <a class="deck-card deck-focus" href="#projekte" aria-label="Zu Projekten">
+            <span class="deck-label">Fokus</span>
+            <span class="deck-value">Alarm on Drugs</span>
+          </a>
+
+          <!-- TODO: echte Blog-URL einsetzen -->
+          <a class="deck-card deck-blog" href="#" aria-label="Zum Blog">
+            <span class="deck-label">Schreiben</span>
+            <span class="deck-value">Blog →</span>
+          </a>
+
+          <a class="deck-card deck-portfolio" href="#projekte" aria-label="Portfolio ansehen">
+            <span class="deck-label">Portfolio</span>
+            <span class="deck-value">Projekte →</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="sections">
+        <section>
+          <h2 class="section-title">Fokus</h2>
+          <div class="focus-grid">
+            <div class="focus-card">
+              <div class="focus-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2f5fd6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+              </div>
+              <h3>Koordination</h3>
+              <p>Teams, Zeitpläne und Schnittstellen zusammenhalten, damit Projekte liefern.</p>
+            </div>
+
+            <div class="focus-card">
+              <div class="focus-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2f5fd6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+              </div>
+              <h3>Entwicklung</h3>
+              <p>Apps und Tools selbst bauen, vom Prototyp bis zum laufenden Betrieb.</p>
+            </div>
+
+            <div class="focus-card">
+              <div class="focus-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2f5fd6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+              </div>
+              <h3>Betrieb</h3>
+              <p>Prozesse strukturieren und am Laufen halten — technisch wie organisatorisch.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="projekte">
+          <h2 class="section-title">Projekte</h2>
+          <div class="projects-list">
+            <!-- TODO: echte Projekt-URL einsetzen -->
+            <a class="project-link" href="#" target="_blank" rel="noopener">
+              <span>
+                <span class="project-name">Alarm on Drugs</span>
+                <span class="project-desc">Mobile App · Expo / React Native</span>
+              </span>
+              <span class="project-arrow" aria-hidden="true">→</span>
+            </a>
+
+            <!-- TODO: weiteres Projekt ausfüllen -->
+            <a class="project-link" href="#" target="_blank" rel="noopener">
+              <span>
+                <span class="project-name">Weiteres Projekt</span>
+                <span class="project-desc">Kurzbeschreibung ergänzen</span>
+              </span>
+              <span class="project-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </section>
+
+        <section id="kontakt" class="contact-section">
+          <h2>Lass uns sprechen</h2>
+          <p>Projekt, Idee oder einfach Hallo sagen — melde dich gerne.</p>
+          <nav class="contact-ctas">
+            <a href="mailto:maneulgyopo@gmail.com">E-Mail</a>
+            <!-- TODO: echte LinkedIn-URL einsetzen -->
+            <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+            <!-- TODO: Lebenslauf-PDF verlinken -->
+            <a href="#" download>Lebenslauf</a>
+          </nav>
+        </section>
+      </div>
+
+      <footer>© 2026 · Joschka Eickhoff</footer>
+    </div>
   </body>
 </html>
