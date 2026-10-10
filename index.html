@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- TODO: Titel anpassen -->
+    <title>Dein Name</title>
+    <meta name="description" content="Persönliche Visitenkarte von Dein Name" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500&display=swap");
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #0a0a0f;
+        --card: rgba(255, 255, 255, 0.03);
+        --border: rgba(255, 255, 255, 0.08);
+        --text: #ededf2;
+        --muted: #8a8a99;
+        --accent: #7c5cff;
+        --accent-soft: rgba(124, 92, 255, 0.15);
+      }
+
+      html {
+        -webkit-font-smoothing: antialiased;
+      }
+
+      body {
+        font-family: "Inter", system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        overflow-x: hidden;
+      }
+
+      /* Soft ambient glow in the background — placeholder for future 3D layer */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        background:
+          radial-gradient(
+            600px 400px at 70% 20%,
+            rgba(124, 92, 255, 0.12),
+            transparent 70%
+          ),
+          radial-gradient(
+            500px 500px at 20% 80%,
+            rgba(60, 120, 255, 0.08),
+            transparent 70%
+          );
+        pointer-events: none;
+      }
+
+      .card {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 380px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 40px 32px 32px;
+        text-align: center;
+        backdrop-filter: blur(12px);
+        box-shadow:
+          0 1px 0 rgba(255, 255, 255, 0.04) inset,
+          0 20px 60px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Intro animation — only applied on the very first visit (see script) */
+      .animate-in .card {
+        animation: rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      }
+
+      /* Monogram / avatar — replace with an image later if you like */
+      .avatar {
+        width: 72px;
+        height: 72px;
+        margin: 0 auto 20px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 700;
+        font-size: 1.6rem;
+        color: #fff;
+        background: linear-gradient(135deg, var(--accent), #4a7bff);
+        box-shadow: 0 8px 24px var(--accent-soft);
+      }
+
+      .name {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 600;
+        font-size: 1.5rem;
+        letter-spacing: -0.01em;
+      }
+
+      .role {
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .bio {
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 0.9rem;
+        line-height: 1.6;
+      }
+
+      .links {
+        margin-top: 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 13px 16px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.02);
+        color: var(--text);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition:
+          transform 0.18s ease,
+          border-color 0.18s ease,
+          background 0.18s ease;
+      }
+
+      .link:hover {
+        transform: translateY(-2px);
+        border-color: var(--accent);
+        background: var(--accent-soft);
+      }
+
+      .link .label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .link .arrow {
+        color: var(--muted);
+        transition: transform 0.18s ease;
+      }
+
+      .link:hover .arrow {
+        transform: translateX(3px);
+        color: var(--accent);
+      }
+
+      .footer {
+        margin-top: 28px;
+        color: var(--muted);
+        font-size: 0.75rem;
+        opacity: 0.6;
+      }
+
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Stagger the links a touch on load — first visit only */
+      .animate-in .links .link {
+        animation: rise 0.6s ease both;
+      }
+      .animate-in .links .link:nth-child(1) {
+        animation-delay: 0.15s;
+      }
+      .animate-in .links .link:nth-child(2) {
+        animation-delay: 0.22s;
+      }
+      .animate-in .links .link:nth-child(3) {
+        animation-delay: 0.29s;
+      }
+      .animate-in .links .link:nth-child(4) {
+        animation-delay: 0.36s;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+    <script>
+      // Show the intro animation only on the very first visit.
+      // Runs before <body> renders, so there is no flash on later loads.
+      if (!localStorage.getItem("introSeen")) {
+        document.documentElement.classList.add("animate-in");
+        localStorage.setItem("introSeen", "1");
+      }
+    </script>
+  </head>
+  <body>
+    <main class="card">
+      <!-- TODO: Initialen oder ein <img> als Avatar -->
+      <div class="avatar">DN</div>
+
+      <!-- TODO: Dein Name -->
+      <h1 class="name">Joschka Eickhoff</h1>
+      <!-- TODO: Was du machst -->
+      <p class="role">Technical Operationsmanagement</p>
+
+      <!-- TODO: Ein, zwei Sätze über dich -->
+      <p class="bio">I coordinate, build and implement<br /></p>
+      <nav class="links">
+        <a class="link" href="mailto:maneulgyopo@gmail.com">
+          <span class="label">E-Mail</span>
+          <span class="arrow">→</span>
+        </a>
+        <!-- TODO: echte URLs einsetzen -->
+        <a class="link" href="#" target="_blank" rel="noopener">
+          <span class="label">LinkedIn</span>
+          <span class="arrow">→</span>
+        </a>
+        <a class="link" href="#" target="_blank" rel="noopener">
+          <span class="label">Portfolio</span>
+          <span class="arrow">→</span>
+        </a>
+      </nav>
+
+      <p class="footer">© 2026 · Dein Name</p>
+    </main>
+  </body>
+</html>
