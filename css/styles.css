@@ -320,9 +320,12 @@ a:hover {
   .hero-content {
     /* halved back from 30% per follow-up feedback */
     margin-left: 15%;
-    /* shifted down 70% of its own (content-dependent) height — translateY
-       resolves the percentage against the element's own rendered height */
-    transform: translateY(70%);
+    /* ~70% of hero-content's own rendered height (estimated ~300px tall at
+       this breakpoint -> ~210px). Uses margin, not transform: margin takes
+       up real space, so .hero grows and pushes the card deck + sections
+       down by the same amount, keeping their spacing intact instead of
+       sliding the hero text into content that stayed put. */
+    margin-top: 210px;
   }
 }
 
