@@ -376,12 +376,9 @@ a[aria-disabled="true"] {
   cursor: pointer;
   /* each specific .deck-* rule below only sets --deck-rot and its own
      --own-top/--own-left; the actual rotate() transform (and its hover
-     variant) lives here once, along with the translate distance to the
-     shared pull-out target (the blog card's position, set as
-     --target-top/--target-left on .card-deck-inner above) — this is
-     the real path each card travels when pulled out, not an estimate. */
-  --pull-dx: calc(var(--target-left) - var(--own-left));
-  --pull-dy: calc(var(--target-top) - var(--own-top));
+     variant) lives here once. A card is pulled out where it sits: it
+     slides a little outward along the arc's normal (--pull-x/--pull-y,
+     set per card) and grows, but never moves to another card's place. */
   /* two quiet layers of movement, both through the individual translate and
      rotate properties so they never touch the card's own transform:
        - hover: --hx/--hy, the few pixels a card slides out along the cascade
@@ -411,7 +408,7 @@ a[aria-disabled="true"] {
 .deck-card:has(:focus-visible) {
   --hx: 4px;
   --hy: 6px;
-  box-shadow: 0 12px 18px rgba(var(--shadow), 0.26);
+  box-shadow: 0 18px 28px rgba(var(--shadow), 0.42);
 }
 .deck-work:hover,
 .deck-contact:hover,
@@ -499,12 +496,10 @@ a[aria-disabled="true"] {
   color: #fff;
 }
 
-/* "pulled out of the stack": rises above its siblings, translates to the
-   shared target position (--pull-dx/--pull-dy, the blog card's own
-   position — see .card-deck-inner), scales up 20% and straightens to
-   0deg. top/left stay exactly as laid out in the fan; the move is done
-   entirely via transform so every card can share one real path to one
-   shared endpoint instead of each animating its own top/left.
+/* "pulled out of the stack": rises above its siblings, slides outward from
+   its own place in the stack (--pull-x/--pull-y, along the arc's outward
+   direction), grows by 36% and straightens to 0deg. top/left stay exactly
+   as laid out in the fan; the move is done entirely via transform.
 
    Only two keyframes (0%/100%) on purpose — a hand-placed midpoint
    forces the browser to re-ease twice (into the midpoint, then again
@@ -526,7 +521,7 @@ a[aria-disabled="true"] {
     transform: translate(0, 0) rotate(var(--deck-rot)) scale(1);
   }
   100% {
-    transform: translate(var(--pull-dx), var(--pull-dy)) rotate(0deg) scale(1.44);
+    transform: translate(var(--pull-x), var(--pull-y)) rotate(0deg) scale(1.36);
   }
 }
 
@@ -559,7 +554,7 @@ a[aria-disabled="true"] {
 
 @keyframes deck-push-back {
   0% {
-    transform: translate(var(--pull-dx), var(--pull-dy)) rotate(0deg) scale(1.44);
+    transform: translate(var(--pull-x), var(--pull-y)) rotate(0deg) scale(1.36);
   }
   100% {
     transform: translate(0, 0) rotate(var(--deck-rot)) scale(1);
@@ -570,73 +565,85 @@ a[aria-disabled="true"] {
   display: flex;
 }
 
-/* The fan is a cascade on a gentle arc: each card sits 62px lower than the
-   one above it, and the sideways step shrinks from card to card (66, 54, 42,
-   30, 20px), so the pile bows out to the upper right and the cards below sweep
-   back under it. Each card is tilted a little less than its neighbour, so
-   every card shows a band along its bottom edge with its name in the
-   lower-left corner. The whole fan scales with the viewport
+/* The fan is an upright tower on a slight half circle (a ")"): each card sits
+   95px lower than the one above it, and the sideways offset follows a sine
+   (0, 58, 82, 58, 0px), so the middle card bulges to the right and the last
+   one comes back under the first. The cards turn with the arc, from -4° at
+   the top to 4° at the bottom, so every card shows a band along its bottom
+   edge with its name in the lower-left corner. A turned card moves its
+   lower-left corner sideways by about 57px x sin(angle), so each card's left
+   is corrected by that much (-4, -2, 0, +2, +4px): the names then sit exactly
+   on the arc and the first and last name start at the same x. The whole fan scales with the viewport
    (--deck-scale); the spacing between the cards never collapses, so the
    names stay readable at every width. Cards beneath rest a touch dimmer
    and brighten on hover (see below). */
-.deck-base {
-  display: none;  --depth: 2;
-
-  --own-top: 314px;
-  --own-left: 302px;
-  background: var(--surface-sunk);
-  border-color: rgba(var(--shadow), 0.06);
-  --deck-rot: 4deg;
-  box-shadow: 0 10px 24px rgba(var(--shadow), 0.12);
-}
-
 .deck-contact {
   --depth: 3;
-  --own-top: 268px;
-  --own-left: 282px;
+  --float-dur: 7.5s;
+  --float-delay: -5.5s;
+  --pull-x: 26px;
+  --pull-y: 16px;
+  --own-top: 400px;
+  --own-left: 8px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
-  --deck-rot: 2.4deg;
-  box-shadow: 0 12px 24px rgba(var(--shadow), 0.13);
+  --deck-rot: 4deg;
+  box-shadow: 0 16px 32px rgba(var(--shadow), 0.24);
 }
 
 .deck-playlist {
   --depth: 4;
-  --own-top: 206px;
-  --own-left: 252px;
+  --float-dur: 9s;
+  --float-delay: -1.2s;
+  --pull-x: 34px;
+  --pull-y: 8px;
+  --own-top: 305px;
+  --own-left: 64px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
-  --deck-rot: 0.8deg;
-  box-shadow: 0 14px 26px rgba(var(--shadow), 0.14);
+  --deck-rot: 2deg;
+  box-shadow: 0 20px 38px rgba(var(--shadow), 0.27);
 }
 
 .deck-blog {
   --depth: 5;
-  --own-top: 144px;
-  --own-left: 210px;
+  --float-dur: 6.5s;
+  --float-delay: -4.3s;
+  --pull-x: 40px;
+  --pull-y: 0px;
+  --own-top: 210px;
+  --own-left: 86px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
-  --deck-rot: -0.8deg;
-  box-shadow: 0 16px 30px rgba(var(--shadow), 0.16);
+  --deck-rot: 0deg;
+  box-shadow: 0 24px 44px rgba(var(--shadow), 0.3);
 }
 
 .deck-work {
   --depth: 9;
+  --float-dur: 7s;
+  --float-delay: 0s;
+  --pull-x: 26px;
+  --pull-y: -16px;
   --own-top: 20px;
-  --own-left: 90px;
+  --own-left: 0px;
   background: var(--surface);
   border-color: var(--border);
   --deck-rot: -4deg;
-  box-shadow: 0 24px 46px rgba(var(--shadow), 0.24);
+  box-shadow: 0 34px 64px rgba(var(--shadow), 0.4);
 }
 
 .deck-portfolio {
   --depth: 7;
-  --own-top: 82px;
-  --own-left: 156px;
+  --float-dur: 8.5s;
+  --float-delay: -2.1s;
+  --pull-x: 34px;
+  --pull-y: -8px;
+  --own-top: 115px;
+  --own-left: 60px;
   background: linear-gradient(135deg, var(--card-from), var(--card-to));
-  --deck-rot: -2.4deg;
-  box-shadow: 0 18px 34px rgba(var(--shadow), 0.18);
+  --deck-rot: -2deg;
+  box-shadow: 0 28px 52px rgba(var(--shadow), 0.34);
 }
 
 .deck-label {
@@ -743,38 +750,32 @@ a[aria-disabled="true"] {
     max-width: 560px;
   }
 
-  /* layout box = the fan at its current scale (full size: 618 x 525). Its
-     leftmost card (the portfolio card) starts 90px into the box, so the
-     left margin cancels that and leaves 36px between the copy's column
-     and the first card, at every width. */
+  /* layout box = the fan at its current scale (full size: 364 x 611). Its
+     leftmost cards start at the box's left edge, so a 36px left margin is the
+     gap between the copy's column and the fan, at every width. */
   .card-deck {
     display: block;
     grid-column: 2;
     grid-row: 1;
     justify-self: start;
-    /* the right margin is negative by the fan's empty right edge (the lowest
-       card ends 40px short of the box), so the visible group, copy to
-       lowest card, is what gets centred: equal gaps to both viewport edges */
-    margin: 0 calc(-40px * var(--deck-scale)) 0 calc(36px - 90px * var(--deck-scale));
-    width: calc(618px * var(--deck-scale));
-    height: calc(525px * var(--deck-scale));
+    /* the box hugs the fan, so the visible group, copy to the bulge of the
+       arc, is what gets centred: equal gaps to both viewport edges */
+    margin: 0 0 0 36px;
+    width: calc(364px * var(--deck-scale));
+    height: calc(611px * var(--deck-scale));
   }
   .card-deck-inner {
     position: absolute;
     top: 0;
     right: 0;
     display: block;
-    width: 618px;
-    height: 525px;
+    width: 364px;
+    height: 611px;
     pointer-events: none;
     /* shrinks to 91% as the viewport narrows toward 900px, anchored at the
        top-right so the fan's right edge stays put */
     transform-origin: top right;
     transform: scale(var(--deck-scale));
-    /* every card's pull-out target: the blog card's own position, so all
-       opened cards converge on the same spot wherever they started */
-    --target-top: 82px;
-    --target-left: 156px;
   }
   .deck-card {
     position: absolute;
@@ -785,9 +786,6 @@ a[aria-disabled="true"] {
     transform: rotate(var(--deck-rot));
     pointer-events: auto;
   }
-  .deck-base {
-    display: block;
-  }
   .deck-card.is-active {
     animation: deck-pull-out 0.56s var(--ease-spring) forwards;
   }
@@ -795,6 +793,47 @@ a[aria-disabled="true"] {
     animation:
       deck-push-back 0.62s var(--ease-return) forwards,
       deck-z-drop 0.62s linear forwards;
+  }
+}
+
+/* Idle drift: the cards hover a few pixels and sway a hair, each on its own
+   period and phase, the top cards further than the ones beneath (the same
+   depth as the pointer parallax), so they seem to float over one another.
+   It moves top/left, not transform, so it adds to the pull-out, the hover
+   slide and the pointer parallax instead of fighting them. */
+@keyframes deck-float {
+  0%,
+  100% {
+    top: var(--own-top);
+    left: var(--own-left);
+  }
+  25% {
+    top: calc(var(--own-top) - var(--depth) * 0.45px);
+    left: calc(var(--own-left) + var(--depth) * 0.2px);
+  }
+  50% {
+    top: calc(var(--own-top) - var(--depth) * 0.7px);
+    left: var(--own-left);
+  }
+  75% {
+    top: calc(var(--own-top) - var(--depth) * 0.25px);
+    left: calc(var(--own-left) - var(--depth) * 0.2px);
+  }
+}
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  .deck-card {
+    animation: deck-float var(--float-dur) ease-in-out var(--float-delay) infinite;
+  }
+  .deck-card.is-active {
+    animation:
+      deck-pull-out 0.56s var(--ease-spring) forwards,
+      deck-float var(--float-dur) ease-in-out var(--float-delay) infinite;
+  }
+  .deck-card.is-closing {
+    animation:
+      deck-push-back 0.62s var(--ease-return) forwards,
+      deck-z-drop 0.62s linear forwards,
+      deck-float var(--float-dur) ease-in-out var(--float-delay) infinite;
   }
 }
 
