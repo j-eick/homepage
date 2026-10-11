@@ -15,12 +15,13 @@
   --border: rgba(15, 35, 64, 0.08);
   --border-strong: rgba(15, 35, 64, 0.15);
   --surface: #fff;
-  /* motion curves for the card-deck pull-out/push-back — a gentle
-     overshoot-and-settle spring for opening, a pure decelerate for
-     closing, so each animation is one continuous curve rather than a
-     hand-placed waypoint the browser has to re-ease into. */
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-settle: cubic-bezier(0.32, 0.72, 0, 1);
+  /* motion curves for the card-deck pull-out/push-back — both swing
+     gently past their target and settle back (a soft spring, not a
+     hard stop), just toned down a lot from a textbook "back" ease so
+     it reads as elegant rather than bouncy. One continuous curve each,
+     no hand-placed waypoint for the browser to re-ease into. */
+  --ease-spring: cubic-bezier(0.3, 1.18, 0.4, 1);
+  --ease-settle: cubic-bezier(0.34, 1.08, 0.4, 1);
 }
 
 html {
@@ -298,7 +299,7 @@ a:hover {
    class being removed. */
 .deck-card.is-active {
   z-index: 100;
-  animation: deck-pull-out 0.46s var(--ease-spring) forwards;
+  animation: deck-pull-out 0.56s var(--ease-spring) forwards;
 }
 
 @keyframes deck-pull-out {
@@ -311,15 +312,16 @@ a:hover {
 }
 
 /* return to the stack: the same two-point path, reversed, but shorter
-   and quicker — a crisp retreat rather than a mirrored replay of the
-   spring. Uses a pure decelerate curve (--ease-settle, no overshoot) so
-   it reads as a quick, confident settle rather than another bounce.
-   JS adds this in the same tick it removes .is-active, so the
-   transform picks up exactly where .is-active's animation left off,
-   then removes it again once the animation has finished. */
+   and quicker — a soft retreat rather than a mirrored replay of the
+   spring. --ease-settle swings back with its own small overshoot too,
+   just gentler and quicker than --ease-spring, so closing still reads
+   as easing in and out rather than stopping dead. JS adds this in the
+   same tick it removes .is-active, so the transform picks up exactly
+   where .is-active's animation left off, then removes it again once
+   the animation has finished. */
 .deck-card.is-closing {
   z-index: 100;
-  animation: deck-push-back 0.24s var(--ease-settle) forwards;
+  animation: deck-push-back 0.32s var(--ease-settle) forwards;
 }
 
 @keyframes deck-push-back {
