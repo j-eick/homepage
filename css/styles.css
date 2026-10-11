@@ -1294,15 +1294,3 @@ footer {
     padding: 24px 0;
   }
 }
-
-/* the flat card lies in the plate's plane, so the plate's 60deg inclination
-   halves everything vertical, type included. The label and the value are
-   stretched back in height (about 1.7x of the 2x that would undo it fully;
-   a little squash is what a lying card should keep), each from the corner
-   it is anchored to. */
-@media (min-width: 900px) {
-  .deck-playlist .deck-label,
-  .deck-playlist .deck-value {
-    scale: 1 1.7;
-  }
-}
