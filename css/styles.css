@@ -186,22 +186,22 @@ a:hover {
   display: none;
 }
 
-/* whole fan: 70% of original, now +15% again (container, offsets, card size together) */
+/* whole fan: 70% of original, +15%, shifted up 50% of its own height, then +20% (container, offsets, card size together) */
 .card-deck-inner {
   position: relative;
-  width: 515px;
-  height: 386px;
+  width: 618px;
+  height: 463px;
   margin-left: auto;
-  margin-top: -338px;
+  margin-top: -637px;
   pointer-events: none;
 }
 
 .deck-card {
   position: absolute;
-  width: 225px;
-  height: 145px;
-  border-radius: 16px;
-  padding: 17px;
+  width: 270px;
+  height: 174px;
+  border-radius: 19px;
+  padding: 20px;
   box-sizing: border-box;
   border: 1px solid transparent;
   outline: 2px solid transparent;
@@ -214,8 +214,8 @@ a:hover {
 }
 
 .deck-base {
-  top: 209px;
-  left: 266px;
+  top: 251px;
+  left: 319px;
   background: #d7e0ef;
   border-color: rgba(15, 35, 64, 0.06);
   transform: rotate(8deg);
@@ -223,8 +223,8 @@ a:hover {
 }
 
 .deck-contact {
-  top: 153px;
-  left: 233px;
+  top: 184px;
+  left: 280px;
   margin: 0;
   appearance: none;
   background: var(--surface);
@@ -242,8 +242,8 @@ a:hover {
 }
 
 .deck-playlist {
-  top: 89px;
-  left: 193px;
+  top: 107px;
+  left: 232px;
   background: var(--surface);
   border-color: var(--border);
   transform: rotate(-2deg);
@@ -256,8 +256,8 @@ a:hover {
 }
 
 .deck-blog {
-  top: 32px;
-  left: 137px;
+  top: 38px;
+  left: 164px;
   background: var(--surface);
   border-color: var(--border);
   transform: rotate(-7deg);
@@ -270,8 +270,8 @@ a:hover {
 }
 
 .deck-portfolio {
-  top: -16px;
-  left: 64px;
+  top: -19px;
+  left: 77px;
   background: linear-gradient(135deg, var(--accent), var(--accent-dark));
   transform: rotate(-13deg);
   box-shadow: 0 28px 54px rgba(15, 35, 64, 0.24);
@@ -320,6 +320,9 @@ a:hover {
   .hero-content {
     /* halved back from 30% per follow-up feedback */
     margin-left: 15%;
+    /* shifted down 70% of its own (content-dependent) height — translateY
+       resolves the percentage against the element's own rendered height */
+    transform: translateY(70%);
   }
 }
 
