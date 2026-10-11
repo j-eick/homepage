@@ -649,6 +649,12 @@ a[aria-disabled="true"] {
    card gets as tall as the text needs (--open-h, measured by card-deck.js). */
 .deck-text {
   display: none;
+  /* may shrink below its text while the card's height is animating: without
+     this the card is shorter than its content on the way back, the column
+     overflows and "Technical Operations" slides out of the bottom edge until
+     the card is home */
+  min-height: 0;
+  overflow: hidden;
   margin-top: 6px;
   color: var(--ink-soft);
   font-size: 0.64rem;
