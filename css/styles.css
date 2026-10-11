@@ -804,35 +804,33 @@ a[aria-disabled="true"] {
 }
 
 .deck-playlist {
-  /* the nearer the row, the higher; within a row the right one on top */
-  z-index: 5;
+  /* behind Bio (4), so that it slips partly under it */
+  z-index: 3;
   --tilt: 0deg;
   --depth: 4;
   --float-dur: 9s;
   --float-delay: -1.2s;
   --pull-x: 34px;
   --pull-y: 8px;
-  --own-top: 548px;
-  --own-left: 922px;
+  --own-top: 540px;
+  --own-left: 896px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
   --deck-rot: 47deg;
-  /* it rests on the glass's corner, so it casts no shadow of its own: what
-     carries its thickness is the slab edge. Thickness points straight down
-     on the screen whatever way the card is turned, and on the plate it is
-     9px deep (about 4.5px on screen at the plate's 60deg). The card is
-     turned by --deck-rot in the plate's plane, so the offset is taken back
-     into the card's own coordinates: 9px at -rot from "down", i.e.
-     (9 sin rot, 9 cos rot). The 1px lit rim on the top-left faces and the
-     2px edge on the right use the same direction. */
+  /* it rests on the glass's corner and casts no shadow. Its thickness is a
+     rim: a hairline outline all round, a lit inner top edge, and a slab
+     edge 9px deep (about 4.5px on screen at the plate's 60deg) that always
+     points straight down on the screen: its offset is taken back through
+     the card's own turn, (9 sin rot, 9 cos rot). */
   --edge-x: calc(sin(var(--deck-rot)) * 1px);
   --edge-y: calc(cos(var(--deck-rot)) * 1px);
-  --card-edge: color-mix(in srgb, var(--ink) 27%, var(--surface));
+  --card-edge: color-mix(in srgb, var(--ink) 20%, var(--surface));
+  --card-line: color-mix(in srgb, var(--ink) 34%, var(--surface));
   --card-rest:
     inset var(--edge-x) var(--edge-y) 0 rgba(255, 255, 255, 0.9),
+    0 0 0 1px var(--card-line),
     calc(var(--edge-x) * 9) calc(var(--edge-y) * 9) 0 0 var(--card-edge),
-    calc(var(--edge-x) * 9 + 2px) calc(var(--edge-y) * 9 + 1px) 0 0
-      var(--card-edge);
+    calc(var(--edge-x) * 9) calc(var(--edge-y) * 9) 0 1px var(--card-line);
   box-shadow: var(--card-rest);
 }
 
