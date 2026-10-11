@@ -18,7 +18,7 @@ colors:
 typography:
   display:
     fontFamily: "Space Grotesk, system-ui, sans-serif"
-    fontSize: "clamp(2.9rem, 6vw, 4.75rem)"
+    fontSize: "clamp(2.32rem, 4.8vw, 3.8rem)"
     fontWeight: 700
     lineHeight: 0.98
     letterSpacing: "-0.035em"
@@ -47,7 +47,6 @@ rounded:
   chip: "10px"
   button: "12px"
   deck: "19px"
-  panel: "20px"
 spacing:
   xs: "8px"
   sm: "16px"
@@ -72,11 +71,6 @@ components:
     textColor: "{colors.ink}"
     rounded: "{rounded.deck}"
     padding: "20px"
-  contact-panel:
-    backgroundColor: "{colors.paper-blue}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.panel}"
-    padding: "36px 32px"
 ---
 
 # Design System: Joschka Eickhoff — Homepage
@@ -127,7 +121,7 @@ A cool, low-chroma ground with one signal blue.
 
 ### Hierarchy
 - **Display** (700, clamp(2.9rem, 6vw, 4.75rem); on mobile clamp(2.7rem, 15vw, 3.7rem), 0.98): the name, in two lines.
-- **Role** (500–600, 0.42em of display, 1.15): "Technical Operations" one tier below the name.
+- **Role** (500–600, 0.525em of display, 1.15): "Technical Operations" one tier below the name.
 - **Headline** (600, 1.4rem): the contact heading.
 - **Body** (400, 1.05rem, 1.65; intro capped at 480px): intro copy and descriptions.
 - **Label** (500, 0.7rem, 0.08em, uppercase): deck card captions.
@@ -137,9 +131,9 @@ A cool, low-chroma ground with one signal blue.
 
 ## Layout
 
-From 900px: a 1280px container. The hero is a two-column grid, copy left and the card fan right, with the copy allowed to run under the fan's empty lower-left corner. The fan's layout box is its scaled size, so the copy is centred against it (scale 0.7 at 900px, 1 from 1150px). Below the hero, a single 880px column holds the contact panel.
+From 900px: the page is a column (header, hero, footer on the bottom edge) and the hero fills the free height, centring one group on both axes: the copy on the left and the card fan on the right, the visible group (the copy's left edge to the lowest card's right edge) centred in the viewport, so the gap to the left edge and the gap to the right edge are equal. The fan's layout box is its scaled size (0.7 at 900px, 1 from 1150px); its empty right edge is subtracted, and it tucks up to 44px under the copy's column at the narrow end. There is no contact panel.
 
-Mobile (below 900px): one column with 26px gutters. The hero is a stack of four equal cards (white, 19px radius, soft shadow), centred on both axes in the free height between header and footer. The front card carries the name (80% of the narrow-desktop size: clamp(2.16rem, 12vw, 2.96rem)), role, intro, the LinkedIn icon button (name stays as accessible label) and a hairline, set apart from the buttons and the chips by generous space, above a row of hashtag chips. The other three cards sit behind it in three slots, staggered 32px, 62px and 92px lower (Spotify right and tilted 3°, CV in the middle and flat, Blog left and tilted -3°), so each shows its name in its lower corner (Spotify right, CV and Blog left); hovering any visible part of such a card brightens that card from its slightly dimmed resting tone to full surface and tightens and deepens its shadow (`0 12px 18px`) and slides it 6px further out of the stack (no outline), clicking anywhere on its visible part (or activating its name by keyboard) pulls that card out of the stack, 46px further out along its tilt (0.24s, easing out), then lays it on top with a slower spring (0.62s) while the old front card slides back into the slot the chosen card left (the tilt and spring are the deck's own). The three cards behind slide out once on load, Spotify first after 0.9s, then CV after 1.15s, then Blog after 1.4s, so the front card is seen alone first (not under reduced motion). The deck and the contact panel are not shown, and there is no menu. The copyright sits on the viewport's bottom edge on short pages.
+Mobile (below 900px): one column with 26px gutters. The hero is a stack of four equal cards (white, 19px radius, soft shadow), centred on both axes in the free height between header and footer. The front card carries the name (80% of the narrow-desktop size: clamp(2.16rem, 12vw, 2.96rem)), role, intro, the LinkedIn icon button (name stays as accessible label) and a hairline, set apart from the buttons and the chips by generous space, above a row of hashtag chips. The other three cards sit behind it in three slots, staggered 32px, 62px and 92px lower (Spotify right and tilted 3°, CV in the middle and flat, Blog left and tilted -3°), so each shows its name in its lower corner (Spotify right, CV and Blog left); hovering any visible part of such a card brightens that card from its slightly dimmed resting tone to full surface and tightens and deepens its shadow (`0 12px 18px`) and slides it 6px further out of the stack (no outline), clicking anywhere on its visible part (or activating its name by keyboard) pulls that card out of the stack, 46px further out along its tilt (0.24s, easing out), then lays it on top with a slower spring (0.62s) while the old front card slides back into the slot the chosen card left (the tilt and spring are the deck's own). The three cards behind slide out once on load, Spotify first after 0.9s, then CV after 1.15s, then Blog after 1.4s, so the front card is seen alone first (not under reduced motion). The deck is not shown, and there is no menu. The copyright sits on the viewport's bottom edge on short pages.
 
 ## Elevation & Depth
 
@@ -147,14 +141,14 @@ Depth is physical: things lie on a surface and cast soft, offset shadows. No glo
 
 ### Shadow Vocabulary
 - **Deck rest** (`box-shadow: 0 14px 32px rgba(15, 35, 64, 0.14)`, stepping up to `0 28px 54px` .24 for the top card): the fan reads as a stack.
-- **Deck hover** (`0 14px 28px rgba(15, 35, 64, 0.22)` plus an accent outline): marks a card without lifting it.
+- **Deck hover** (`0 12px 18px rgba(15, 35, 64, 0.26)`, with a brighter surface and a 4px/6px slide along the cascade; no outline): marks a card without raising it above its neighbours.
 
 ### Named Rules
-**The Resting Weight Rule.** Hover marks an object with an outline and a deeper shadow; it never raises it above its neighbours. Only the click pulls a card out.
+**The Resting Weight Rule.** Hover marks an object by brightening it, sharpening its shadow and sliding it a few pixels along its stack; it never raises it above its neighbours. Only the click pulls a card out.
 
 ## Shapes
 
-Soft, not pill-shaped: 10–12px buttons and chips, 19px deck cards, 20px for the contact panel. The deck fans by up to 13° and cards overlap; nothing else is rotated.
+Soft, not pill-shaped: 10–12px buttons and chips, 19px deck cards,. The desktop deck is a cascade tilted from -4° to +4° in steps of 2°; on mobile the stacked cards tilt ±3°. Nothing else is rotated.
 
 ## Components
 
@@ -168,8 +162,10 @@ Soft, not pill-shaped: 10–12px buttons and chips, 19px deck cards, 20px for th
 
 ### Deck card (desktop)
 - A real button covering the whole card, with a separate close button as its sibling.
-- **Hover / Focus:** accent outline and a deeper shadow; focus uses the same outline via `:focus-visible`.
-- **Active:** the card pulls out to the blog card's position along one spring curve (0.56s) and returns in 0.32s.
+- **Layering:** a tidy cascade of equal 270×174 cards, each 60px further right and 62px lower than the one above and tilted 2° less (Portfolio on top at -4°, Blog -2°, Playlist 0°, Kontakt 2°, a sunk base card 4°), so every card shows a band along its bottom edge with its name in the lower-left corner. The spacing never collapses; the whole fan scales from 0.7 at 900px to 1 at 1150px.
+- **Pointer depth:** while the mouse is over the hero the fan follows it a little: each card shifts up to its depth in px (Portfolio 9, Blog 7, Playlist 5, Kontakt 4, base 2) and tilts up to 0.08° per px of depth, so the top cards move more than the ones beneath. It eases in 0.5s, ignores touch and pen, and is off under reduced motion; a pulled-out card ignores it.
+- **Resting and hover:** cards beneath rest a touch dimmer (92% surface, 8% paper); on hover or focus they brighten to full surface (Portfolio brightens its gradient), their shadow gets crisper and they slide 4px right and 6px down. Keyboard focus keeps a Signal Blue outline.
+- **Active:** the card pulls out to the blog card's position and scales to 1.44 along one spring curve (0.56s). It returns in a calm 0.62s glide (quick release, long soft landing, no overshoot) and slips beneath the cards above it about two thirds of the way home. The Bio card (formerly Kontakt) is the fourth card.
 
 ### Mobile artifacts
 Small marks on the same design, purely decorative and CSS only: a dot in every card's top-right corner (Warm Amber on the card that lies on top, a grey on the cards underneath, fading as a card is laid on top), and the brand `#idea - plan - build` whose three words are underlined in warm amber one after another (2.5s apart, 7.5s loop; not under reduced motion). The LinkedIn link is Signal Blue instead of ink on mobile.
@@ -180,11 +176,8 @@ Small marks on the same design, purely decorative and CSS only: a dot in every c
 - **Focus:** the card container takes script focus after a swap without drawing a ring; the name's button keeps its Signal Blue ring for keyboard users.
 - **States:** hover or focus brightens the card, sharpens its shadow and slides it 6px further out; contents of a card behind are hidden and inert.
 
-### Contact panel
-- A wide rounded panel in a light accent wash with a 1px accent edge, centred heading, short line and three white chips.
-
 ### Navigation
-- **Header:** brand left; from 900px Blog and Kontakt text links and the theme switch right, below 900px the brand and the theme switch only.
+- **Header:** brand left; from 900px Blog and Kontakt (both placeholders until their destinations exist) and the theme switch right, below 900px the brand and the theme switch only.
 - **Theme switch:** a 36px circle in the header, showing the theme it switches to.
 
 ## Do's and Don'ts

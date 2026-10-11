@@ -260,8 +260,8 @@
       },
       {
         "name": "deck-hover",
-        "value": "0 14px 28px rgba(15,35,64,0.22)",
-        "purpose": "Hover or focus mark on a deck card."
+        "value": "0 12px 18px rgba(15,35,64,0.26)",
+        "purpose": "Hover or focus mark on a deck card, with a brighter surface and a 4px/6px slide."
       }
     ],
     "motion": [
@@ -314,15 +314,7 @@
       "refersTo": "deck-card",
       "description": "A card of the fan; the whole card is one button.",
       "html": "<div class=\"ds-deck\"><button class=\"ds-deck-trigger\"><span class=\"ds-l\">Schreiben</span><span class=\"ds-v\">Blog →</span></button></div>",
-      "css": ".ds-deck{position:relative;width:270px;height:174px;border-radius:19px;background:#fff;border:1px solid rgba(15,35,64,.08);box-shadow:0 22px 44px rgba(15,35,64,.18);transform:rotate(-7deg)}.ds-deck:hover{outline:2px solid #2f5fd6;outline-offset:2px}.ds-deck-trigger{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:20px;border:0;background:none;text-align:left;font:inherit;cursor:pointer}.ds-l{font:500 .7rem Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#5a6f92}.ds-v{font:700 1.15rem 'Space Grotesk',sans-serif;color:#0f2340}"
-    },
-    {
-      "name": "Contact Panel",
-      "kind": "card",
-      "refersTo": "contact-panel",
-      "description": "Closing panel with three chips.",
-      "html": "<div class=\"ds-contact\"><h2>Lass uns sprechen</h2><p>Projekt, Idee oder einfach Hallo sagen.</p></div>",
-      "css": ".ds-contact{padding:36px 32px;border-radius:20px;border:1px solid rgba(47,95,214,.2);background:rgba(47,95,214,.06);text-align:center;color:#0f2340}.ds-contact h2{margin:0 0 8px;font:600 1.4rem 'Space Grotesk',sans-serif}.ds-contact p{margin:0;font:400 .95rem/1.6 Inter,sans-serif;color:#46577a}"
+      "css": ".ds-deck{position:relative;width:270px;height:174px;border-radius:19px;background:#fff;border:1px solid rgba(15,35,64,.08);box-shadow:0 22px 44px rgba(15,35,64,.18);transform:rotate(-2deg)}.ds-deck:hover{translate:4px 6px;box-shadow:0 12px 18px rgba(15,35,64,.26)}.ds-deck-trigger{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:20px;border:0;background:none;text-align:left;font:inherit;cursor:pointer}.ds-l{font:500 .7rem Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#5a6f92}.ds-v{font:700 1.15rem 'Space Grotesk',sans-serif;color:#0f2340}"
     },
     {
       "name": "Hashtag Chip",
@@ -348,7 +340,8 @@
       "One composition logic, two forms: a fan from 900px up; below it the hero is itself a small stack of cards you can bring forward.",
       "The phone is the desktop page narrowed, not a second look: same fonts, colours, buttons and panel.",
       "Tokens-only theming: blue paper by day, a night board by night.",
-      "Motion is spring-like and rare: the card pull-out on desktop, nothing animates on mobile."
+      "Motion is spring-like and rare: the card pull-out on desktop, nothing animates on mobile.",
+      "The desktop fan follows the pointer by a few pixels, more for the cards on top; nothing else moves on its own."
     ],
     "rules": [
       {
@@ -368,7 +361,7 @@
       },
       {
         "name": "The Resting Weight Rule",
-        "body": "Hover marks an object with an outline and a deeper shadow; it never raises it above its neighbours. Only the click pulls a card out.",
+        "body": "Hover marks an object by brightening it, sharpening its shadow and sliding it a few pixels along its stack; it never raises it above its neighbours. Only the click pulls a card out.",
         "section": "elevation"
       }
     ],
@@ -381,7 +374,7 @@
     ],
     "donts": [
       "Don't add a second accent next to Signal Blue.",
-      "Don't lift a desktop card on hover; marking is not pulling out. (Mobile cards behind slide 6px further out on hover.)",
+      "Don't raise a desktop card above its neighbours on hover; brightening and a small slide mark it, only the click pulls it out. (Mobile cards behind slide 6px further out on hover.)",
       "Don't use hard offset shadows or glows for depth.",
       "Don't colour the cards of the mobile stack; they stay white (a touch dimmer behind), with Signal Blue only on the icon tile."
     ]

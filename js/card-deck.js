@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  var CLOSE_ANIM_MS = 320; // keep in sync with .deck-card.is-closing's animation-duration
+  var CLOSE_ANIM_MS = 620; // keep in sync with .deck-card.is-closing's animation-duration
   var cards = document.querySelectorAll(
     ".deck-contact, .deck-playlist, .deck-blog, .deck-portfolio",
   );
@@ -83,4 +83,38 @@
   document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") closeActive();
   });
+
+  // Pointer depth: while the mouse moves over the hero, the fan follows it
+  // a little (CSS turns --mx/--my into a few pixels and a fraction of a degree,
+  // more for the top cards). Mouse only, and not under reduced motion.
+  var hero = document.querySelector(".hero");
+  var inner = document.querySelector(".card-deck-inner");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (hero && inner) {
+    var frame = 0;
+    var point = null;
+
+    function apply() {
+      frame = 0;
+      var box = hero.getBoundingClientRect();
+      var mx = point ? (point.x - (box.left + box.width / 2)) / (box.width / 2) : 0;
+      var my = point ? (point.y - (box.top + box.height / 2)) / (box.height / 2) : 0;
+      inner.style.setProperty("--mx", Math.max(-1, Math.min(1, mx)).toFixed(3));
+      inner.style.setProperty("--my", Math.max(-1, Math.min(1, my)).toFixed(3));
+    }
+
+    function queue() {
+      if (!frame) frame = requestAnimationFrame(apply);
+    }
+
+    hero.addEventListener("pointermove", function (event) {
+      if (event.pointerType !== "mouse" || reduce.matches) return;
+      point = { x: event.clientX, y: event.clientY };
+      queue();
+    });
+    hero.addEventListener("pointerleave", function () {
+      point = null;
+      queue();
+    });
+  }
 })();

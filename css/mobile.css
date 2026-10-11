@@ -325,11 +325,6 @@ main {
   color: var(--accent);
 }
 
-/* the contact panel is desktop-only */
-.sections {
-  display: none;
-}
-
 /* the copyright sits on the viewport's bottom edge */
 footer {
   margin-top: auto;

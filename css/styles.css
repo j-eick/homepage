@@ -77,6 +77,8 @@
      no hand-placed waypoint for the browser to re-ease into. */
   --ease-spring: cubic-bezier(0.3, 1.18, 0.4, 1);
   --ease-settle: cubic-bezier(0.34, 1.08, 0.4, 1);
+  /* the card's way back into the stack: quick release, long soft landing */
+  --ease-return: cubic-bezier(0.22, 0.61, 0.24, 1);
 }
 
 html {
@@ -190,14 +192,15 @@ a[aria-disabled="true"] {
   gap: 0.22em;
   font-family: "Space Grotesk", sans-serif;
   font-weight: 700;
-  font-size: clamp(2.9rem, 6vw, 4.75rem);
+  font-size: clamp(2.32rem, 4.8vw, 3.8rem);
   line-height: 0.98;
   letter-spacing: -0.035em;
   color: var(--ink);
 }
 
 .hero-title .role {
-  font-size: 0.42em;
+  /* the name is 80% of its former size; the role keeps its absolute size */
+  font-size: 0.525em;
   line-height: 1.15;
   letter-spacing: -0.015em;
   font-weight: 600;
@@ -290,7 +293,7 @@ a[aria-disabled="true"] {
 }
 
 /* CARD DECK — fanned from 900px up; not rendered below.
-   Lives inside .hero. --deck-t: 0 at <=900px viewport width, 1 at >=1150px,
+   Lives inside .hero. --deck-t: 0 at <=900px viewport width, 1 at >=1150px; it only drives the scale,
    linear in between; the box is sized to the *scaled* fan so the hero's grid
    gives the text exactly the room that is left. */
 .card-deck {
@@ -322,18 +325,62 @@ a[aria-disabled="true"] {
      the real path each card travels when pulled out, not an estimate. */
   --pull-dx: calc(var(--target-left) - var(--own-left));
   --pull-dy: calc(var(--target-top) - var(--own-top));
+  /* two quiet layers of movement, both through the individual translate and
+     rotate properties so they never touch the card's own transform:
+       - hover: --hx/--hy, the few pixels a card slides out along the cascade
+       - pointer depth: --mx/--my in [-1, 1] (set on .card-deck-inner by
+         card-deck.js) times the card's own --depth, so the cards nearer the
+         top follow the pointer a little more than the ones beneath */
+  --depth: 0;
+  --hx: 0px;
+  --hy: 0px;
+  translate: calc(var(--hx) + var(--mx, 0) * var(--depth) * 1px)
+    calc(var(--hy) + var(--my, 0) * var(--depth) * 1px);
+  rotate: calc(var(--mx, 0) * var(--depth) * 0.08deg);
   transition:
     outline-color 0.15s ease,
-    box-shadow 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow 0.3s ease,
+    background-color 0.25s ease,
+    filter 0.25s ease,
+    translate 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    rotate 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* marks the card without lifting it or raising its z-index — that
-   already made it visually pop above its overlapping neighbors, which
-   read as "pulled out" even on plain hover, before any click */
+/* hover marks the card without raising its z-index (that already made it
+   pop above its neighbours and read as "pulled out" before any click): it
+   brightens, its shadow gets crisper and it slides a few pixels further
+   out along the cascade, as if offering itself */
 .deck-card:hover,
 .deck-card:has(:focus-visible) {
+  --hx: 4px;
+  --hy: 6px;
+  box-shadow: 0 12px 18px rgba(var(--shadow), 0.26);
+}
+.deck-contact:hover,
+.deck-playlist:hover,
+.deck-blog:hover,
+.deck-contact:has(:focus-visible),
+.deck-playlist:has(:focus-visible),
+.deck-blog:has(:focus-visible) {
+  background: var(--surface);
+}
+.deck-portfolio:hover,
+.deck-portfolio:has(:focus-visible) {
+  filter: brightness(1.08);
+}
+/* a card that was pulled out is full surface and stays where it is */
+.deck-card.is-active {
+  translate: none;
+  rotate: none;
+}
+.deck-contact.is-active,
+.deck-playlist.is-active,
+.deck-blog.is-active {
+  background: var(--surface);
+}
+/* keyboard focus keeps its visible ring */
+.deck-card:has(.deck-trigger:focus-visible) {
   outline-color: var(--accent);
-  box-shadow: 0 14px 28px rgba(var(--shadow), 0.22);
 }
 
 /* the whole card is one real <button>; the close control is its sibling,
@@ -419,26 +466,40 @@ a[aria-disabled="true"] {
     transform: translate(0, 0) rotate(var(--deck-rot)) scale(1);
   }
   100% {
-    transform: translate(var(--pull-dx), var(--pull-dy)) rotate(0deg) scale(1.2);
+    transform: translate(var(--pull-dx), var(--pull-dy)) rotate(0deg) scale(1.44);
   }
 }
 
-/* return to the stack: the same two-point path, reversed, but shorter
-   and quicker — a soft retreat rather than a mirrored replay of the
-   spring. --ease-settle swings back with its own small overshoot too,
-   just gentler and quicker than --ease-spring, so closing still reads
-   as easing in and out rather than stopping dead. JS adds this in the
-   same tick it removes .is-active, so the transform picks up exactly
-   where .is-active's animation left off, then removes it again once
-   the animation has finished. */
+/* return to the stack: the same two-point path, reversed, but as a calm
+   glide rather than a mirrored replay of the spring — 0.62s, a quick
+   release and a long, soft landing with no overshoot. The card stays on
+   top while it travels and slips beneath the cards above it at about
+   two thirds of the way (deck-z-drop), when it is nearly home, so it
+   glides under its neighbours instead of popping under them at the end.
+   JS adds this in the same tick it removes .is-active, so the transform
+   picks up exactly where .is-active's animation left off, then removes
+   it again once the animation has finished. */
 .deck-card.is-closing {
   z-index: 100;
-  animation: deck-push-back 0.32s var(--ease-settle) forwards;
+  animation:
+    deck-push-back 0.62s var(--ease-return) forwards,
+    deck-z-drop 0.62s linear forwards;
+}
+
+@keyframes deck-z-drop {
+  0%,
+  62% {
+    z-index: 100;
+  }
+  64%,
+  100% {
+    z-index: 0;
+  }
 }
 
 @keyframes deck-push-back {
   0% {
-    transform: translate(var(--pull-dx), var(--pull-dy)) rotate(0deg) scale(1.2);
+    transform: translate(var(--pull-dx), var(--pull-dy)) rotate(0deg) scale(1.44);
   }
   100% {
     transform: translate(0, 0) rotate(var(--deck-rot)) scale(1);
@@ -449,57 +510,61 @@ a[aria-disabled="true"] {
   display: flex;
 }
 
-/* deck-base is the convergence anchor: its own position never moves.
-   Every other card's top/left interpolates toward it as --deck-t drops,
-   so the fan closes into a stack instead of staying spread out — but
-   only to ~35% of the original spacing at <=900px, not all the way to
-   0, so the cards still visibly peek out from each other rather than
-   landing exactly on top of deck-base. */
+/* The fan is a tidy cascade: each card sits 60px further right and 62px
+   lower than the one above it and is tilted a little less than its
+   neighbour, so every card shows a band along its bottom edge with its
+   name in the lower-left corner. The whole fan scales with the viewport
+   (--deck-scale); the spacing between the cards never collapses, so the
+   names stay readable at every width. Cards beneath rest a touch dimmer
+   and brighten on hover (see below). */
 .deck-base {
-  display: none;
-  --own-top: 251px;
-  --own-left: 319px;
+  display: none;  --depth: 2;
+
+  --own-top: 252px;
+  --own-left: 302px;
   background: var(--surface-sunk);
   border-color: rgba(var(--shadow), 0.06);
-  /* rotation only eases toward upright (20% of the original angle left
-     at <=900px), not fully flat — back to the full tilt at >=1150px */
-  --deck-rot: calc(8deg * (0.2 + 0.8 * var(--deck-t)));
+  --deck-rot: 4deg;
   box-shadow: 0 10px 24px rgba(var(--shadow), 0.12);
 }
 
 .deck-contact {
-  --own-top: calc(228px - 44px * var(--deck-t));
-  --own-left: calc(305px - 25px * var(--deck-t));
-  background: var(--surface);
+  --depth: 4;
+  --own-top: 206px;
+  --own-left: 270px;
+  background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
-  --deck-rot: calc(3deg * (0.2 + 0.8 * var(--deck-t)));
-  box-shadow: 0 14px 32px rgba(var(--shadow), 0.14);
+  --deck-rot: 2deg;
+  box-shadow: 0 14px 26px rgba(var(--shadow), 0.14);
 }
 
 .deck-playlist {
-  --own-top: calc(201px - 94px * var(--deck-t));
-  --own-left: calc(289px - 57px * var(--deck-t));
-  background: var(--surface);
+  --depth: 5;
+  --own-top: 144px;
+  --own-left: 210px;
+  background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
-  --deck-rot: calc(-2deg * (0.2 + 0.8 * var(--deck-t)));
-  box-shadow: 0 18px 36px rgba(var(--shadow), 0.16);
+  --deck-rot: 0deg;
+  box-shadow: 0 16px 30px rgba(var(--shadow), 0.16);
 }
 
 .deck-blog {
-  --own-top: calc(176px - 138px * var(--deck-t));
-  --own-left: calc(265px - 101px * var(--deck-t));
-  background: var(--surface);
+  --depth: 7;
+  --own-top: 82px;
+  --own-left: 150px;
+  background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
-  --deck-rot: calc(-7deg * (0.2 + 0.8 * var(--deck-t)));
-  box-shadow: 0 22px 44px rgba(var(--shadow), 0.18);
+  --deck-rot: -2deg;
+  box-shadow: 0 18px 34px rgba(var(--shadow), 0.18);
 }
 
 .deck-portfolio {
-  --own-top: calc(157px - 176px * var(--deck-t));
-  --own-left: calc(234px - 157px * var(--deck-t));
+  --depth: 9;
+  --own-top: 20px;
+  --own-left: 90px;
   background: linear-gradient(135deg, var(--card-from), var(--card-to));
-  --deck-rot: calc(-13deg * (0.2 + 0.8 * var(--deck-t)));
-  box-shadow: 0 28px 54px rgba(var(--shadow), 0.24);
+  --deck-rot: -4deg;
+  box-shadow: 0 24px 46px rgba(var(--shadow), 0.24);
 }
 
 .deck-label {
@@ -534,35 +599,60 @@ a[aria-disabled="true"] {
    right), so nothing is positioned by an estimate of the other's height.
    Below 900px the deck does not exist and mobile.css takes over. */
 @media (min-width: 900px) {
+  /* the page is a column: header, the hero (takes the free height and
+     centres its contents), footer on the bottom edge */
+  .page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  /* a flex child with auto margins would shrink to its content */
+  .nav {
+    box-sizing: border-box;
+    width: 100%;
+  }
   .hero {
+    flex: 1;
+    box-sizing: border-box;
+    width: 100%;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    /* copy and fan form one group, centred as a whole */
+    grid-template-columns: auto auto;
+    justify-content: center;
+    align-content: center;
     align-items: center;
-    column-gap: 24px;
-    padding-top: clamp(140px, 17vw, 245px);
+    column-gap: 0;
+    padding-top: 56px;
     padding-bottom: 56px;
   }
   .hero-sub {
-    /* narrows with the viewport so the copy stays clear of the card fan */
     max-width: clamp(300px, 36vw, 480px);
   }
   .hero-content {
-    /* shares the row with the fan and may run under its empty lower-left
-       corner; the fan sits above it */
-    grid-column: 1 / -1;
+    grid-column: 1;
     grid-row: 1;
     max-width: 560px;
-    /* 15% of the hero's content width, as before the grid */
-    margin-left: calc(0.15 * (min(100vw, 1280px) - 64px));
   }
 
-  /* layout box = the fan at its current scale (full size: 618 x 463) */
+  /* layout box = the fan at its current scale (full size: 618 x 463). Its
+     leftmost card (the portfolio card) starts 90px into the box, so the
+     left margin cancels that and leaves 36px between the copy's column
+     and the first card, at every width. */
   .card-deck {
     display: block;
     grid-column: 2;
     grid-row: 1;
-    justify-self: end;
-    margin: 0;
+    justify-self: start;
+    /* the right margin is negative by the fan's empty right edge (the lowest
+       card ends 40px short of the box), so the visible group, copy to
+       lowest card, is what gets centred: equal gaps to both viewport edges */
+    margin: 0 calc(-40px * var(--deck-scale)) 0 calc(36px - 90px * var(--deck-scale));
     width: calc(618px * var(--deck-scale));
     height: calc(463px * var(--deck-scale));
   }
@@ -580,8 +670,8 @@ a[aria-disabled="true"] {
     transform: scale(var(--deck-scale));
     /* every card's pull-out target: the blog card's own position, so all
        opened cards converge on the same spot wherever they started */
-    --target-top: calc(176px - 138px * var(--deck-t));
-    --target-left: calc(265px - 101px * var(--deck-t));
+    --target-top: 82px;
+    --target-left: 150px;
   }
   .deck-card {
     position: absolute;
@@ -599,64 +689,10 @@ a[aria-disabled="true"] {
     animation: deck-pull-out 0.56s var(--ease-spring) forwards;
   }
   .deck-card.is-closing {
-    animation: deck-push-back 0.32s var(--ease-settle) forwards;
+    animation:
+      deck-push-back 0.62s var(--ease-return) forwards,
+      deck-z-drop 0.62s linear forwards;
   }
-}
-
-/* SECTIONS */
-.sections {
-  position: relative;
-  z-index: 1;
-  max-width: 880px;
-  margin: 0 auto;
-  padding: 0 32px 64px;
-  display: flex;
-  flex-direction: column;
-  gap: 72px;
-}
-
-.contact-section {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 36px 32px;
-  border-radius: 20px;
-  border: 1px solid var(--accent-edge);
-  background: var(--accent-wash-soft);
-  text-align: center;
-  align-items: center;
-}
-
-.contact-section h2 {
-  margin: 0;
-  font-family: "Space Grotesk", sans-serif;
-  font-weight: 600;
-  font-size: 1.4rem;
-}
-
-.contact-section p {
-  margin: 0;
-  max-width: 420px;
-  color: var(--ink-soft);
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-.contact-ctas {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-}
-
-.contact-ctas a {
-  padding: 11px 18px;
-  border-radius: 10px;
-  border: 1px solid var(--border-strong);
-  background: var(--surface);
-  text-decoration: none;
-  font-size: 0.88rem;
-  font-weight: 500;
 }
 
 footer {
