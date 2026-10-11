@@ -145,7 +145,7 @@ Depth is physical: things lie on a surface and cast soft, offset shadows. No glo
 
 ### Glass plate (desktop)
 
-The whole hero group (copy and fan) sits on one pane of glass: a flat rounded plate with a bright top edge, a soft shade at its lower edge and a band of light that slides across it opposite to the pointer (`--mx`, set on `.hero` by `card-deck.js`). It is two pseudo-elements of `.hero`, grid items spanning both columns, so it is exactly as large as the group at every width. No 3D: the cards stay flat and keep their z-index logic. The light lies on the pane, beneath type and fan, so it never washes out text. Tokens `--glass-*` have dark values. Not on mobile.
+The hero group (copy and fan) stands on one pane of glass that lies on the floor in perspective: from above it is a trapezoid (`perspective(1250px) rotateX(60deg)`), its far edge behind the lower part of the group, its near edge just below the cards. It has a bright rim, a slab edge along the near side and a soft shadow on the floor, and a band of light slides across it opposite to the pointer (`--mx`, set on `.hero` by `card-deck.js`). It is two pseudo-elements of `.hero`, grid items spanning both columns at the group's bottom, so it follows the group at every width; on narrow windows `.page` clips what runs past the viewport. Only the pane is 3D: the cards and type stay flat and keep their z-index logic. The light lies on the pane, beneath type and fan, so it never washes out text. Tokens `--glass-*` have dark values. Not on mobile.
 
 ### Named Rules
 **The Resting Weight Rule.** Hover marks an object by brightening it, sharpening its shadow and sliding it a few pixels along its stack; it never raises it above its neighbours. Only the click pulls a card out.

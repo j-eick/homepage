@@ -84,6 +84,7 @@
   --glass-shade: rgba(15, 35, 64, 0.07);
   --glass-sheen: rgba(255, 255, 255, 0.6);
   --glass-glow: rgba(255, 255, 255, 0.35);
+  --glass-thick: rgba(140, 170, 215, 0.5);
   /* motion curves for the card-deck pull-out/push-back — both swing
      gently past their target and settle back (a soft spring, not a
      hard stop), just toned down a lot from a textbook "back" ease so
@@ -836,6 +837,9 @@ a[aria-disabled="true"] {
     flex-direction: column;
     min-height: 100vh;
     min-height: 100dvh;
+    /* the glass floor is wider than the group and may run past the viewport
+       on narrow windows; clip it instead of scrolling sideways */
+    overflow-x: clip;
   }
   main {
     flex: 1;
@@ -867,36 +871,46 @@ a[aria-disabled="true"] {
     transform-origin: center;
   }
 
-  /* GLASS PLATE: the whole group (copy and fan) sits on one pane of glass.
-     Two pseudo-elements are grid items spanning both columns, so the pane is
-     exactly as wide and tall as the group and follows it at every width; the
-     negative margins let it overhang as a rim. No 3D: a flat rounded pane,
-     a bright top edge, a soft shade underneath, and a band of light that
-     slides across it opposite to the pointer (--mx from card-deck.js). */
+  /* GLASS PLATE: the whole group (copy and fan) stands on one pane of glass
+     that lies on the floor in perspective: seen from above it is a trapezoid,
+     its far edge behind the lower part of the group, its near edge in front.
+     Two pseudo-elements, grid items spanning both columns and sitting at the
+     bottom of the group, share the footprint (width = the group's, plus a rim)
+     and the tilt; the second carries the light, a band that slides across the
+     pane opposite to the pointer (--mx from card-deck.js). The cards and the
+     type stay flat: only the pane is 3D. */
   .hero::before,
   .hero::after {
     content: "";
     grid-column: 1 / -1;
     grid-row: 1;
-    align-self: stretch;
-    margin: -44px -52px;
-    border-radius: 40px;
+    align-self: end;
+    height: 560px;
+    /* the pane's centre sits a good way up the group, so its far half lies
+       behind the lower cards and the copy, and its near edge just below them */
+    margin: 0 -72px -143px;
+    border-radius: 36px;
+    transform: perspective(1250px) rotateX(60deg);
+    transform-origin: 50% 50%;
     pointer-events: none;
   }
   .hero::before {
     z-index: -1;
     background:
       radial-gradient(
-        420px 260px at 0% 0%,
+        520px 220px at 50% 0%,
         var(--glass-glow),
-        transparent 70%
+        transparent 75%
       ),
-      linear-gradient(135deg, var(--glass-a), var(--glass-b) 55%, var(--glass-a));
+      linear-gradient(to bottom, var(--glass-b), var(--glass-a));
     border: 1px solid var(--glass-edge);
     box-shadow:
+      /* the glass is thick: a slab edge along the near side */
+      0 7px 0 -1px var(--glass-thick),
+      0 9px 0 -1px var(--glass-edge),
       inset 0 1px 0 var(--glass-edge),
-      inset 0 -18px 28px -22px var(--glass-shade),
-      0 28px 60px -24px rgba(var(--shadow), 0.22);
+      /* and it throws a soft shadow on the floor */
+      0 50px 60px -34px rgba(var(--shadow), 0.3);
     -webkit-backdrop-filter: blur(10px) saturate(1.15);
     backdrop-filter: blur(10px) saturate(1.15);
   }
@@ -1067,6 +1081,7 @@ footer {
   --glass-shade: rgba(0, 0, 0, 0.35);
   --glass-sheen: rgba(255, 255, 255, 0.13);
   --glass-glow: rgba(255, 255, 255, 0.07);
+  --glass-thick: rgba(110, 145, 215, 0.2);
   --bg: #0b1322;
   --ink: #e6edfb;
   --ink-soft: #b4c0da;
