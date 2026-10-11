@@ -220,25 +220,28 @@ a:hover {
   outline-color: var(--accent);
 }
 
+/* deck-base is the convergence anchor: its own position never moves.
+   Every other card's top/left interpolates toward it as --deck-t drops,
+   so the fan closes into a stack instead of staying spread out. */
 .deck-base {
   top: 251px;
   left: 319px;
   background: #d7e0ef;
   border-color: rgba(15, 35, 64, 0.06);
-  /* rotation scales with --deck-t: fully upright (0deg) at <=900px,
-     back to the original tilt at >=1150px */
-  transform: rotate(calc(8deg * var(--deck-t)));
+  /* rotation only eases toward upright (20% of the original angle left
+     at <=900px), not fully flat — back to the full tilt at >=1150px */
+  transform: rotate(calc(8deg * (0.2 + 0.8 * var(--deck-t))));
   box-shadow: 0 10px 24px rgba(15, 35, 64, 0.12);
 }
 
 .deck-contact {
-  top: 184px;
-  left: 280px;
+  top: calc(251px - 67px * var(--deck-t));
+  left: calc(319px - 39px * var(--deck-t));
   margin: 0;
   appearance: none;
   background: var(--surface);
   border-color: var(--border);
-  transform: rotate(calc(3deg * var(--deck-t)));
+  transform: rotate(calc(3deg * (0.2 + 0.8 * var(--deck-t))));
   box-shadow: 0 14px 32px rgba(15, 35, 64, 0.14);
   display: flex;
   flex-direction: column;
@@ -251,11 +254,11 @@ a:hover {
 }
 
 .deck-playlist {
-  top: 107px;
-  left: 232px;
+  top: calc(251px - 144px * var(--deck-t));
+  left: calc(319px - 87px * var(--deck-t));
   background: var(--surface);
   border-color: var(--border);
-  transform: rotate(calc(-2deg * var(--deck-t)));
+  transform: rotate(calc(-2deg * (0.2 + 0.8 * var(--deck-t))));
   box-shadow: 0 18px 36px rgba(15, 35, 64, 0.16);
   display: flex;
   flex-direction: column;
@@ -265,11 +268,11 @@ a:hover {
 }
 
 .deck-blog {
-  top: 38px;
-  left: 164px;
+  top: calc(251px - 213px * var(--deck-t));
+  left: calc(319px - 155px * var(--deck-t));
   background: var(--surface);
   border-color: var(--border);
-  transform: rotate(calc(-7deg * var(--deck-t)));
+  transform: rotate(calc(-7deg * (0.2 + 0.8 * var(--deck-t))));
   box-shadow: 0 22px 44px rgba(15, 35, 64, 0.18);
   display: flex;
   flex-direction: column;
@@ -279,10 +282,10 @@ a:hover {
 }
 
 .deck-portfolio {
-  top: -19px;
-  left: 77px;
+  top: calc(251px - 270px * var(--deck-t));
+  left: calc(319px - 242px * var(--deck-t));
   background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-  transform: rotate(calc(-13deg * var(--deck-t)));
+  transform: rotate(calc(-13deg * (0.2 + 0.8 * var(--deck-t))));
   box-shadow: 0 28px 54px rgba(15, 35, 64, 0.24);
   display: flex;
   flex-direction: column;
