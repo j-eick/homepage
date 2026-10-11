@@ -50,7 +50,7 @@
 
   var deckInner = document.querySelector(".card-deck-inner");
 
-  // The card opens as a modal: it grows to 2x and moves to the centre of the
+  // The card opens as a modal: it grows to 1.5x and moves to the centre of the
   // viewport. The CSS can't know where the card sits on screen, so the
   // translation is worked out here, in the card's own (unscaled) pixels.
   // The centre is taken from the card's laid-out place in the fan, so the

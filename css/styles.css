@@ -471,7 +471,7 @@ a[aria-disabled="true"] {
 }
 /* the open card is a modal: full surface, no pointer depth, no hover slide,
    no hover brightening. Its shadow is the soft one: the card is scaled 2x,
-   so offset and blur are doubled on screen. */
+   so offset and blur are 1.5x on screen. */
 .deck-card.is-active {
   translate: none;
   rotate: none;
@@ -545,7 +545,7 @@ a[aria-disabled="true"] {
   color: #fff;
 }
 
-/* "pulled out of the stack": rises above its siblings, grows 2x, straightens
+/* "pulled out of the stack": rises above its siblings, grows 1.5x, straightens
    to 0deg and moves to the centre of the viewport (--modal-x/--modal-y, set by
    card-deck.js from the card's place on screen). top/left stay exactly as
    laid out in the fan; the move is done entirely via transform.
@@ -572,7 +572,7 @@ a[aria-disabled="true"] {
   }
   100% {
     transform: translate(var(--modal-x, 0px), var(--modal-y, 0px)) rotate(0deg)
-      scale(2);
+      scale(1.5);
   }
 }
 
@@ -606,7 +606,7 @@ a[aria-disabled="true"] {
 @keyframes deck-push-back {
   0% {
     transform: translate(var(--modal-x, 0px), var(--modal-y, 0px)) rotate(0deg)
-      scale(2);
+      scale(1.5);
   }
   100% {
     transform: translate(0, 0) rotate(var(--deck-rot)) scale(1);
@@ -615,6 +615,41 @@ a[aria-disabled="true"] {
 
 .deck-card.is-active .deck-close {
   display: flex;
+}
+
+/* the card grows 1.5x but its type only 1.2x: label and value are scaled
+   down by 1.2 / 1.5 = 0.8 while the card opens, each from the corner it is
+   anchored to (label top-left, value bottom-left), so they keep their
+   distance from the edges */
+.deck-label {
+  transform-origin: left top;
+}
+.deck-value {
+  transform-origin: left bottom;
+}
+.deck-card.is-active .deck-label,
+.deck-card.is-active .deck-value {
+  animation: deck-text-open 0.56s var(--ease-spring) forwards;
+}
+.deck-card.is-closing .deck-label,
+.deck-card.is-closing .deck-value {
+  animation: deck-text-close 0.62s var(--ease-return) forwards;
+}
+@keyframes deck-text-open {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.8);
+  }
+}
+@keyframes deck-text-close {
+  0% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* The fan is an upright tower on a slight half circle (a ")"): each card sits
@@ -812,6 +847,8 @@ a[aria-disabled="true"] {
     grid-column: 1;
     grid-row: 1;
     max-width: 560px;
+    /* the column is as wide as its longest line (293px); 10% wider */
+    min-width: 322px;
   }
 
   /* layout box = the fan at its current scale (full size: 364 x 611). Its
