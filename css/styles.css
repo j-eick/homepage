@@ -213,11 +213,20 @@ a:hover {
   border: 1px solid transparent;
   outline: 2px solid transparent;
   outline-offset: 2px;
-  transition: outline-color 0.15s ease;
+  /* each specific .deck-* rule below only sets --deck-rot; the actual
+     rotate() transform (and its hover variant) lives here once */
+  transform: rotate(var(--deck-rot));
+  transition:
+    outline-color 0.15s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .deck-card:hover {
   outline-color: var(--accent);
+  transform: rotate(var(--deck-rot)) translateY(-6px);
+  box-shadow: 0 12px 20px rgba(15, 35, 64, 0.2);
+  z-index: 10;
 }
 
 /* deck-base is the convergence anchor: its own position never moves.
@@ -233,7 +242,7 @@ a:hover {
   border-color: rgba(15, 35, 64, 0.06);
   /* rotation only eases toward upright (20% of the original angle left
      at <=900px), not fully flat — back to the full tilt at >=1150px */
-  transform: rotate(calc(8deg * (0.2 + 0.8 * var(--deck-t))));
+  --deck-rot: calc(8deg * (0.2 + 0.8 * var(--deck-t)));
   box-shadow: 0 10px 24px rgba(15, 35, 64, 0.12);
 }
 
@@ -244,7 +253,7 @@ a:hover {
   appearance: none;
   background: var(--surface);
   border-color: var(--border);
-  transform: rotate(calc(3deg * (0.2 + 0.8 * var(--deck-t))));
+  --deck-rot: calc(3deg * (0.2 + 0.8 * var(--deck-t)));
   box-shadow: 0 14px 32px rgba(15, 35, 64, 0.14);
   display: flex;
   flex-direction: column;
@@ -261,7 +270,7 @@ a:hover {
   left: calc(289px - 57px * var(--deck-t));
   background: var(--surface);
   border-color: var(--border);
-  transform: rotate(calc(-2deg * (0.2 + 0.8 * var(--deck-t))));
+  --deck-rot: calc(-2deg * (0.2 + 0.8 * var(--deck-t)));
   box-shadow: 0 18px 36px rgba(15, 35, 64, 0.16);
   display: flex;
   flex-direction: column;
@@ -275,7 +284,7 @@ a:hover {
   left: calc(265px - 101px * var(--deck-t));
   background: var(--surface);
   border-color: var(--border);
-  transform: rotate(calc(-7deg * (0.2 + 0.8 * var(--deck-t))));
+  --deck-rot: calc(-7deg * (0.2 + 0.8 * var(--deck-t)));
   box-shadow: 0 22px 44px rgba(15, 35, 64, 0.18);
   display: flex;
   flex-direction: column;
@@ -288,7 +297,7 @@ a:hover {
   top: calc(157px - 176px * var(--deck-t));
   left: calc(234px - 157px * var(--deck-t));
   background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-  transform: rotate(calc(-13deg * (0.2 + 0.8 * var(--deck-t))));
+  --deck-rot: calc(-13deg * (0.2 + 0.8 * var(--deck-t)));
   box-shadow: 0 28px 54px rgba(15, 35, 64, 0.24);
   display: flex;
   flex-direction: column;
