@@ -309,6 +309,11 @@ a[aria-disabled="true"] {
   width: 26px;
   height: 26px;
 }
+/* the round glyphs belong to the desktop row only (see the 900px block);
+   below that the original glyphs stay */
+.cta-row .btn svg.btn-icon-round {
+  display: none;
+}
 .btn-label {
   position: absolute;
   width: 1px;
@@ -777,6 +782,13 @@ a[aria-disabled="true"] {
   .cta-row .btn .btn-icon {
     width: 28px;
     height: 28px;
+  }
+  /* one shape for all four links: round glyphs (disc with the symbol cut out) */
+  .cta-row .btn svg.btn-icon:not(.btn-icon-round) {
+    display: none;
+  }
+  .cta-row .btn svg.btn-icon-round {
+    display: block;
   }
   .cta-row .btn[href]:hover {
     background: none;
