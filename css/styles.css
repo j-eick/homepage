@@ -441,7 +441,7 @@ a[aria-disabled="true"] {
          top follow the pointer a little more than the ones beneath */
   --card-edge: color-mix(in srgb, var(--ink) 16%, var(--surface));
   --card-rest:
-    inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 6px 0 0 var(--card-edge),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 3px 0 0 var(--card-edge),
     0 7px 9px -5px rgba(var(--shadow), 0.22);
   --depth: 0;
   --hx: 0px;
@@ -467,7 +467,7 @@ a[aria-disabled="true"] {
   --hx: 4px;
   --hy: 6px;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 6px 0 0 var(--card-edge),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 3px 0 0 var(--card-edge),
     0 10px 12px -6px rgba(var(--shadow), 0.3);
 }
 .deck-work:hover,
@@ -596,7 +596,7 @@ a[aria-disabled="true"] {
   0% {
     height: 174px;
     transform: translate(var(--from-x, 0px), var(--from-y, 0px))
-      rotateX(var(--lean)) rotate(var(--deck-rot)) scale(1);
+      rotateX(var(--lean)) rotate(var(--deck-rot)) scale(var(--card-scale));
   }
   100% {
     height: var(--open-h, 174px);
@@ -641,7 +641,7 @@ a[aria-disabled="true"] {
   100% {
     height: 174px;
     transform: translate(0, 0) rotateX(var(--lean)) rotate(var(--deck-rot))
-      scale(1);
+      scale(var(--card-scale));
   }
 }
 
@@ -736,14 +736,14 @@ a[aria-disabled="true"] {
 .deck-contact {
   /* the nearer the row, the higher; within a row the right one on top */
   z-index: 5;
-  --tilt: 30deg;
+  --tilt: 20deg;
   --depth: 3;
   --float-dur: 7.5s;
   --float-delay: -5.5s;
   --pull-x: 26px;
   --pull-y: 16px;
-  --own-top: 513px;
-  --own-left: 585px;
+  --own-top: 535px;
+  --own-left: 595px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
   --deck-rot: 4deg;
@@ -753,14 +753,14 @@ a[aria-disabled="true"] {
 .deck-playlist {
   /* the nearer the row, the higher; within a row the right one on top */
   z-index: 4;
-  --tilt: 33deg;
+  --tilt: 20deg;
   --depth: 4;
   --float-dur: 9s;
   --float-delay: -1.2s;
   --pull-x: 34px;
   --pull-y: 8px;
-  --own-top: 411px;
-  --own-left: 835px;
+  --own-top: 434px;
+  --own-left: 761px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
   --deck-rot: 2deg;
@@ -770,14 +770,14 @@ a[aria-disabled="true"] {
 .deck-blog {
   /* the nearer the row, the higher; within a row the right one on top */
   z-index: 3;
-  --tilt: 26deg;
+  --tilt: 20deg;
   --depth: 5;
   --float-dur: 6.5s;
   --float-delay: -4.3s;
   --pull-x: 40px;
   --pull-y: 0px;
-  --own-top: 416px;
-  --own-left: 500px;
+  --own-top: 434px;
+  --own-left: 485px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
   --deck-rot: 0deg;
@@ -787,14 +787,14 @@ a[aria-disabled="true"] {
 .deck-work {
   /* the nearer the row, the higher; within a row the right one on top */
   z-index: 1;
-  --tilt: 20deg;
+  --tilt: 35deg;
   --depth: 9;
   --float-dur: 7s;
   --float-delay: 0s;
   --pull-x: 26px;
   --pull-y: -16px;
-  --own-top: 295px;
-  --own-left: 500px;
+  --own-top: 316px;
+  --own-left: 495px;
   background: var(--surface);
   border-color: var(--border);
   --deck-rot: -4deg;
@@ -804,14 +804,14 @@ a[aria-disabled="true"] {
 .deck-portfolio {
   /* the nearer the row, the higher; within a row the right one on top */
   z-index: 2;
-  --tilt: 44deg;
+  --tilt: 35deg;
   --depth: 7;
   --float-dur: 8.5s;
   --float-delay: -2.1s;
   --pull-x: 34px;
   --pull-y: -8px;
-  --own-top: 250px;
-  --own-left: 827px;
+  --own-top: 316px;
+  --own-left: 771px;
   /* a pane's light across the blue card, behind its type */
   background:
     linear-gradient(115deg, rgba(255, 255, 255, 0.2), transparent 42%),
@@ -1060,7 +1060,12 @@ a[aria-disabled="true"] {
        far edge rests on something and stands up --tilt (20 to 45deg, one
        value per card), so the card is 60deg - tilt from the screen */
     --lean: calc(60deg - var(--tilt, 0deg));
-    transform: rotateX(var(--lean)) rotate(var(--deck-rot));
+    /* the cards are a little smaller than the open card's base size, so
+       five of them fit side by side on the plate; the modal still grows to
+       1.5x of the full size */
+    --card-scale: 0.85;
+    transform: rotateX(var(--lean)) rotate(var(--deck-rot))
+      scale(var(--card-scale));
     pointer-events: auto;
   }
   .deck-card.is-active {
