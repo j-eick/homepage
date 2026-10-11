@@ -2,7 +2,7 @@
   "use strict";
 
   var CLOSE_TIMEOUT_MS = 20000;
-  var CLOSE_ANIM_MS = 220; // keep in sync with .deck-card.is-closing's animation-duration
+  var CLOSE_ANIM_MS = 240; // keep in sync with .deck-card.is-closing's animation-duration
   var cards = document.querySelectorAll(
     ".deck-contact, .deck-playlist, .deck-blog, .deck-portfolio",
   );
