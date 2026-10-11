@@ -206,6 +206,11 @@ a:hover {
      shrinks in from the left */
   transform-origin: top right;
   transform: scale(calc(0.7 + 0.3 * var(--deck-t)));
+  /* every card's pull-out target: the blog card's own position, so all
+     opened cards converge on the same spot regardless of where they
+     started in the fan */
+  --target-top: calc(176px - 138px * var(--deck-t));
+  --target-left: calc(265px - 101px * var(--deck-t));
 }
 
 .deck-card {
@@ -219,21 +224,18 @@ a:hover {
   outline: 2px solid transparent;
   outline-offset: 2px;
   cursor: pointer;
-  /* each specific .deck-* rule below only sets --deck-rot; the actual
-     rotate() transform (and its hover variant) lives here once.
-     --pull-dx: sideways drift used by the pull-out animation below,
-     derived from this card's own tilt — clockwise tilt drifts left,
-     counter-clockwise drifts right, proportional to the angle. */
-  --pull-dx: calc((var(--deck-rot) / 1deg) * -2px);
+  /* each specific .deck-* rule below only sets --deck-rot and its own
+     --own-top/--own-left; the actual rotate() transform (and its hover
+     variant) lives here once, along with the translate distance to the
+     shared pull-out target (the blog card's position, set as
+     --target-top/--target-left on .card-deck-inner above) — this is
+     the real path each card travels when pulled out, not an estimate. */
+  --pull-dx: calc(var(--target-left) - var(--own-left));
+  --pull-dy: calc(var(--target-top) - var(--own-top));
   transform: rotate(var(--deck-rot));
   transition:
     outline-color 0.15s ease,
-    box-shadow 0.2s cubic-bezier(0.2, 0.8, 0.2, 1),
-    /* governs the smooth return to the stack when .is-active is
-       removed — opening itself is driven by the keyframe animation
-       below, not this transition */
-    transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1),
-    top 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
+    box-shadow 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 /* marks the card without lifting it or raising its z-index — that
@@ -271,18 +273,18 @@ a:hover {
   color: #fff;
 }
 
-/* "pulled out of the stack": rises above its siblings, slides up to the
-   topmost (deck-portfolio) card's height, scales up 20%, and straightens
-   to 0deg. top/box-shadow still ease via the transition above; the
-   transform itself follows an actual path via deck-pull-out below
-   instead of a straight interpolation — it drifts sideways (in the
-   direction of its own original tilt) and overshoots slightly on scale
-   before settling, so it reads as being pulled free rather than just
-   resized in place. animation-fill-mode:forwards holds the end state;
-   removing .is-active falls back to the transition above for a smooth
-   return to the stack. */
+/* "pulled out of the stack": rises above its siblings, translates to the
+   shared target position (--pull-dx/--pull-dy, the blog card's own
+   position — see .card-deck-inner), scales up 20% and straightens to
+   0deg. top/left stay exactly as laid out in the fan; the move is done
+   entirely via transform so every card can share one real path to one
+   shared endpoint instead of each animating its own top/left. At 60% it
+   has covered most of the distance with some extra lift and a scale
+   overshoot, so it reads as being pulled free rather than just slid
+   into place. animation-fill-mode:forwards holds the end state; closing
+   is handled by .is-closing below (added/removed by JS), not by this
+   class being removed. */
 .deck-card.is-active {
-  top: calc(157px - 176px * var(--deck-t));
   z-index: 100;
   animation: deck-pull-out 0.38s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
 }
@@ -292,11 +294,34 @@ a:hover {
     transform: translate(0, 0) rotate(var(--deck-rot)) scale(1);
   }
   60% {
-    transform: translate(var(--pull-dx), -14px)
+    transform: translate(calc(var(--pull-dx) * 0.85), calc(var(--pull-dy) * 0.85 - 14px))
       rotate(calc(var(--deck-rot) * 0.4)) scale(1.1);
   }
   100% {
-    transform: translate(0, 0) rotate(0deg) scale(1.2);
+    transform: translate(var(--pull-dx), var(--pull-dy)) rotate(0deg) scale(1.2);
+  }
+}
+
+/* return to the stack: the same path, reversed, but shortened and run
+   faster — a quick retreat rather than a mirrored replay of the full
+   pull-out. JS adds this in the same tick it removes .is-active, so the
+   transform picks up exactly where .is-active's animation left off,
+   then removes it again once the animation has finished. */
+.deck-card.is-closing {
+  z-index: 100;
+  animation: deck-push-back 0.22s cubic-bezier(0.3, 0, 0.4, 1) forwards;
+}
+
+@keyframes deck-push-back {
+  0% {
+    transform: translate(var(--pull-dx), var(--pull-dy)) rotate(0deg) scale(1.2);
+  }
+  50% {
+    transform: translate(calc(var(--pull-dx) * 0.4), calc(var(--pull-dy) * 0.4 - 6px))
+      rotate(calc(var(--deck-rot) * 0.6)) scale(1.05);
+  }
+  100% {
+    transform: translate(0, 0) rotate(var(--deck-rot)) scale(1);
   }
 }
 
@@ -311,8 +336,10 @@ a:hover {
    0, so the cards still visibly peek out from each other rather than
    landing exactly on top of deck-base. */
 .deck-base {
-  top: 251px;
-  left: 319px;
+  --own-top: 251px;
+  --own-left: 319px;
+  top: var(--own-top);
+  left: var(--own-left);
   background: #d7e0ef;
   border-color: rgba(15, 35, 64, 0.06);
   /* rotation only eases toward upright (20% of the original angle left
@@ -322,8 +349,10 @@ a:hover {
 }
 
 .deck-contact {
-  top: calc(228px - 44px * var(--deck-t));
-  left: calc(305px - 25px * var(--deck-t));
+  --own-top: calc(228px - 44px * var(--deck-t));
+  --own-left: calc(305px - 25px * var(--deck-t));
+  top: var(--own-top);
+  left: var(--own-left);
   margin: 0;
   appearance: none;
   background: var(--surface);
@@ -341,8 +370,10 @@ a:hover {
 }
 
 .deck-playlist {
-  top: calc(201px - 94px * var(--deck-t));
-  left: calc(289px - 57px * var(--deck-t));
+  --own-top: calc(201px - 94px * var(--deck-t));
+  --own-left: calc(289px - 57px * var(--deck-t));
+  top: var(--own-top);
+  left: var(--own-left);
   background: var(--surface);
   border-color: var(--border);
   --deck-rot: calc(-2deg * (0.2 + 0.8 * var(--deck-t)));
@@ -355,8 +386,10 @@ a:hover {
 }
 
 .deck-blog {
-  top: calc(176px - 138px * var(--deck-t));
-  left: calc(265px - 101px * var(--deck-t));
+  --own-top: calc(176px - 138px * var(--deck-t));
+  --own-left: calc(265px - 101px * var(--deck-t));
+  top: var(--own-top);
+  left: var(--own-left);
   background: var(--surface);
   border-color: var(--border);
   --deck-rot: calc(-7deg * (0.2 + 0.8 * var(--deck-t)));
@@ -369,8 +402,10 @@ a:hover {
 }
 
 .deck-portfolio {
-  top: calc(157px - 176px * var(--deck-t));
-  left: calc(234px - 157px * var(--deck-t));
+  --own-top: calc(157px - 176px * var(--deck-t));
+  --own-left: calc(234px - 157px * var(--deck-t));
+  top: var(--own-top);
+  left: var(--own-left);
   background: linear-gradient(135deg, var(--accent), var(--accent-dark));
   --deck-rot: calc(-13deg * (0.2 + 0.8 * var(--deck-t)));
   box-shadow: 0 28px 54px rgba(15, 35, 64, 0.24);
