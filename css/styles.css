@@ -496,6 +496,68 @@ a[aria-disabled="true"] {
 
 /* the whole card is one real <button>; the close control is its sibling,
    not a child, so neither is nested inside the other */
+/* a quiet colour glow when the pointer comes over a card: a gradient laid
+   over its surface that fades in and slides across with ease-in, so it
+   reads as a tint of light and not as a fill. Each white card has its own
+   pair of tones (the same hues as the round icons); the blue card gets a
+   band of white light instead, like a gloss. Not on the open card. */
+.deck-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background-image: linear-gradient(
+    125deg,
+    var(--glow-a, transparent),
+    var(--glow-b, transparent)
+  );
+  background-size: 240% 240%;
+  background-position: 0% 0%;
+  transition:
+    opacity 0.6s ease-in,
+    background-position 1.2s ease-in;
+}
+.deck-card:hover::before {
+  opacity: 1;
+  background-position: 100% 100%;
+}
+.deck-card.is-active::before {
+  opacity: 0;
+  transition: none;
+}
+.deck-work {
+  --glow-a: color-mix(in srgb, var(--accent) 10%, transparent);
+  --glow-b: color-mix(in srgb, var(--warm) 8%, transparent);
+}
+.deck-blog {
+  --glow-a: color-mix(in srgb, var(--warm) 11%, transparent);
+  --glow-b: color-mix(in srgb, var(--accent) 7%, transparent);
+}
+.deck-contact {
+  --glow-a: color-mix(in srgb, var(--accent) 9%, transparent);
+  --glow-b: color-mix(in srgb, var(--spotify) 8%, transparent);
+}
+.deck-playlist {
+  --glow-a: color-mix(in srgb, var(--spotify) 11%, transparent);
+  --glow-b: color-mix(in srgb, var(--accent) 7%, transparent);
+}
+/* the blue card: a white band of light that travels across it */
+.deck-portfolio::before {
+  background-image: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 70%
+  );
+  background-size: 300% 100%;
+  background-position: 100% 0;
+}
+.deck-portfolio:hover::before {
+  background-position: 0% 0;
+}
+
 .deck-trigger {
   position: absolute;
   inset: 0;
@@ -755,6 +817,13 @@ a[aria-disabled="true"] {
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
   --deck-rot: 2deg;
+  /* it rests on the glass's corner, so it casts no shadow of its own: what
+     carries its thickness is a stronger rim, a darker and deeper slab edge
+     and a thin edge on the right */
+  --card-edge: color-mix(in srgb, var(--ink) 40%, var(--surface));
+  --card-rest:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 6px 0 0 var(--card-edge),
+    1px 1px 0 0 var(--card-edge);
   box-shadow: var(--card-rest);
 }
 

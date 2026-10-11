@@ -199,3 +199,7 @@ Small marks on the same design, purely decorative and CSS only: a dot in every c
 - **Don't** lift a desktop card on hover; marking is not pulling out. (Mobile cards behind slide 6px further out on hover.)
 - **Don't** colour the cards of the mobile stack; they stay white (a touch dimmer behind), with Signal Blue only on the icon tile.
 - **Don't** use hard offset shadows or glows for depth.
+
+### Card glow (desktop)
+
+Hovering a white card fades a faint two-tone gradient over it and slides it across (`::before`, `ease-in`, 0.6s opacity, 1.2s position), a tint of light and not a fill; each card has its own pair of hues from the palette (accent, warm, Spotify green) at 8 to 11%. The blue Portfolio card gets a soft band of white light that travels across it instead, like a gloss. The open card has none. Alarm on Drugs lies on the glass's corner and casts no shadow, so its thickness is carried by a darker, deeper slab edge (`0 6px 0`) and a 1px edge on its right.
