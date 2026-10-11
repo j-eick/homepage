@@ -453,7 +453,7 @@ a[aria-disabled="true"] {
 .deck-card:has(:focus-visible) {
   --hx: 4px;
   --hy: 6px;
-  box-shadow: 0 18px 28px rgba(var(--shadow), 0.42);
+  box-shadow: 0 11px 16px rgba(var(--shadow), 0.5);
 }
 .deck-work:hover,
 .deck-contact:hover,
@@ -469,10 +469,14 @@ a[aria-disabled="true"] {
 .deck-portfolio:has(:focus-visible) {
   filter: brightness(1.08);
 }
-/* a card that was pulled out is full surface and stays where it is */
+/* the open card is a modal: full surface, no pointer depth, no hover slide,
+   no hover brightening. Its shadow is the soft one: the card is scaled 2x,
+   so offset and blur are doubled on screen. */
 .deck-card.is-active {
   translate: none;
   rotate: none;
+  filter: none;
+  box-shadow: 0 14px 40px rgba(var(--shadow), 0.18);
 }
 .deck-work.is-active,
 .deck-contact.is-active,
@@ -541,10 +545,10 @@ a[aria-disabled="true"] {
   color: #fff;
 }
 
-/* "pulled out of the stack": rises above its siblings, slides outward from
-   its own place in the stack (--pull-x/--pull-y, along the arc's outward
-   direction), grows by 36% and straightens to 0deg. top/left stay exactly
-   as laid out in the fan; the move is done entirely via transform.
+/* "pulled out of the stack": rises above its siblings, grows 2x, straightens
+   to 0deg and moves to the centre of the viewport (--modal-x/--modal-y, set by
+   card-deck.js from the card's place on screen). top/left stay exactly as
+   laid out in the fan; the move is done entirely via transform.
 
    Only two keyframes (0%/100%) on purpose — a hand-placed midpoint
    forces the browser to re-ease twice (into the midpoint, then again
@@ -563,10 +567,12 @@ a[aria-disabled="true"] {
 
 @keyframes deck-pull-out {
   0% {
-    transform: translate(0, 0) rotate(var(--deck-rot)) scale(1);
+    transform: translate(var(--from-x, 0px), var(--from-y, 0px))
+      rotate(var(--deck-rot)) scale(1);
   }
   100% {
-    transform: translate(var(--pull-x), var(--pull-y)) rotate(0deg) scale(1.36);
+    transform: translate(var(--modal-x, 0px), var(--modal-y, 0px)) rotate(0deg)
+      scale(2);
   }
 }
 
@@ -599,7 +605,8 @@ a[aria-disabled="true"] {
 
 @keyframes deck-push-back {
   0% {
-    transform: translate(var(--pull-x), var(--pull-y)) rotate(0deg) scale(1.36);
+    transform: translate(var(--modal-x, 0px), var(--modal-y, 0px)) rotate(0deg)
+      scale(2);
   }
   100% {
     transform: translate(0, 0) rotate(var(--deck-rot)) scale(1);
@@ -633,7 +640,7 @@ a[aria-disabled="true"] {
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
   --deck-rot: 4deg;
-  box-shadow: 0 16px 32px rgba(var(--shadow), 0.24);
+  box-shadow: 0 9px 14px rgba(var(--shadow), 0.32);
 }
 
 .deck-playlist {
@@ -647,7 +654,7 @@ a[aria-disabled="true"] {
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
   --deck-rot: 2deg;
-  box-shadow: 0 20px 38px rgba(var(--shadow), 0.27);
+  box-shadow: 0 11px 17px rgba(var(--shadow), 0.35);
 }
 
 .deck-blog {
@@ -661,7 +668,7 @@ a[aria-disabled="true"] {
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
   --deck-rot: 0deg;
-  box-shadow: 0 24px 44px rgba(var(--shadow), 0.3);
+  box-shadow: 0 13px 20px rgba(var(--shadow), 0.38);
 }
 
 .deck-work {
@@ -675,7 +682,7 @@ a[aria-disabled="true"] {
   background: var(--surface);
   border-color: var(--border);
   --deck-rot: -4deg;
-  box-shadow: 0 34px 64px rgba(var(--shadow), 0.4);
+  box-shadow: 0 18px 28px rgba(var(--shadow), 0.46);
 }
 
 .deck-portfolio {
@@ -688,7 +695,7 @@ a[aria-disabled="true"] {
   --own-left: 60px;
   background: linear-gradient(135deg, var(--card-from), var(--card-to));
   --deck-rot: -2deg;
-  box-shadow: 0 28px 52px rgba(var(--shadow), 0.34);
+  box-shadow: 0 15px 24px rgba(var(--shadow), 0.42);
 }
 
 .deck-label {
@@ -881,10 +888,9 @@ a[aria-disabled="true"] {
   .deck-card {
     animation: deck-float var(--float-dur) ease-in-out var(--float-delay) infinite;
   }
+  /* the open card holds still: no drift */
   .deck-card.is-active {
-    animation:
-      deck-pull-out 0.56s var(--ease-spring) forwards,
-      deck-float var(--float-dur) ease-in-out var(--float-delay) infinite;
+    animation: deck-pull-out 0.56s var(--ease-spring) forwards;
   }
   .deck-card.is-closing {
     animation:

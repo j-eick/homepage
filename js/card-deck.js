@@ -48,9 +48,44 @@
     }, CLOSE_ANIM_MS);
   }
 
+  var deckInner = document.querySelector(".card-deck-inner");
+
+  // The card opens as a modal: it grows to 2x and moves to the centre of the
+  // viewport. The CSS can't know where the card sits on screen, so the
+  // translation is worked out here, in the card's own (unscaled) pixels.
+  // The centre is taken from the card's laid-out place in the fan, so the
+  // idle drift and the hover slide don't skew it.
+  function placeModal(card) {
+    if (!deckInner) return;
+    var cs = getComputedStyle(card);
+    var ownTop = parseFloat(cs.getPropertyValue("--own-top")) || 0;
+    var ownLeft = parseFloat(cs.getPropertyValue("--own-left")) || 0;
+    var box = deckInner.getBoundingClientRect();
+    var scale = box.width / deckInner.offsetWidth || 1;
+    var cx = box.left + (ownLeft + card.offsetWidth / 2) * scale;
+    var cy = box.top + (ownTop + card.offsetHeight / 2) * scale;
+    var vw = document.documentElement.clientWidth;
+    var vh = document.documentElement.clientHeight;
+    card.style.setProperty("--modal-x", ((vw / 2 - cx) / scale).toFixed(2) + "px");
+    card.style.setProperty("--modal-y", ((vh / 2 - cy) / scale).toFixed(2) + "px");
+  }
+
   function openCard(card) {
     if (activeCard === card) return;
     closeActive();
+
+    // the active card stops drifting; start the move from wherever the drift
+    // had put it, so it doesn't jump when the animation is dropped
+    var cs = getComputedStyle(card);
+    card.style.setProperty(
+      "--from-x",
+      (parseFloat(cs.left) - (parseFloat(cs.getPropertyValue("--own-left")) || 0)).toFixed(2) + "px",
+    );
+    card.style.setProperty(
+      "--from-y",
+      (parseFloat(cs.top) - (parseFloat(cs.getPropertyValue("--own-top")) || 0)).toFixed(2) + "px",
+    );
+    placeModal(card);
 
     // re-opening a card that's still mid-close: drop the stale closing
     // state so it doesn't linger and remove .is-active again later
@@ -78,6 +113,10 @@
     if (activeCard && !activeCard.contains(event.target)) {
       closeActive();
     }
+  });
+
+  window.addEventListener("resize", function () {
+    if (activeCard) placeModal(activeCard);
   });
 
   document.addEventListener("keydown", function (event) {
