@@ -439,6 +439,10 @@ a[aria-disabled="true"] {
        - pointer depth: --mx/--my in [-1, 1] (set on .card-deck-inner by
          card-deck.js) times the card's own --depth, so the cards nearer the
          top follow the pointer a little more than the ones beneath */
+  --card-edge: color-mix(in srgb, var(--ink) 16%, var(--surface));
+  --card-rest:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 3px 0 0 var(--card-edge),
+    0 7px 9px -5px rgba(var(--shadow), 0.22);
   --depth: 0;
   --hx: 0px;
   --hy: 0px;
@@ -462,7 +466,9 @@ a[aria-disabled="true"] {
 .deck-card:has(:focus-visible) {
   --hx: 4px;
   --hy: 6px;
-  box-shadow: 0 11px 16px rgba(var(--shadow), 0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 3px 0 0 var(--card-edge),
+    0 10px 12px -6px rgba(var(--shadow), 0.3);
 }
 .deck-work:hover,
 .deck-contact:hover,
@@ -590,12 +596,12 @@ a[aria-disabled="true"] {
   0% {
     height: 174px;
     transform: translate(var(--from-x, 0px), var(--from-y, 0px))
-      rotate(var(--deck-rot)) scale(1);
+      rotateX(var(--lean)) rotate(var(--deck-rot)) scale(1);
   }
   100% {
     height: var(--open-h, 174px);
-    transform: translate(var(--modal-x, 0px), var(--modal-y, 0px)) rotate(0deg)
-      scale(1.5);
+    transform: translate(var(--modal-x, 0px), var(--modal-y, 0px)) rotateX(0deg)
+      rotate(0deg) scale(1.5);
   }
 }
 
@@ -629,12 +635,13 @@ a[aria-disabled="true"] {
 @keyframes deck-push-back {
   0% {
     height: var(--open-h, 174px);
-    transform: translate(var(--modal-x, 0px), var(--modal-y, 0px)) rotate(0deg)
-      scale(1.5);
+    transform: translate(var(--modal-x, 0px), var(--modal-y, 0px)) rotateX(0deg)
+      rotate(0deg) scale(1.5);
   }
   100% {
     height: 174px;
-    transform: translate(0, 0) rotate(var(--deck-rot)) scale(1);
+    transform: translate(0, 0) rotateX(var(--lean)) rotate(var(--deck-rot))
+      scale(1);
   }
 }
 
@@ -727,75 +734,85 @@ a[aria-disabled="true"] {
    names stay readable at every width. Cards beneath rest a touch dimmer
    and brighten on hover (see below). */
 .deck-contact {
+  /* left to right, each one over its left neighbour */
+  z-index: 5;
   --depth: 3;
   --float-dur: 7.5s;
   --float-delay: -5.5s;
   --pull-x: 26px;
   --pull-y: 16px;
-  --own-top: 400px;
-  --own-left: 8px;
+  --own-top: 470px;
+  --own-left: 807px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
   --deck-rot: 4deg;
-  box-shadow: 0 9px 14px rgba(var(--shadow), 0.32);
+  box-shadow: var(--card-rest);
 }
 
 .deck-playlist {
+  /* left to right, each one over its left neighbour */
+  z-index: 4;
   --depth: 4;
   --float-dur: 9s;
   --float-delay: -1.2s;
   --pull-x: 34px;
   --pull-y: 8px;
-  --own-top: 305px;
-  --own-left: 64px;
+  --own-top: 470px;
+  --own-left: 657px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
   --deck-rot: 2deg;
-  box-shadow: 0 11px 17px rgba(var(--shadow), 0.35);
+  box-shadow: var(--card-rest);
 }
 
 .deck-blog {
+  /* left to right, each one over its left neighbour */
+  z-index: 3;
   --depth: 5;
   --float-dur: 6.5s;
   --float-delay: -4.3s;
   --pull-x: 40px;
   --pull-y: 0px;
-  --own-top: 210px;
-  --own-left: 86px;
+  --own-top: 470px;
+  --own-left: 507px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
   --deck-rot: 0deg;
-  box-shadow: 0 13px 20px rgba(var(--shadow), 0.38);
+  box-shadow: var(--card-rest);
 }
 
 .deck-work {
+  /* left to right, each one over its left neighbour */
+  z-index: 1;
   --depth: 9;
   --float-dur: 7s;
   --float-delay: 0s;
   --pull-x: 26px;
   --pull-y: -16px;
-  --own-top: 20px;
-  --own-left: 0px;
+  --own-top: 470px;
+  --own-left: 207px;
   background: var(--surface);
   border-color: var(--border);
   --deck-rot: -4deg;
-  box-shadow: 0 18px 28px rgba(var(--shadow), 0.46);
+  box-shadow: var(--card-rest);
 }
 
 .deck-portfolio {
+  /* left to right, each one over its left neighbour */
+  z-index: 2;
   --depth: 7;
   --float-dur: 8.5s;
   --float-delay: -2.1s;
   --pull-x: 34px;
   --pull-y: -8px;
-  --own-top: 115px;
-  --own-left: 60px;
+  --own-top: 470px;
+  --own-left: 357px;
   /* a pane's light across the blue card, behind its type */
   background:
     linear-gradient(115deg, rgba(255, 255, 255, 0.2), transparent 42%),
     linear-gradient(135deg, var(--card-from), var(--card-to));
   --deck-rot: -2deg;
-  box-shadow: 0 15px 24px rgba(var(--shadow), 0.42);
+  box-shadow: var(--card-rest);
 }
 
 .deck-label {
@@ -948,18 +965,20 @@ a[aria-disabled="true"] {
         rgba(255, 255, 255, 0.24)
       );
   }
-  /* the fan's box ends about 29px (at full size) below its lowest card; the
-     offset is negative twice that, so the mirror starts at the card's edge */
-  .card-deck {
-    -webkit-box-reflect: below calc(-58px * var(--deck-scale) + 6px)
+  /* the cards lie in a row far wider than the fan's layout box, and a
+     reflection is clipped to its box: so it sits on the inner box, which is
+     absolutely positioned and as wide and tall as the row needs. Its axis is
+     half the offset below the box's bottom edge, here just under the row. */
+  .card-deck-inner {
+    -webkit-box-reflect: below -300px
       linear-gradient(
         to bottom,
-        transparent calc(100% - 125px),
-        rgba(255, 255, 255, 0.28)
+        transparent calc(100% - 260px),
+        rgba(255, 255, 255, 0.28) calc(100% - 153px)
       );
   }
-  /* an open card has left the stack: its place would be mirrored empty */
-  .hero.has-open .card-deck {
+  /* an open card has left the row: its place would be mirrored empty */
+  .hero.has-open .card-deck-inner {
     -webkit-box-reflect: initial;
   }
 
@@ -1027,13 +1046,17 @@ a[aria-disabled="true"] {
     top: 0;
     right: 0;
     display: block;
-    width: 364px;
-    height: 611px;
+    width: 1000px;
+    height: 760px;
     pointer-events: none;
     /* shrinks to 91% as the viewport narrows toward 900px, anchored at the
        top-right so the fan's right edge stays put */
     transform-origin: top right;
     transform: scale(var(--deck-scale));
+    /* the cards lie on the glass plate: same perspective and the same
+       vanishing point as the plate (its centre: 647px across and 574px down this box) */
+    perspective: 1250px;
+    perspective-origin: 647px 574px;
   }
   .deck-card {
     position: absolute;
@@ -1041,7 +1064,9 @@ a[aria-disabled="true"] {
     left: var(--own-left);
     width: 270px;
     height: 174px;
-    transform: rotate(var(--deck-rot));
+    /* lying flat on the plate = the plate's own inclination (60deg) */
+    --lean: 60deg;
+    transform: rotateX(var(--lean)) rotate(var(--deck-rot));
     pointer-events: auto;
   }
   .deck-card.is-active {
@@ -1079,18 +1104,15 @@ a[aria-disabled="true"] {
   }
 }
 @media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
-  .deck-card {
-    animation: deck-float var(--float-dur) ease-in-out var(--float-delay) infinite;
-  }
-  /* the open card holds still: no drift */
+  /* the cards lie on a plate: no idle drift (deck-float stays defined) */
+  /* the open card holds its place */
   .deck-card.is-active {
     animation: deck-pull-out 0.56s var(--ease-spring) forwards;
   }
   .deck-card.is-closing {
     animation:
       deck-push-back 0.62s var(--ease-return) forwards,
-      deck-z-drop 0.62s linear forwards,
-      deck-float var(--float-dur) ease-in-out var(--float-delay) infinite;
+      deck-z-drop 0.62s linear forwards;
   }
 }
 
