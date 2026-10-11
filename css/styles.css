@@ -70,6 +70,12 @@
   --card-from: var(--accent);
   --card-to: var(--accent-dark);
   --shadow: 15, 35, 64;
+  /* small marks only: a warm amber and the Spotify green, for glyphs, the
+     hashtag # and washes; never a button fill or text colour */
+  --warm: #e8832a;
+  --warm-wash: rgba(232, 131, 42, 0.15);
+  --spotify: #17a348;
+  --spotify-wash: rgba(23, 163, 72, 0.14);
   /* motion curves for the card-deck pull-out/push-back — both swing
      gently past their target and settle back (a soft spring, not a
      hard stop), just toned down a lot from a textbook "back" ease so
@@ -241,14 +247,44 @@ a[aria-disabled="true"] {
   font-weight: 600;
 }
 
-.btn .btn-icon {
-  display: none;
-}
 .btn .btn-icon-always {
   display: block;
   flex: none;
   width: 16px;
   height: 16px;
+}
+/* the hero's links are icon buttons (LinkedIn, CV, Spotify, Blog): 56px
+   squares with 16px corners; the name stays as aria-label and as visually
+   hidden text */
+.cta-row .btn {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border-radius: 16px;
+}
+.cta-row .btn .btn-icon {
+  display: block;
+  width: 26px;
+  height: 26px;
+}
+.btn-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.btn-cv .btn-icon {
+  color: var(--accent);
+}
+.btn-spotify .btn-icon {
+  color: var(--spotify);
+}
+.btn-blog .btn-icon {
+  color: var(--warm);
 }
 /* the mobile card stack (see mobile.css): on desktop the wrapper is
    transparent and only the hero card exists */
@@ -259,9 +295,36 @@ a[aria-disabled="true"] {
 .stack-tab {
   display: none;
 }
-/* topic hashtags: mobile only (see mobile.css) */
+/* topic hashtags; each becomes a link to its blog articles later. The list
+   never widens the copy column: it takes the width the intro sets and wraps. */
 .hero-tags {
-  display: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 0;
+  min-width: 100%;
+  margin: 14px 0 0;
+  padding: 26px 0 0;
+  border-top: 1px solid var(--border);
+  list-style: none;
+}
+.tag {
+  display: inline-block;
+  padding: 7px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+.tag[href]:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.tag-hash {
+  color: var(--warm);
+  font-weight: 700;
 }
 
 .btn-primary {
@@ -284,13 +347,6 @@ a[aria-disabled="true"] {
   font-weight: 500;
 }
 
-.btn-ghost {
-  padding: 13px 18px;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--muted);
-  font-weight: 500;
-}
 
 /* CARD DECK — fanned from 900px up; not rendered below.
    Lives inside .hero. --deck-t: 0 at <=900px viewport width, 1 at >=1150px; it only drives the scale,
@@ -300,8 +356,9 @@ a[aria-disabled="true"] {
   position: relative;
   z-index: 2;
   --deck-t: clamp(0, calc((100vw - 900px) / 250px), 1);
-  /* visual scale of the whole fan (its layout box scales with it) */
-  --deck-scale: calc(0.7 + 0.3 * var(--deck-t));
+  /* visual scale of the whole fan (its layout box scales with it): 0.91 at
+     900px (0.7 made 30% larger so the names read), 1 from 1150px */
+  --deck-scale: calc(0.91 + 0.09 * var(--deck-t));
   display: none;
 }
 
@@ -356,9 +413,11 @@ a[aria-disabled="true"] {
   --hy: 6px;
   box-shadow: 0 12px 18px rgba(var(--shadow), 0.26);
 }
+.deck-work:hover,
 .deck-contact:hover,
 .deck-playlist:hover,
 .deck-blog:hover,
+.deck-work:has(:focus-visible),
 .deck-contact:has(:focus-visible),
 .deck-playlist:has(:focus-visible),
 .deck-blog:has(:focus-visible) {
@@ -373,6 +432,7 @@ a[aria-disabled="true"] {
   translate: none;
   rotate: none;
 }
+.deck-work.is-active,
 .deck-contact.is-active,
 .deck-playlist.is-active,
 .deck-blog.is-active {
@@ -510,17 +570,19 @@ a[aria-disabled="true"] {
   display: flex;
 }
 
-/* The fan is a tidy cascade: each card sits 60px further right and 62px
-   lower than the one above it and is tilted a little less than its
-   neighbour, so every card shows a band along its bottom edge with its
-   name in the lower-left corner. The whole fan scales with the viewport
+/* The fan is a cascade on a gentle arc: each card sits 62px lower than the
+   one above it, and the sideways step shrinks from card to card (66, 54, 42,
+   30, 20px), so the pile bows out to the upper right and the cards below sweep
+   back under it. Each card is tilted a little less than its neighbour, so
+   every card shows a band along its bottom edge with its name in the
+   lower-left corner. The whole fan scales with the viewport
    (--deck-scale); the spacing between the cards never collapses, so the
    names stay readable at every width. Cards beneath rest a touch dimmer
    and brighten on hover (see below). */
 .deck-base {
   display: none;  --depth: 2;
 
-  --own-top: 252px;
+  --own-top: 314px;
   --own-left: 302px;
   background: var(--surface-sunk);
   border-color: rgba(var(--shadow), 0.06);
@@ -529,42 +591,52 @@ a[aria-disabled="true"] {
 }
 
 .deck-contact {
-  --depth: 4;
-  --own-top: 206px;
-  --own-left: 270px;
+  --depth: 3;
+  --own-top: 268px;
+  --own-left: 282px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
-  --deck-rot: 2deg;
-  box-shadow: 0 14px 26px rgba(var(--shadow), 0.14);
+  --deck-rot: 2.4deg;
+  box-shadow: 0 12px 24px rgba(var(--shadow), 0.13);
 }
 
 .deck-playlist {
+  --depth: 4;
+  --own-top: 206px;
+  --own-left: 252px;
+  background: color-mix(in srgb, var(--surface) 92%, var(--bg));
+  border-color: var(--border);
+  --deck-rot: 0.8deg;
+  box-shadow: 0 14px 26px rgba(var(--shadow), 0.14);
+}
+
+.deck-blog {
   --depth: 5;
   --own-top: 144px;
   --own-left: 210px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
-  --deck-rot: 0deg;
+  --deck-rot: -0.8deg;
   box-shadow: 0 16px 30px rgba(var(--shadow), 0.16);
 }
 
-.deck-blog {
-  --depth: 7;
-  --own-top: 82px;
-  --own-left: 150px;
-  background: color-mix(in srgb, var(--surface) 92%, var(--bg));
-  border-color: var(--border);
-  --deck-rot: -2deg;
-  box-shadow: 0 18px 34px rgba(var(--shadow), 0.18);
-}
-
-.deck-portfolio {
+.deck-work {
   --depth: 9;
   --own-top: 20px;
   --own-left: 90px;
-  background: linear-gradient(135deg, var(--card-from), var(--card-to));
+  background: var(--surface);
+  border-color: var(--border);
   --deck-rot: -4deg;
   box-shadow: 0 24px 46px rgba(var(--shadow), 0.24);
+}
+
+.deck-portfolio {
+  --depth: 7;
+  --own-top: 82px;
+  --own-left: 156px;
+  background: linear-gradient(135deg, var(--card-from), var(--card-to));
+  --deck-rot: -2.4deg;
+  box-shadow: 0 18px 34px rgba(var(--shadow), 0.18);
 }
 
 .deck-label {
@@ -634,13 +706,44 @@ a[aria-disabled="true"] {
   .hero-sub {
     max-width: clamp(300px, 36vw, 480px);
   }
+
+  /* the links are bare icons: no fill, no border, only a 44px hit area; the
+     row is pulled left by the inset so the first glyph sits on the text edge */
+  .cta-row {
+    gap: 4px;
+    margin-left: -8px;
+  }
+  .cta-row .btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    border: 0;
+    background: none;
+    color: var(--ink);
+    transition: transform 0.2s ease;
+  }
+  .cta-row .btn .btn-icon {
+    width: 28px;
+    height: 28px;
+  }
+  .cta-row .btn[href]:hover {
+    background: none;
+    color: var(--ink);
+    transform: translateY(-2px);
+  }
+  /* no hairline between the icons and the hashtags */
+  .hero-tags {
+    margin-top: 4px;
+    padding-top: 0;
+    border-top: 0;
+  }
   .hero-content {
     grid-column: 1;
     grid-row: 1;
     max-width: 560px;
   }
 
-  /* layout box = the fan at its current scale (full size: 618 x 463). Its
+  /* layout box = the fan at its current scale (full size: 618 x 525). Its
      leftmost card (the portfolio card) starts 90px into the box, so the
      left margin cancels that and leaves 36px between the copy's column
      and the first card, at every width. */
@@ -654,7 +757,7 @@ a[aria-disabled="true"] {
        lowest card, is what gets centred: equal gaps to both viewport edges */
     margin: 0 calc(-40px * var(--deck-scale)) 0 calc(36px - 90px * var(--deck-scale));
     width: calc(618px * var(--deck-scale));
-    height: calc(463px * var(--deck-scale));
+    height: calc(525px * var(--deck-scale));
   }
   .card-deck-inner {
     position: absolute;
@@ -662,16 +765,16 @@ a[aria-disabled="true"] {
     right: 0;
     display: block;
     width: 618px;
-    height: 463px;
+    height: 525px;
     pointer-events: none;
-    /* shrinks to 70% as the viewport narrows toward 900px, anchored at the
+    /* shrinks to 91% as the viewport narrows toward 900px, anchored at the
        top-right so the fan's right edge stays put */
     transform-origin: top right;
     transform: scale(var(--deck-scale));
     /* every card's pull-out target: the blog card's own position, so all
        opened cards converge on the same spot wherever they started */
     --target-top: 82px;
-    --target-left: 150px;
+    --target-left: 156px;
   }
   .deck-card {
     position: absolute;
@@ -729,6 +832,10 @@ footer {
   --card-from: #2f5fd6;
   --card-to: #16306e;
   --shadow: 0, 0, 0;
+  --warm: #ffa557;
+  --warm-wash: rgba(255, 165, 87, 0.11);
+  --spotify: #3ddc84;
+  --spotify-wash: rgba(61, 220, 132, 0.12);
 }
 :root[data-theme="dark"] .deck-close {
   background: rgba(255, 255, 255, 0.12);

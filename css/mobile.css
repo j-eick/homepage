@@ -2,21 +2,13 @@
    The desktop page on a narrow screen: same paper, same type, same single
    accent, with a centred hero. The card fan does not exist here. */
 
-/* tokens for the small artifacts at the end of this file: a warm second voice
-   (amber) and the Spotify green, both only for marks, glyphs and washes */
+/* text on the mobile accent-blue link (the warm and Spotify tokens live in
+   styles.css) */
 :root {
   --pill-fg: #fff;
-  --warm: #e8832a;
-  --warm-wash: rgba(232, 131, 42, 0.15);
-  --spotify: #17a348;
-  --spotify-wash: rgba(23, 163, 72, 0.14);
 }
 :root[data-theme="dark"] {
   --pill-fg: #0b1322;
-  --warm: #ffa557;
-  --warm-wash: rgba(255, 165, 87, 0.11);
-  --spotify: #3ddc84;
-  --spotify-wash: rgba(61, 220, 132, 0.12);
 }
 
 /* the page is a column: header, hero (takes the free height), footer */
@@ -263,66 +255,19 @@ main {
   max-width: none;
 }
 
-/* LinkedIn is the one link left on the front card, an icon button; its name
-   stays for screen readers (aria-label) and is visually hidden. The CV,
-   Spotify and Blog links live on their own cards. */
+/* LinkedIn is the one link left on the front card; the CV, Spotify and Blog
+   buttons are cards here. The buttons themselves are styled in styles.css. */
 .cta-row {
-  display: flex;
   justify-content: center;
 }
-
-.cta-row .btn {
-  display: grid;
-  place-items: center;
-  width: 56px;
-  height: 56px;
-  padding: 0;
-  border-radius: 16px;
-}
-.cta-row .btn .btn-icon {
-  display: block;
-  width: 26px;
-  height: 26px;
-}
-/* after the shared button rule above, so it wins */
-.cta-row .btn.btn-secondary,
-.cta-row .btn.btn-ghost {
+.cta-row .btn.btn-secondary {
   display: none;
 }
-.btn-label {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
 
-/* topic hashtags; each becomes a link to its blog articles later */
+/* topic hashtags, centred under the button */
 .hero-tags {
-  display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 8px;
   width: 100%;
-  margin: 14px 0 0;
-  padding: 26px 0 0;
-  border-top: 1px solid var(--border);
-  list-style: none;
-}
-.tag {
-  display: inline-block;
-  padding: 7px 12px;
-  border: 1px solid var(--border-strong);
-  border-radius: 10px;
-  color: var(--muted);
-  font-size: 0.85rem;
-  font-weight: 500;
-  text-decoration: none;
-}
-.tag[href]:hover {
-  border-color: var(--accent);
-  color: var(--accent);
 }
 
 /* the copyright sits on the viewport's bottom edge */
@@ -398,14 +343,11 @@ footer {
   }
 }
 
-/* clearer colours: the primary link is the accent blue, Spotify is green,
-   the blog is warm; the # of each hashtag picks up the warm tone */
+/* clearer colours: the primary link is the accent blue; the card tabs and
+   tiles take Spotify green, warm and blue */
 .cta-row .btn-primary {
   background: var(--accent);
   color: var(--pill-fg);
-}
-.cta-row .btn-ghost .btn-icon {
-  color: var(--spotify);
 }
 .stack-card[data-card="spotify"] .stack-tab svg {
   color: var(--spotify);
@@ -423,8 +365,4 @@ footer {
 .stack-card[data-card="blog"] .card-icon {
   background: var(--warm-wash);
   color: var(--warm);
-}
-.tag-hash {
-  color: var(--warm);
-  font-weight: 700;
 }
