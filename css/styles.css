@@ -222,7 +222,10 @@ a:hover {
 
 /* deck-base is the convergence anchor: its own position never moves.
    Every other card's top/left interpolates toward it as --deck-t drops,
-   so the fan closes into a stack instead of staying spread out. */
+   so the fan closes into a stack instead of staying spread out — but
+   only to ~35% of the original spacing at <=900px, not all the way to
+   0, so the cards still visibly peek out from each other rather than
+   landing exactly on top of deck-base. */
 .deck-base {
   top: 251px;
   left: 319px;
@@ -235,8 +238,8 @@ a:hover {
 }
 
 .deck-contact {
-  top: calc(251px - 67px * var(--deck-t));
-  left: calc(319px - 39px * var(--deck-t));
+  top: calc(228px - 44px * var(--deck-t));
+  left: calc(305px - 25px * var(--deck-t));
   margin: 0;
   appearance: none;
   background: var(--surface);
@@ -254,8 +257,8 @@ a:hover {
 }
 
 .deck-playlist {
-  top: calc(251px - 144px * var(--deck-t));
-  left: calc(319px - 87px * var(--deck-t));
+  top: calc(201px - 94px * var(--deck-t));
+  left: calc(289px - 57px * var(--deck-t));
   background: var(--surface);
   border-color: var(--border);
   transform: rotate(calc(-2deg * (0.2 + 0.8 * var(--deck-t))));
@@ -268,8 +271,8 @@ a:hover {
 }
 
 .deck-blog {
-  top: calc(251px - 213px * var(--deck-t));
-  left: calc(319px - 155px * var(--deck-t));
+  top: calc(176px - 138px * var(--deck-t));
+  left: calc(265px - 101px * var(--deck-t));
   background: var(--surface);
   border-color: var(--border);
   transform: rotate(calc(-7deg * (0.2 + 0.8 * var(--deck-t))));
@@ -282,8 +285,8 @@ a:hover {
 }
 
 .deck-portfolio {
-  top: calc(251px - 270px * var(--deck-t));
-  left: calc(319px - 242px * var(--deck-t));
+  top: calc(157px - 176px * var(--deck-t));
+  left: calc(234px - 157px * var(--deck-t));
   background: linear-gradient(135deg, var(--accent), var(--accent-dark));
   transform: rotate(calc(-13deg * (0.2 + 0.8 * var(--deck-t))));
   box-shadow: 0 28px 54px rgba(15, 35, 64, 0.24);
