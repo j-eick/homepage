@@ -204,6 +204,11 @@ a[aria-disabled="true"] {
   color: var(--ink);
 }
 
+.hero-title .name {
+  max-height: 380px;
+  overflow: hidden;
+}
+
 .hero-title .role {
   /* the name is 80% of its former size; the role keeps its absolute size */
   font-size: 0.525em;
@@ -709,6 +714,11 @@ a[aria-disabled="true"] {
     column-gap: 0;
     padding-top: 56px;
     padding-bottom: 56px;
+    /* the whole hero group (copy + fan) at 75% of its laid-out size; the
+       surrounding box keeps its full size, so this only shrinks what
+       renders inside it, still centred */
+    transform: scale(0.75);
+    transform-origin: center;
   }
   .hero-sub {
     max-width: clamp(300px, 36vw, 480px);
