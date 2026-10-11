@@ -816,7 +816,7 @@ a[aria-disabled="true"] {
   --own-left: 974px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
-  --deck-rot: 2deg;
+  --deck-rot: 47deg;
   /* it rests on the glass's corner, so it casts no shadow of its own: what
      carries its thickness is the slab edge. The card is seen at the plate's
      60deg, which halves every vertical length, so the edge is drawn 9px
