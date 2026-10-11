@@ -218,30 +218,70 @@ a:hover {
   border: 1px solid transparent;
   outline: 2px solid transparent;
   outline-offset: 2px;
+  cursor: pointer;
   /* each specific .deck-* rule below only sets --deck-rot; the actual
      rotate() transform (and its hover variant) lives here once */
   transform: rotate(var(--deck-rot));
   transition:
     outline-color 0.15s ease,
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
+    box-shadow 0.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+    top 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+/* subtle hover only — no border, just the accent outline + a small lift */
 .deck-card:hover {
   outline-color: var(--accent);
-  /* clearly visible border on top of the subtler outline/lift/shadow,
-     so the hover state can't be missed */
-  border-color: var(--accent);
-  border-width: 3px;
   transform: rotate(var(--deck-rot)) translateY(-6px);
   box-shadow: 0 12px 20px rgba(15, 35, 64, 0.2);
   z-index: 10;
 }
 
-/* the accent-blue border would barely show against deck-portfolio's own
-   blue gradient background, so it gets a white one instead */
-.deck-portfolio:hover {
-  border-color: #fff;
+/* close button, top-right of each card — only visible once the card is
+   popped out via .is-active */
+.deck-close {
+  display: none;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(15, 35, 64, 0.08);
+  color: var(--ink);
+  font-size: 0.75rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.deck-portfolio .deck-close {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+/* "pulled out of the stack": rises above its siblings, slides up to the
+   topmost (deck-portfolio) card's height, scales up 20%, and straightens
+   out (rotation 0) — same easing as the hover lift, just a touch longer
+   since it travels further */
+.deck-card.is-active,
+.deck-card.is-active:hover {
+  top: calc(157px - 176px * var(--deck-t));
+  transform: scale(1.2) rotate(0deg);
+  z-index: 100;
+  transition:
+    outline-color 0.15s ease,
+    box-shadow 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+    top 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.deck-card.is-active .deck-close {
+  display: flex;
 }
 
 /* deck-base is the convergence anchor: its own position never moves.

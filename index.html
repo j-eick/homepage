@@ -50,28 +50,34 @@
         <div class="card-deck-inner">
           <div class="deck-card deck-base"></div>
 
-          <!-- TODO: onClick noch ohne Funktion — zeigt in einem späteren Commit Kontaktdaten auf/neben dieser Karte an -->
-          <button type="button" class="deck-card deck-contact" aria-label="Kontaktdaten anzeigen">
+          <!-- TODO: zeigt noch keine echten Kontaktdaten an — nur das Pop-out selbst ist implementiert.
+               role="button" statt <button>, weil jede Karte einen echten, nativ fokussierbaren
+               Schließen-<button> enthält — ein <button> darf kein <button> verschachteln. -->
+          <div class="deck-card deck-contact" role="button" tabindex="0" aria-label="Kontaktdaten anzeigen">
+            <button type="button" class="deck-close" aria-label="Schließen"><span aria-hidden="true">✕</span></button>
             <span class="deck-label">Kontakt</span>
             <span class="deck-value">Kontaktdaten</span>
-          </button>
+          </div>
 
-          <!-- TODO: echte Spotify-Playlist-URL einsetzen -->
-          <a class="deck-card deck-playlist" href="#" target="_blank" rel="noopener" aria-label="Spotify-Playlist öffnen">
+          <!-- TODO: echte Spotify-Playlist-URL einsetzen, z.B. als Link innerhalb der aufgeklappten Karte -->
+          <div class="deck-card deck-playlist" role="button" tabindex="0" aria-label="Spotify-Playlist öffnen">
+            <button type="button" class="deck-close" aria-label="Schließen"><span aria-hidden="true">✕</span></button>
             <span class="deck-label">Playlist</span>
             <span class="deck-value">Alarm on Drugs</span>
-          </a>
+          </div>
 
-          <!-- TODO: echte Blog-URL einsetzen -->
-          <a class="deck-card deck-blog" href="#" aria-label="Zum Blog">
+          <!-- TODO: echte Blog-URL einsetzen, z.B. als Link innerhalb der aufgeklappten Karte -->
+          <div class="deck-card deck-blog" role="button" tabindex="0" aria-label="Zum Blog">
+            <button type="button" class="deck-close" aria-label="Schließen"><span aria-hidden="true">✕</span></button>
             <span class="deck-label">Schreiben</span>
             <span class="deck-value">Blog →</span>
-          </a>
+          </div>
 
-          <a class="deck-card deck-portfolio" href="#projekte" aria-label="Portfolio ansehen">
+          <div class="deck-card deck-portfolio" role="button" tabindex="0" aria-label="Portfolio ansehen">
+            <button type="button" class="deck-close" aria-label="Schließen"><span aria-hidden="true">✕</span></button>
             <span class="deck-label">Portfolio</span>
             <span class="deck-value">Projekte →</span>
-          </a>
+          </div>
         </div>
       </div>
 
@@ -143,5 +149,6 @@
 
       <footer>© 2026 · Joschka Eickhoff</footer>
     </div>
+    <script src="js/card-deck.js" defer></script>
   </body>
 </html>
