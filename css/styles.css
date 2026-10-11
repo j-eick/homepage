@@ -225,9 +225,9 @@ a:hover {
   left: 319px;
   background: #d7e0ef;
   border-color: rgba(15, 35, 64, 0.06);
-  /* rotation magnitude shrinks together with --deck-t, so the fan
-     straightens up as it shrinks instead of staying just as tilted */
-  transform: rotate(calc(8deg * (0.7 + 0.3 * var(--deck-t))));
+  /* rotation scales with --deck-t: fully upright (0deg) at <=900px,
+     back to the original tilt at >=1150px */
+  transform: rotate(calc(8deg * var(--deck-t)));
   box-shadow: 0 10px 24px rgba(15, 35, 64, 0.12);
 }
 
@@ -238,7 +238,7 @@ a:hover {
   appearance: none;
   background: var(--surface);
   border-color: var(--border);
-  transform: rotate(calc(3deg * (0.7 + 0.3 * var(--deck-t))));
+  transform: rotate(calc(3deg * var(--deck-t)));
   box-shadow: 0 14px 32px rgba(15, 35, 64, 0.14);
   display: flex;
   flex-direction: column;
@@ -255,7 +255,7 @@ a:hover {
   left: 232px;
   background: var(--surface);
   border-color: var(--border);
-  transform: rotate(calc(-2deg * (0.7 + 0.3 * var(--deck-t))));
+  transform: rotate(calc(-2deg * var(--deck-t)));
   box-shadow: 0 18px 36px rgba(15, 35, 64, 0.16);
   display: flex;
   flex-direction: column;
@@ -269,7 +269,7 @@ a:hover {
   left: 164px;
   background: var(--surface);
   border-color: var(--border);
-  transform: rotate(calc(-7deg * (0.7 + 0.3 * var(--deck-t))));
+  transform: rotate(calc(-7deg * var(--deck-t)));
   box-shadow: 0 22px 44px rgba(15, 35, 64, 0.18);
   display: flex;
   flex-direction: column;
@@ -282,7 +282,7 @@ a:hover {
   top: -19px;
   left: 77px;
   background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-  transform: rotate(calc(-13deg * (0.7 + 0.3 * var(--deck-t))));
+  transform: rotate(calc(-13deg * var(--deck-t)));
   box-shadow: 0 28px 54px rgba(15, 35, 64, 0.24);
   display: flex;
   flex-direction: column;
