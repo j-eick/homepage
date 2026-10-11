@@ -627,6 +627,42 @@ a[aria-disabled="true"] {
 .deck-value {
   transform-origin: left bottom;
 }
+/* the body text of a card: only there while the card is open. Counter-scaled
+   like the label and value (0.8 x the card's 1.5 = 1.2x); it is laid out at
+   125% width so that, scaled down, it still spans the card. */
+.deck-text {
+  display: none;
+  box-sizing: border-box;
+  width: 125%;
+  transform-origin: left top;
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+.deck-card.is-active .deck-text,
+.deck-card.is-closing .deck-text {
+  display: block;
+}
+.deck-card.is-active .deck-text {
+  animation:
+    deck-text-open 0.56s var(--ease-spring) forwards,
+    deck-text-fade-in 0.3s ease 0.18s backwards;
+}
+.deck-card.is-closing .deck-text {
+  animation:
+    deck-text-close 0.62s var(--ease-return) forwards,
+    deck-text-fade-out 0.18s ease forwards;
+}
+@keyframes deck-text-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes deck-text-fade-out {
+  to {
+    opacity: 0;
+  }
+}
 .deck-card.is-active .deck-label,
 .deck-card.is-active .deck-value {
   animation: deck-text-open 0.56s var(--ease-spring) forwards;
