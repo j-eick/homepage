@@ -122,7 +122,8 @@
         margin: 0;
         font-family: "Space Grotesk", sans-serif;
         font-weight: 600;
-        font-size: clamp(2.2rem, 4.6vw, 3.4rem);
+        /* 30% smaller than the original clamp(2.2rem, 4.6vw, 3.4rem) */
+        font-size: clamp(1.54rem, 3.22vw, 2.38rem);
         line-height: 1.1;
         letter-spacing: -0.015em;
         color: var(--ink);
@@ -193,50 +194,66 @@
         display: none;
       }
 
+      /* whole fan scaled 30% down (container, offsets and card size together) */
       .card-deck-inner {
         position: relative;
-        width: 640px;
-        height: 480px;
+        width: 448px;
+        height: 336px;
         margin-left: auto;
-        margin-top: -420px;
+        margin-top: -294px;
         pointer-events: none;
       }
 
       .deck-card {
         position: absolute;
-        width: 280px;
-        height: 180px;
-        border-radius: 20px;
-        padding: 22px;
+        width: 196px;
+        height: 126px;
+        border-radius: 14px;
+        padding: 15px;
         box-sizing: border-box;
+        border: 1px solid transparent;
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+        transition: outline-color 0.15s ease;
+      }
+
+      .deck-card:hover {
+        outline-color: var(--accent);
       }
 
       .deck-base {
-        top: 260px;
-        left: 330px;
+        top: 182px;
+        left: 231px;
         background: #d7e0ef;
-        border: 1px solid rgba(15, 35, 64, 0.06);
+        border-color: rgba(15, 35, 64, 0.06);
         transform: rotate(8deg);
         box-shadow: 0 10px 24px rgba(15, 35, 64, 0.12);
       }
 
-      .deck-music {
-        top: 190px;
-        left: 290px;
+      .deck-contact {
+        top: 133px;
+        left: 203px;
+        margin: 0;
+        appearance: none;
         background: var(--surface);
-        border: 1px solid var(--border);
+        border-color: var(--border);
         transform: rotate(3deg);
         box-shadow: 0 14px 32px rgba(15, 35, 64, 0.14);
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        text-align: left;
+        font: inherit;
+        color: inherit;
+        cursor: pointer;
+        pointer-events: auto;
       }
 
-      .deck-focus {
-        top: 110px;
-        left: 240px;
+      .deck-playlist {
+        top: 77px;
+        left: 168px;
         background: var(--surface);
-        border: 1px solid var(--border);
+        border-color: var(--border);
         transform: rotate(-2deg);
         box-shadow: 0 18px 36px rgba(15, 35, 64, 0.16);
         display: flex;
@@ -247,10 +264,10 @@
       }
 
       .deck-blog {
-        top: 40px;
-        left: 170px;
+        top: 28px;
+        left: 119px;
         background: var(--surface);
-        border: 1px solid var(--border);
+        border-color: var(--border);
         transform: rotate(-7deg);
         box-shadow: 0 22px 44px rgba(15, 35, 64, 0.18);
         display: flex;
@@ -261,8 +278,8 @@
       }
 
       .deck-portfolio {
-        top: -20px;
-        left: 80px;
+        top: -14px;
+        left: 56px;
         background: linear-gradient(135deg, var(--accent), var(--accent-dark));
         transform: rotate(-13deg);
         box-shadow: 0 28px 54px rgba(15, 35, 64, 0.24);
@@ -306,7 +323,10 @@
           display: block;
         }
         .hero {
-          padding-bottom: 300px;
+          padding-bottom: 210px;
+        }
+        .hero-content {
+          margin-left: 30%;
         }
       }
 
@@ -501,14 +521,15 @@
         <div class="card-deck-inner">
           <div class="deck-card deck-base"></div>
 
-          <div class="deck-card deck-music">
-            <span class="deck-label">Gerade läuft</span>
-            <!-- TODO: aktuellen Track/Artist einsetzen -->
-            <span class="deck-value">[Track] – [Artist]</span>
-          </div>
+          <!-- TODO: onClick noch ohne Funktion — zeigt in einem späteren Commit Kontaktdaten auf/neben dieser Karte an -->
+          <button type="button" class="deck-card deck-contact" aria-label="Kontaktdaten anzeigen">
+            <span class="deck-label">Kontakt</span>
+            <span class="deck-value">Kontaktdaten</span>
+          </button>
 
-          <a class="deck-card deck-focus" href="#projekte" aria-label="Zu Projekten">
-            <span class="deck-label">Fokus</span>
+          <!-- TODO: echte Spotify-Playlist-URL einsetzen -->
+          <a class="deck-card deck-playlist" href="#" target="_blank" rel="noopener" aria-label="Spotify-Playlist öffnen">
+            <span class="deck-label">Playlist</span>
             <span class="deck-value">Alarm on Drugs</span>
           </a>
 
