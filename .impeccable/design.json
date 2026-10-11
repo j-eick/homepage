@@ -1,0 +1,342 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-11T14:05:33Z",
+  "title": "Design System: Joschka Eickhoff — Homepage",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "neutral",
+        "displayName": "Harbor Ink",
+        "canonical": "#0f2340",
+        "tonalRamp": [
+          "#0f223e",
+          "#1a3c6d",
+          "#25569c",
+          "#306fcc",
+          "#5d8fd9",
+          "#8cb0e4",
+          "#bbd0ef",
+          "#eaf1fa"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Slate Ink",
+        "canonical": "#46577a",
+        "tonalRamp": [
+          "#1c2331",
+          "#313d56",
+          "#46577b",
+          "#5c72a0",
+          "#8091b6",
+          "#a5b1cb",
+          "#cad1e0",
+          "#eff1f6"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Dusk Label",
+        "canonical": "#4f6587",
+        "tonalRamp": [
+          "#1c2430",
+          "#324055",
+          "#475b7a",
+          "#5d779f",
+          "#8195b5",
+          "#a5b4cb",
+          "#cad3e0",
+          "#eff2f6"
+        ]
+      },
+      "muted-soft": {
+        "role": "neutral",
+        "displayName": "Dusk Hint",
+        "canonical": "#5a6f92",
+        "tonalRamp": [
+          "#1d242f",
+          "#333f53",
+          "#4a5b77",
+          "#60769c",
+          "#8395b3",
+          "#a7b4c9",
+          "#cbd3df",
+          "#eff1f5"
+        ]
+      },
+      "paper-blue": {
+        "role": "neutral",
+        "displayName": "Blue Paper",
+        "canonical": "#eef3f8",
+        "tonalRamp": [
+          "#162636",
+          "#27435f",
+          "#386189",
+          "#497eb2",
+          "#719bc5",
+          "#9ab8d6",
+          "#c4d5e7",
+          "#edf2f8"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "White Card",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#262626",
+          "#434343",
+          "#616161",
+          "#7e7e7e",
+          "#9b9b9b",
+          "#b8b8b8",
+          "#d5d5d5",
+          "#f2f2f2"
+        ]
+      },
+      "surface-sunk": {
+        "role": "neutral",
+        "displayName": "Sunk Card",
+        "canonical": "#d7e0ef",
+        "tonalRamp": [
+          "#162237",
+          "#273c60",
+          "#37568a",
+          "#4870b4",
+          "#7090c6",
+          "#9ab0d6",
+          "#c3d1e7",
+          "#edf1f8"
+        ]
+      },
+      "signal-blue": {
+        "role": "primary",
+        "displayName": "Signal Blue",
+        "canonical": "#2f5fd6",
+        "tonalRamp": [
+          "#0d1b40",
+          "#163071",
+          "#2045a1",
+          "#295ad2",
+          "#587ede",
+          "#88a4e8",
+          "#b9c9f1",
+          "#eaeffb"
+        ]
+      },
+      "signal-blue-deep": {
+        "role": "primary",
+        "displayName": "Deep Signal",
+        "canonical": "#16306e",
+        "tonalRamp": [
+          "#0d1c40",
+          "#163170",
+          "#2046a1",
+          "#2a5bd1",
+          "#587fde",
+          "#89a5e7",
+          "#b9caf1",
+          "#eaeffb"
+        ]
+      },
+      "night": {
+        "role": "neutral",
+        "displayName": "Night Board",
+        "canonical": "#0b1322",
+        "tonalRamp": [
+          "#13203a",
+          "#213966",
+          "#2f5292",
+          "#3d6abe",
+          "#688bce",
+          "#94addc",
+          "#c0cfeb",
+          "#ecf0f9"
+        ]
+      },
+      "night-surface": {
+        "role": "neutral",
+        "displayName": "Night Card",
+        "canonical": "#131d33",
+        "tonalRamp": [
+          "#152038",
+          "#253862",
+          "#34508d",
+          "#4468b7",
+          "#6d8ac9",
+          "#97acd8",
+          "#c2cee8",
+          "#ecf0f8"
+        ]
+      },
+      "night-ink": {
+        "role": "neutral",
+        "displayName": "Night Ink",
+        "canonical": "#e6edfb",
+        "tonalRamp": [
+          "#0b1d42",
+          "#133374",
+          "#1b49a6",
+          "#235fd9",
+          "#5283e3",
+          "#85a7eb",
+          "#b7cbf3",
+          "#e9effb"
+        ]
+      },
+      "night-accent": {
+        "role": "primary",
+        "displayName": "Night Signal",
+        "canonical": "#7da2ff",
+        "tonalRamp": [
+          "#00164c",
+          "#002687",
+          "#0037c1",
+          "#0048fb",
+          "#3770ff",
+          "#7199ff",
+          "#abc3ff",
+          "#e6edff"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The name."
+      },
+      "display-mobile": {
+        "displayName": "Display (mobile)",
+        "purpose": "The name below 900px."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Contact heading."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Intro and descriptions."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Deck card captions."
+      }
+    },
+    "shadows": [
+      {
+        "name": "deck-rest",
+        "value": "0 14px 32px rgba(15,35,64,0.14)",
+        "purpose": "Fan cards at rest."
+      },
+      {
+        "name": "deck-hover",
+        "value": "0 14px 28px rgba(15,35,64,0.22)",
+        "purpose": "Hover or focus mark on a deck card."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-spring",
+        "value": "cubic-bezier(0.3, 1.18, 0.4, 1)",
+        "purpose": "Card pull-out (0.56s)."
+      },
+      {
+        "name": "ease-settle",
+        "value": "cubic-bezier(0.34, 1.08, 0.4, 1)",
+        "purpose": "Card push-back (0.32s)."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "max-width 899.98px"
+      },
+      {
+        "name": "fan",
+        "value": "min-width 900px"
+      },
+      {
+        "name": "fan-full",
+        "value": "1150px (deck scale reaches 1)"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main action in the hero.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">LinkedIn</a>",
+      "css": ".ds-btn-primary{display:inline-flex;padding:13px 22px;border-radius:12px;background:#0f2340;color:#fff;font:600 .9rem Inter,system-ui,sans-serif;text-decoration:none}.ds-btn-primary:hover{background:#16306e;color:#fff}.ds-btn-primary:focus-visible{outline:2px solid #2f5fd6;outline-offset:3px}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Secondary action next to the primary.",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\">Lebenslauf (PDF)</a>",
+      "css": ".ds-btn-secondary{display:inline-flex;padding:13px 22px;border-radius:12px;border:1px solid rgba(15,35,64,.15);background:#fff;color:#0f2340;font:500 .9rem Inter,system-ui,sans-serif;text-decoration:none}.ds-btn-secondary:focus-visible{outline:2px solid #2f5fd6;outline-offset:3px}"
+    },
+    {
+      "name": "Deck Card",
+      "kind": "card",
+      "refersTo": "deck-card",
+      "description": "A card of the fan; the whole card is one button.",
+      "html": "<div class=\"ds-deck\"><button class=\"ds-deck-trigger\"><span class=\"ds-l\">Schreiben</span><span class=\"ds-v\">Blog →</span></button></div>",
+      "css": ".ds-deck{position:relative;width:270px;height:174px;border-radius:19px;background:#fff;border:1px solid rgba(15,35,64,.08);box-shadow:0 22px 44px rgba(15,35,64,.18);transform:rotate(-7deg)}.ds-deck:hover{outline:2px solid #2f5fd6;outline-offset:2px}.ds-deck-trigger{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:20px;border:0;background:none;text-align:left;font:inherit;cursor:pointer}.ds-l{font:500 .7rem Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#5a6f92}.ds-v{font:700 1.15rem 'Space Grotesk',sans-serif;color:#0f2340}"
+    },
+    {
+      "name": "Contact Panel",
+      "kind": "card",
+      "refersTo": "contact-panel",
+      "description": "Closing panel with three chips.",
+      "html": "<div class=\"ds-contact\"><h2>Lass uns sprechen</h2><p>Projekt, Idee oder einfach Hallo sagen.</p></div>",
+      "css": ".ds-contact{padding:36px 32px;border-radius:20px;border:1px solid rgba(47,95,214,.2);background:rgba(47,95,214,.06);text-align:center;color:#0f2340}.ds-contact h2{margin:0 0 8px;font:600 1.4rem 'Space Grotesk',sans-serif}.ds-contact p{margin:0;font:400 .95rem/1.6 Inter,sans-serif;color:#46577a}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Pinned Board",
+    "overview": "One person's working surface: things placed where they can be picked up. On a wide screen the surface is blue paper and the contents are a fanned deck of cards that pull out toward you. Below 900px the same page runs in one column with a centred hero and the deck is not shown. The two share everything: paper, type, one accent, both themes.",
+    "keyCharacteristics": [
+      "One composition logic, two forms: a fan from 900px up, a centred single column below it.",
+      "The phone is the desktop page narrowed, not a second look: same fonts, colours, buttons and panel.",
+      "Tokens-only theming: blue paper by day, a night board by night.",
+      "Motion is spring-like and rare: the card pull-out on desktop, nothing animates on mobile."
+    ],
+    "rules": [
+      {
+        "name": "The One Blue Rule",
+        "body": "Signal Blue is the only accent. New objects get colour from it or from the neutrals, never from a second hue.",
+        "section": "colors"
+      },
+      {
+        "name": "The Quiet Ground Rule",
+        "body": "The ground stays paper or night in both themes; colour lives on the objects.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Tiers Rule",
+        "body": "The name is the one large thing; the role sits a full step below it.",
+        "section": "typography"
+      },
+      {
+        "name": "The Resting Weight Rule",
+        "body": "Hover marks an object with an outline and a deeper shadow; it never raises it above its neighbours. Only the click pulls a card out.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep colour on the objects and the ground quiet in both themes.",
+      "Do build mobile from the desktop's own tokens; a phone layout is the same page narrowed.",
+      "Do use the display face for the name and titles only and Inter for everything read.",
+      "Do keep every interactive object a real button or link with a visible `:focus-visible` outline.",
+      "Do self-host fonts; no third-party font requests."
+    ],
+    "donts": [
+      "Don't add a second accent next to Signal Blue.",
+      "Don't lift a card on hover; marking is not pulling out.",
+      "Don't use hard offset shadows or glows for depth."
+    ]
+  }
+}

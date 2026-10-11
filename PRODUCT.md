@@ -27,16 +27,16 @@ Statically hosted site, deployed via Netlify on push to `origin/main`. Content i
 - Plain static HTML/CSS/JS (`index.html`, `css/styles.css`, `js/card-deck.js`); no build step and no framework. Stays that way.
 - Currently German only. The site is intended to offer German and English; the English version and language switch are not built yet.
 - The hero card deck (contact, playlist, blog, portfolio cards) is a binding, continuing element: it stays and is developed further. Interaction today: subtle hover, click pulls a card out to the blog card's position, close via outside click, Escape, or timeout; keyboard operable.
-- Sections today: Hero, card deck, Fokus (Koordination, Entwicklung, Betrieb), Projekte, Kontakt.
+- Sections today: Hero, card deck and Kontakt panel (from 900px); below 900px a centred hero with icon buttons. The Fokus and Projekte sections were removed by the owner.
 - Open product facts (not yet supplied; do not invent): LinkedIn URL, CV PDF, Spotify profile and playlist URLs, blog URL, real contact details for the contact card, project URL for "Alarm on Drugs", second project.
 
 ## Brand Commitments
 
-Name and role: Joschka Eickhoff, Technical Operations. Voice is first-person, plain and direct (German today). Project known so far: "Alarm on Drugs" (mobile app, Expo / React Native). Playlist is called "Alarm on Drugs" on the deck.
+Name and role: Joschka Eickhoff, Technical Operations. Voice is first-person, plain and direct (German today). Project known so far: "Alarm on Drugs" (mobile app, Expo / React Native); it has no section on the page at the moment. Playlist is called "Alarm on Drugs" on the deck.
 
 ## Evidence on Hand
 
-Hero copy and Fokus descriptions in `index.html`. One project (Alarm on Drugs). No testimonials, case studies, press or metrics exist; none may be fabricated.
+Hero copy in `index.html` (the Fokus descriptions were removed with their section). One project name (Alarm on Drugs). No testimonials, case studies, press or metrics exist; none may be fabricated.
 
 ## Product Principles
 

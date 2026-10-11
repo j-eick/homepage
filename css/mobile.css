@@ -1,0 +1,103 @@
+/* MOBILE — below 900px only (linked with a media attribute in index.html).
+   The desktop page on a narrow screen: same paper, same type, same single
+   accent, with a centred hero. The card fan does not exist here. */
+
+/* the page is a column: header, hero (takes the free height), footer */
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER: brand and theme switch only */
+.nav {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 20px 20px 0;
+}
+.nav-links a {
+  display: none;
+}
+
+/* HERO: centred, horizontally and in the free height between header and footer */
+.hero {
+  box-sizing: border-box;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+.hero-content {
+  width: 100%;
+  max-width: 480px;
+  align-items: center;
+  gap: 22px;
+}
+.hero-title {
+  font-size: clamp(2.7rem, 15vw, 3.7rem);
+}
+.hero-sub {
+  max-width: none;
+}
+
+/* the four links are icon buttons in one row; their names stay for
+   screen readers (aria-label) and are visually hidden */
+.cta-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+.cta-row .btn {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border-radius: 16px;
+}
+.cta-row .btn .btn-icon {
+  display: block;
+  width: 26px;
+  height: 26px;
+}
+.cta-row .btn .btn-mono {
+  display: block;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+.cta-row .btn-blog {
+  display: grid;
+}
+.btn-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* the contact panel is desktop-only */
+.sections {
+  display: none;
+}
+
+/* the copyright sits on the viewport's bottom edge */
+footer {
+  margin-top: auto;
+  padding: 0 20px 14px;
+  line-height: 1.2;
+}

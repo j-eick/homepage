@@ -212,23 +212,6 @@ a[aria-disabled="true"] {
   color: var(--accent);
 }
 
-.hero-status {
-  margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.85rem;
-  color: var(--ink-soft);
-}
-
-.hero-status::before {
-  content: "";
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent);
-}
-
 .hero-sub {
   margin: 0;
   max-width: 480px;
@@ -253,6 +236,22 @@ a[aria-disabled="true"] {
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 600;
+}
+
+.btn .btn-icon {
+  display: none;
+}
+.btn .btn-icon-always {
+  display: block;
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+.btn .btn-mono {
+  display: none;
+}
+.btn-blog {
+  display: none;
 }
 
 .btn-primary {
@@ -283,7 +282,7 @@ a[aria-disabled="true"] {
   font-weight: 500;
 }
 
-/* CARD DECK — fanned from 900px up, a tile grid below.
+/* CARD DECK — fanned from 900px up; not rendered below.
    Lives inside .hero. --deck-t: 0 at <=900px viewport width, 1 at >=1150px,
    linear in between; the box is sized to the *scaled* fan so the hero's grid
    gives the text exactly the room that is left. */
@@ -291,19 +290,17 @@ a[aria-disabled="true"] {
   position: relative;
   z-index: 2;
   --deck-t: clamp(0, calc((100vw - 900px) / 250px), 1);
-  margin-top: 40px;
+  /* visual scale of the whole fan (its layout box scales with it) */
+  --deck-scale: calc(0.7 + 0.3 * var(--deck-t));
+  display: none;
 }
 
 .card-deck-inner {
   position: relative;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
 }
 
 .deck-card {
   position: relative;
-  min-height: 112px;
   border-radius: 19px;
   box-sizing: border-box;
   border: 1px solid transparent;
@@ -526,18 +523,9 @@ a[aria-disabled="true"] {
   color: #fff;
 }
 
-/* below 900px: the deck is a 2-column tile grid; opening a tile widens it
-   in place instead of flying across the page */
-.deck-card.is-active {
-  grid-column: 1 / -1;
-}
-.deck-card.is-active,
-.deck-card.is-closing {
-  animation: none;
-}
-
-/* from 900px: the fan. The hero becomes a two-column grid — copy left, fan
-   right — so nothing is positioned by an estimate of the other's height. */
+/* from 900px: the fan. The hero becomes a two-column grid (copy left, fan
+   right), so nothing is positioned by an estimate of the other's height.
+   Below 900px the deck does not exist and mobile.css takes over. */
 @media (min-width: 900px) {
   .hero {
     display: grid;
@@ -563,12 +551,13 @@ a[aria-disabled="true"] {
 
   /* layout box = the fan at its current scale (full size: 618 x 463) */
   .card-deck {
+    display: block;
     grid-column: 2;
     grid-row: 1;
     justify-self: end;
     margin: 0;
-    width: calc(618px * (0.7 + 0.3 * var(--deck-t)));
-    height: calc(463px * (0.7 + 0.3 * var(--deck-t)));
+    width: calc(618px * var(--deck-scale));
+    height: calc(463px * var(--deck-scale));
   }
   .card-deck-inner {
     position: absolute;
@@ -581,7 +570,7 @@ a[aria-disabled="true"] {
     /* shrinks to 70% as the viewport narrows toward 900px, anchored at the
        top-right so the fan's right edge stays put */
     transform-origin: top right;
-    transform: scale(calc(0.7 + 0.3 * var(--deck-t)));
+    transform: scale(var(--deck-scale));
     /* every card's pull-out target: the blog card's own position, so all
        opened cards converge on the same spot wherever they started */
     --target-top: calc(176px - 138px * var(--deck-t));
@@ -600,7 +589,6 @@ a[aria-disabled="true"] {
     display: block;
   }
   .deck-card.is-active {
-    grid-column: auto;
     animation: deck-pull-out 0.56s var(--ease-spring) forwards;
   }
   .deck-card.is-closing {
@@ -618,91 +606,6 @@ a[aria-disabled="true"] {
   display: flex;
   flex-direction: column;
   gap: 72px;
-}
-
-.section-title {
-  margin: 0 0 28px;
-  font-family: "Space Grotesk", sans-serif;
-  font-weight: 600;
-  font-size: 1.3rem;
-}
-
-.focus-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-}
-
-@media (max-width: 640px) {
-  .focus-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.focus-card {
-  padding: 24px 20px;
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-}
-
-.focus-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: var(--accent-wash);
-  color: var(--accent);
-  display: grid;
-  place-items: center;
-  margin-bottom: 14px;
-}
-
-.focus-card h3 {
-  margin: 0 0 6px;
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.focus-card p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.9rem;
-  line-height: 1.55;
-}
-
-.projects-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.project-link {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 20px 22px;
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  text-decoration: none;
-}
-
-.project-name {
-  display: block;
-  font-weight: 600;
-  font-size: 0.98rem;
-  color: var(--ink);
-}
-
-.project-desc {
-  display: block;
-  color: var(--muted);
-  font-size: 0.85rem;
-}
-
-.project-arrow {
-  color: var(--muted-soft);
 }
 
 .contact-section {
