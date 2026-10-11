@@ -1,14 +1,12 @@
 (function () {
   "use strict";
 
-  var CLOSE_TIMEOUT_MS = 20000;
   var CLOSE_ANIM_MS = 320; // keep in sync with .deck-card.is-closing's animation-duration
   var cards = document.querySelectorAll(
     ".deck-contact, .deck-playlist, .deck-blog, .deck-portfolio",
   );
 
   var activeCard = null;
-  var closeTimer = null;
   var closingCard = null;
   var closingTimer = null;
 
@@ -25,8 +23,12 @@
     if (!activeCard) return;
     var card = activeCard;
     activeCard = null;
-    clearTimeout(closeTimer);
-    closeTimer = null;
+
+    var trigger = card.querySelector(".deck-trigger");
+    trigger.setAttribute("aria-expanded", "false");
+    // the close button disappears with .is-active; hand focus back to the
+    // card's trigger so keyboard users don't land on <body>
+    if (card.contains(document.activeElement)) trigger.focus();
 
     // only one card closes at a time; if another was already mid-close,
     // let it land on its final (stack) position before this one starts
@@ -58,8 +60,8 @@
     }
 
     card.classList.add("is-active");
+    card.querySelector(".deck-trigger").setAttribute("aria-expanded", "true");
     activeCard = card;
-    closeTimer = setTimeout(closeActive, CLOSE_TIMEOUT_MS);
   }
 
   cards.forEach(function (card) {
@@ -69,21 +71,6 @@
         return;
       }
       openCard(card);
-    });
-  });
-
-  // role="button" divs don't get native Enter/Space -> click handling.
-  // Only synthesize a click when the card itself is focused — the nested
-  // .deck-close is a real <button> and already handles Enter/Space on its
-  // own, so this must not also fire for it (that would both close via the
-  // button's native click AND reopen via a synthesized click on the card).
-  cards.forEach(function (card) {
-    card.addEventListener("keydown", function (event) {
-      if (event.target !== card) return;
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        card.click();
-      }
     });
   });
 

@@ -1,20 +1,75 @@
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap");
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/space-grotesk-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/space-grotesk-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/space-grotesk-latin-700-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/inter-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/inter-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/inter-latin-600-normal.woff2") format("woff2");
+}
 
 * {
   box-sizing: border-box;
 }
 
 :root {
+  color-scheme: light;
   --bg: #eef3f8;
   --ink: #0f2340;
   --ink-soft: #46577a;
-  --muted: #5c7290;
-  --muted-soft: #8a9ab8;
+  /* both muted tones sit at >=4.5:1 on --bg and --surface */
+  --muted: #4f6587;
+  --muted-soft: #5a6f92;
   --accent: #2f5fd6;
   --accent-dark: #16306e;
+  --accent-wash: rgba(47, 95, 214, 0.1);
+  --accent-wash-soft: rgba(47, 95, 214, 0.06);
+  --accent-edge: rgba(47, 95, 214, 0.2);
+  --accent-select: rgba(47, 95, 214, 0.18);
+  --ambient-light: rgba(255, 255, 255, 0.6);
   --border: rgba(15, 35, 64, 0.08);
   --border-strong: rgba(15, 35, 64, 0.15);
   --surface: #fff;
+  --surface-sunk: #d7e0ef;
+  --btn-bg: var(--ink);
+  --btn-fg: #fff;
+  --btn-bg-hover: var(--accent-dark);
+  --card-from: var(--accent);
+  --card-to: var(--accent-dark);
+  --shadow: 15, 35, 64;
   /* motion curves for the card-deck pull-out/push-back — both swing
      gently past their target and settle back (a soft spring, not a
      hard stop), just toned down a lot from a textbook "back" ease so
@@ -38,11 +93,19 @@ body {
 a {
   color: var(--ink);
 }
-a:hover {
+a[href]:hover {
   color: var(--accent);
 }
+/* links without a target yet (placeholders) must not look or act live */
+a[aria-disabled="true"] {
+  cursor: default;
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
 ::selection {
-  background: rgba(47, 95, 214, 0.18);
+  background: var(--accent-select);
 }
 
 .page {
@@ -59,8 +122,8 @@ a:hover {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(680px 460px at 82% 6%, rgba(47, 95, 214, 0.1), transparent 70%),
-    radial-gradient(520px 520px at 6% 60%, rgba(255, 255, 255, 0.6), transparent 70%);
+    radial-gradient(680px 460px at 82% 6%, var(--accent-wash), transparent 70%),
+    radial-gradient(520px 520px at 6% 60%, var(--ambient-light), transparent 70%);
 }
 
 /* NAV */
@@ -81,8 +144,16 @@ a:hover {
   font-size: 1.05rem;
 }
 
+@media (max-width: 480px) {
+  .nav {
+    flex-wrap: wrap;
+    gap: 10px 20px;
+  }
+}
+
 .nav-links {
   display: flex;
+  align-items: center;
   gap: 28px;
   font-size: 0.88rem;
   color: var(--muted);
@@ -109,32 +180,53 @@ a:hover {
   gap: 22px;
 }
 
-.eyebrow {
-  font-weight: 600;
-  font-size: 0.75rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-
+/* one decisive move: the name carries the hero at display scale, the role
+   steps down to a clear second tier. Sized in vw so "Eickhoff" never runs
+   into the card fan, which owns the right-hand side from 900px up. */
 .hero-title {
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.22em;
   font-family: "Space Grotesk", sans-serif;
-  font-weight: 600;
-  /* 30% smaller than the original clamp(2.2rem, 4.6vw, 3.4rem) */
-  font-size: clamp(1.54rem, 3.22vw, 2.38rem);
-  line-height: 1.1;
-  letter-spacing: -0.015em;
+  font-weight: 700;
+  font-size: clamp(2.9rem, 6vw, 4.75rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
   color: var(--ink);
 }
 
+.hero-title .role {
+  font-size: 0.42em;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+}
+
 .hero-title .light {
-  color: var(--muted);
+  color: var(--ink-soft);
   font-weight: 500;
 }
 
 .hero-title .accent {
   color: var(--accent);
+}
+
+.hero-status {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.hero-status::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
 }
 
 .hero-sub {
@@ -164,8 +256,15 @@ a:hover {
 }
 
 .btn-primary {
-  background: var(--ink);
-  color: #fff;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+}
+
+/* the global a:hover turns links accent-blue, which on this fill
+   drops below 3:1 */
+.btn-primary[href]:hover {
+  color: var(--btn-fg);
+  background: var(--btn-bg-hover);
 }
 
 .btn-secondary {
@@ -184,48 +283,28 @@ a:hover {
   font-weight: 500;
 }
 
-/* CARD DECK — fanned, desktop only */
+/* CARD DECK — fanned from 900px up, a tile grid below.
+   Lives inside .hero. --deck-t: 0 at <=900px viewport width, 1 at >=1150px,
+   linear in between; the box is sized to the *scaled* fan so the hero's grid
+   gives the text exactly the room that is left. */
 .card-deck {
   position: relative;
-  /* higher than .hero's z-index:1 — .hero's box extends into this area
-     (padding-bottom reserves room for the overlap) and was sitting above
-     the cards in stacking order, silently eating all hover/click events
-     before they ever reached a .deck-card */
   z-index: 2;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 32px 48px;
-  display: none;
+  --deck-t: clamp(0, calc((100vw - 900px) / 250px), 1);
+  margin-top: 40px;
 }
 
-/* whole fan: 70% of original, +15%, shifted up 50% of its own height, then +20% (container, offsets, card size together) */
 .card-deck-inner {
   position: relative;
-  width: 618px;
-  height: 463px;
-  margin-left: auto;
-  margin-top: -637px;
-  pointer-events: none;
-  /* 0 at <=900px viewport width, 1 at >=1150px, linear in between */
-  --deck-t: clamp(0, calc((100vw - 900px) / 250px), 1);
-  /* shrinks to 70% of size as the viewport narrows toward 900px; anchored
-     at the top-right corner so the fan's right edge stays put while it
-     shrinks in from the left */
-  transform-origin: top right;
-  transform: scale(calc(0.7 + 0.3 * var(--deck-t)));
-  /* every card's pull-out target: the blog card's own position, so all
-     opened cards converge on the same spot regardless of where they
-     started in the fan */
-  --target-top: calc(176px - 138px * var(--deck-t));
-  --target-left: calc(265px - 101px * var(--deck-t));
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
 }
 
 .deck-card {
-  position: absolute;
-  width: 270px;
-  height: 174px;
+  position: relative;
+  min-height: 112px;
   border-radius: 19px;
-  padding: 20px;
   box-sizing: border-box;
   border: 1px solid transparent;
   outline: 2px solid transparent;
@@ -239,7 +318,6 @@ a:hover {
      the real path each card travels when pulled out, not an estimate. */
   --pull-dx: calc(var(--target-left) - var(--own-left));
   --pull-dy: calc(var(--target-top) - var(--own-top));
-  transform: rotate(var(--deck-rot));
   transition:
     outline-color 0.15s ease,
     box-shadow 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -248,9 +326,32 @@ a:hover {
 /* marks the card without lifting it or raising its z-index — that
    already made it visually pop above its overlapping neighbors, which
    read as "pulled out" even on plain hover, before any click */
-.deck-card:hover {
+.deck-card:hover,
+.deck-card:has(:focus-visible) {
   outline-color: var(--accent);
-  box-shadow: 0 14px 28px rgba(15, 35, 64, 0.22);
+  box-shadow: 0 14px 28px rgba(var(--shadow), 0.22);
+}
+
+/* the whole card is one real <button>; the close control is its sibling,
+   not a child, so neither is nested inside the other */
+.deck-trigger {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0;
+  padding: 20px;
+  border: 0;
+  border-radius: inherit;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.deck-trigger:focus-visible {
+  outline: none;
 }
 
 /* close button, top-right of each card — only visible once the card is
@@ -260,19 +361,26 @@ a:hover {
   position: absolute;
   top: 8px;
   right: 8px;
-  width: 22px;
-  height: 22px;
+  width: 28px;
+  height: 28px;
   align-items: center;
   justify-content: center;
   padding: 0;
   margin: 0;
   border: none;
   border-radius: 50%;
-  background: rgba(15, 35, 64, 0.08);
+  background: rgba(var(--shadow), 0.08);
   color: var(--ink);
   font-size: 0.75rem;
   line-height: 1;
   cursor: pointer;
+}
+
+/* 28px visible, 44px tappable */
+.deck-close::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
 }
 
 .deck-portfolio .deck-close {
@@ -344,84 +452,50 @@ a:hover {
    0, so the cards still visibly peek out from each other rather than
    landing exactly on top of deck-base. */
 .deck-base {
+  display: none;
   --own-top: 251px;
   --own-left: 319px;
-  top: var(--own-top);
-  left: var(--own-left);
-  background: #d7e0ef;
-  border-color: rgba(15, 35, 64, 0.06);
+  background: var(--surface-sunk);
+  border-color: rgba(var(--shadow), 0.06);
   /* rotation only eases toward upright (20% of the original angle left
      at <=900px), not fully flat — back to the full tilt at >=1150px */
   --deck-rot: calc(8deg * (0.2 + 0.8 * var(--deck-t)));
-  box-shadow: 0 10px 24px rgba(15, 35, 64, 0.12);
+  box-shadow: 0 10px 24px rgba(var(--shadow), 0.12);
 }
 
 .deck-contact {
   --own-top: calc(228px - 44px * var(--deck-t));
   --own-left: calc(305px - 25px * var(--deck-t));
-  top: var(--own-top);
-  left: var(--own-left);
-  margin: 0;
-  appearance: none;
   background: var(--surface);
   border-color: var(--border);
   --deck-rot: calc(3deg * (0.2 + 0.8 * var(--deck-t)));
-  box-shadow: 0 14px 32px rgba(15, 35, 64, 0.14);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-align: left;
-  font: inherit;
-  color: inherit;
-  cursor: pointer;
-  pointer-events: auto;
+  box-shadow: 0 14px 32px rgba(var(--shadow), 0.14);
 }
 
 .deck-playlist {
   --own-top: calc(201px - 94px * var(--deck-t));
   --own-left: calc(289px - 57px * var(--deck-t));
-  top: var(--own-top);
-  left: var(--own-left);
   background: var(--surface);
   border-color: var(--border);
   --deck-rot: calc(-2deg * (0.2 + 0.8 * var(--deck-t)));
-  box-shadow: 0 18px 36px rgba(15, 35, 64, 0.16);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-decoration: none;
-  pointer-events: auto;
+  box-shadow: 0 18px 36px rgba(var(--shadow), 0.16);
 }
 
 .deck-blog {
   --own-top: calc(176px - 138px * var(--deck-t));
   --own-left: calc(265px - 101px * var(--deck-t));
-  top: var(--own-top);
-  left: var(--own-left);
   background: var(--surface);
   border-color: var(--border);
   --deck-rot: calc(-7deg * (0.2 + 0.8 * var(--deck-t)));
-  box-shadow: 0 22px 44px rgba(15, 35, 64, 0.18);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-decoration: none;
-  pointer-events: auto;
+  box-shadow: 0 22px 44px rgba(var(--shadow), 0.18);
 }
 
 .deck-portfolio {
   --own-top: calc(157px - 176px * var(--deck-t));
   --own-left: calc(234px - 157px * var(--deck-t));
-  top: var(--own-top);
-  left: var(--own-left);
-  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  background: linear-gradient(135deg, var(--card-from), var(--card-to));
   --deck-rot: calc(-13deg * (0.2 + 0.8 * var(--deck-t)));
-  box-shadow: 0 28px 54px rgba(15, 35, 64, 0.24);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-decoration: none;
-  pointer-events: auto;
+  box-shadow: 0 28px 54px rgba(var(--shadow), 0.24);
 }
 
 .deck-label {
@@ -452,22 +526,85 @@ a:hover {
   color: #fff;
 }
 
+/* below 900px: the deck is a 2-column tile grid; opening a tile widens it
+   in place instead of flying across the page */
+.deck-card.is-active {
+  grid-column: 1 / -1;
+}
+.deck-card.is-active,
+.deck-card.is-closing {
+  animation: none;
+}
+
+/* from 900px: the fan. The hero becomes a two-column grid — copy left, fan
+   right — so nothing is positioned by an estimate of the other's height. */
 @media (min-width: 900px) {
-  .card-deck {
-    display: block;
-  }
   .hero {
-    padding-bottom: 242px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: 24px;
+    padding-top: clamp(140px, 17vw, 245px);
+    padding-bottom: 56px;
+  }
+  .hero-sub {
+    /* narrows with the viewport so the copy stays clear of the card fan */
+    max-width: clamp(300px, 36vw, 480px);
   }
   .hero-content {
-    /* halved back from 30% per follow-up feedback */
-    margin-left: 15%;
-    /* ~70% of hero-content's own rendered height (estimated ~300px tall at
-       this breakpoint -> ~210px). Uses margin, not transform: margin takes
-       up real space, so .hero grows and pushes the card deck + sections
-       down by the same amount, keeping their spacing intact instead of
-       sliding the hero text into content that stayed put. */
-    margin-top: 210px;
+    /* shares the row with the fan and may run under its empty lower-left
+       corner; the fan sits above it */
+    grid-column: 1 / -1;
+    grid-row: 1;
+    max-width: 560px;
+    /* 15% of the hero's content width, as before the grid */
+    margin-left: calc(0.15 * (min(100vw, 1280px) - 64px));
+  }
+
+  /* layout box = the fan at its current scale (full size: 618 x 463) */
+  .card-deck {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    margin: 0;
+    width: calc(618px * (0.7 + 0.3 * var(--deck-t)));
+    height: calc(463px * (0.7 + 0.3 * var(--deck-t)));
+  }
+  .card-deck-inner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    width: 618px;
+    height: 463px;
+    pointer-events: none;
+    /* shrinks to 70% as the viewport narrows toward 900px, anchored at the
+       top-right so the fan's right edge stays put */
+    transform-origin: top right;
+    transform: scale(calc(0.7 + 0.3 * var(--deck-t)));
+    /* every card's pull-out target: the blog card's own position, so all
+       opened cards converge on the same spot wherever they started */
+    --target-top: calc(176px - 138px * var(--deck-t));
+    --target-left: calc(265px - 101px * var(--deck-t));
+  }
+  .deck-card {
+    position: absolute;
+    top: var(--own-top);
+    left: var(--own-left);
+    width: 270px;
+    height: 174px;
+    transform: rotate(var(--deck-rot));
+    pointer-events: auto;
+  }
+  .deck-base {
+    display: block;
+  }
+  .deck-card.is-active {
+    grid-column: auto;
+    animation: deck-pull-out 0.56s var(--ease-spring) forwards;
+  }
+  .deck-card.is-closing {
+    animation: deck-push-back 0.32s var(--ease-settle) forwards;
   }
 }
 
@@ -513,7 +650,8 @@ a:hover {
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  background: rgba(47, 95, 214, 0.1);
+  background: var(--accent-wash);
+  color: var(--accent);
   display: grid;
   place-items: center;
   margin-bottom: 14px;
@@ -573,8 +711,8 @@ a:hover {
   gap: 20px;
   padding: 36px 32px;
   border-radius: 20px;
-  border: 1px solid rgba(47, 95, 214, 0.2);
-  background: rgba(47, 95, 214, 0.06);
+  border: 1px solid var(--accent-edge);
+  background: var(--accent-wash-soft);
   text-align: center;
   align-items: center;
 }
@@ -616,4 +754,86 @@ footer {
   color: var(--muted-soft);
   font-size: 0.75rem;
   padding-bottom: 32px;
+}
+
+/* DARK — tokens only; every surface above reads from them. Set on <html>
+   by the inline script in <head> (stored choice, else the system setting). */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0b1322;
+  --ink: #e6edfb;
+  --ink-soft: #b4c0da;
+  --muted: #9aa9c6;
+  --muted-soft: #8d9dbd;
+  --accent: #7da2ff;
+  --accent-dark: #1b3a86;
+  --accent-wash: rgba(125, 162, 255, 0.14);
+  --accent-wash-soft: rgba(125, 162, 255, 0.08);
+  --accent-edge: rgba(125, 162, 255, 0.3);
+  --accent-select: rgba(125, 162, 255, 0.3);
+  --ambient-light: rgba(255, 255, 255, 0.025);
+  --border: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.18);
+  --surface: #131d33;
+  --surface-sunk: #1c2a47;
+  --btn-bg: #e6edfb;
+  --btn-fg: #0b1322;
+  --btn-bg-hover: #fff;
+  /* the portfolio card keeps its blue and white text in both themes */
+  --card-from: #2f5fd6;
+  --card-to: #16306e;
+  --shadow: 0, 0, 0;
+}
+:root[data-theme="dark"] .deck-close {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* THEME TOGGLE — shows the theme it switches to */
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink-soft);
+  cursor: pointer;
+  position: relative;
+}
+/* 36px visible, 44px tappable */
+.theme-toggle::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+}
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.theme-toggle .icon-sun {
+  display: none;
+}
+:root[data-theme="dark"] .theme-toggle .icon-moon {
+  display: none;
+}
+:root[data-theme="dark"] .theme-toggle .icon-sun {
+  display: block;
+}
+
+/* PRINT — the deck is interaction, not content */
+@media print {
+  body {
+    background: #fff;
+  }
+  .page::before,
+  .card-deck,
+  .nav-links {
+    display: none;
+  }
+  .hero {
+    padding: 24px 0;
+  }
 }

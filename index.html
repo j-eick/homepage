@@ -5,81 +5,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Joschka Eickhoff — Homepage</title>
     <meta name="description" content="Persönliche Homepage von Joschka Eickhoff — Technical Operations" />
+    <script>
+      /* resolves the theme before first paint (stored choice, else system) */
+      (function () {
+        var t;
+        try { t = localStorage.getItem("theme"); } catch (e) {}
+        if (t !== "light" && t !== "dark") {
+          t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.dataset.theme = t;
+      })();
+    </script>
+    <meta name="theme-color" content="#eef3f8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b1322" media="(prefers-color-scheme: dark)" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Joschka Eickhoff — Technical Operations" />
+    <meta property="og:description" content="Persönliche Homepage von Joschka Eickhoff — Technical Operations" />
+    <meta property="og:locale" content="de_DE" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="fonts/space-grotesk-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
     <div class="page">
-      <div class="nav">
+      <header class="nav">
         <span class="brand">#idea - plan - build</span>
-        <nav class="nav-links">
+        <nav class="nav-links" aria-label="Hauptnavigation">
           <a href="#projekte">Projekte</a>
           <!-- TODO: Blog-URL einsetzen -->
-          <a href="#">Blog</a>
+          <a aria-disabled="true">Blog</a>
           <a href="#kontakt">Kontakt</a>
+          <button type="button" class="theme-toggle" aria-pressed="false" aria-label="Dunkles Design">
+            <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+            <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+          </button>
         </nav>
-      </div>
+      </header>
 
+      <main>
       <section class="hero">
         <div class="hero-content">
-          <span class="eyebrow">Aktuell bei der Arbeit</span>
-
           <h1 class="hero-title">
-            Joschka Eickhoff<br />
-            <span class="light">Technical</span> <span class="accent">Operations</span>
+            <span class="name">Joschka<br />Eickhoff</span>
+            <span class="role"><span class="light">Technical</span> <span class="accent">Operations</span></span>
           </h1>
 
           <p class="hero-sub">
             Ich halte Technik, Produkt und Betrieb zusammen — koordiniere Teams, baue die Tools dafür selbst und sorge dafür, dass es im Alltag einfach läuft.
           </p>
 
-          <nav class="cta-row">
+          <div class="cta-row">
             <!-- TODO: echte LinkedIn-URL einsetzen -->
-            <a class="btn btn-primary" href="#" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="btn btn-primary" aria-disabled="true">LinkedIn</a>
             <!-- TODO: Lebenslauf-PDF verlinken -->
-            <a class="btn btn-secondary" href="#" download>Lebenslauf (PDF)</a>
+            <a class="btn btn-secondary" aria-disabled="true">Lebenslauf (PDF)</a>
             <!-- TODO: echte Spotify-URL einsetzen -->
-            <a class="btn btn-ghost" href="#" target="_blank" rel="noopener">
+            <a class="btn btn-ghost" aria-disabled="true">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.52 17.34c-.24.36-.66.48-1.02.24-2.76-1.68-6.3-2.1-10.44-1.14-.42.12-.78-.18-.9-.54-.12-.42.18-.78.54-.9 4.56-1.02 8.52-.6 11.58 1.32.42.18.48.66.24 1.02zm1.44-3.3c-.3.42-.84.6-1.26.3-3.18-1.92-7.92-2.52-11.58-1.38-.48.12-1.02-.12-1.14-.6-.12-.48.12-1.02.6-1.14 4.26-1.26 9.48-.66 13.08 1.56.36.18.54.84.3 1.26zm.12-3.42C15.3 8.4 8.76 8.16 5.1 9.3c-.6.18-1.2-.18-1.38-.72-.18-.6.18-1.2.72-1.38 4.26-1.26 11.4-1.02 15.84 1.62.54.3.72 1.02.42 1.56-.3.42-1.02.6-1.62.24z"></path></svg>
               Spotify
             </a>
-          </nav>
+          </div>
+
+          <p class="hero-status">Aktuell bei der Arbeit</p>
         </div>
-      </section>
 
-      <div class="card-deck">
-        <div class="card-deck-inner">
-          <div class="deck-card deck-base"></div>
+        <div class="card-deck">
+          <div class="card-deck-inner">
+            <div class="deck-card deck-base" aria-hidden="true"></div>
 
-          <!-- TODO: zeigt noch keine echten Kontaktdaten an — nur das Pop-out selbst ist implementiert.
-               role="button" statt <button>, weil jede Karte einen echten, nativ fokussierbaren
-               Schließen-<button> enthält — ein <button> darf kein <button> verschachteln. -->
-          <div class="deck-card deck-contact" role="button" tabindex="0" aria-label="Kontaktdaten anzeigen">
+          <!-- TODO: zeigt noch keine echten Kontaktdaten an — nur das Pop-out selbst ist implementiert. -->
+          <div class="deck-card deck-contact">
+            <button type="button" class="deck-trigger" aria-expanded="false">
+              <span class="deck-label">Kontakt</span>
+              <span class="deck-value">Kontaktdaten</span>
+            </button>
             <button type="button" class="deck-close" aria-label="Schließen"><span aria-hidden="true">✕</span></button>
-            <span class="deck-label">Kontakt</span>
-            <span class="deck-value">Kontaktdaten</span>
           </div>
 
           <!-- TODO: echte Spotify-Playlist-URL einsetzen, z.B. als Link innerhalb der aufgeklappten Karte -->
-          <div class="deck-card deck-playlist" role="button" tabindex="0" aria-label="Spotify-Playlist öffnen">
+          <div class="deck-card deck-playlist">
+            <button type="button" class="deck-trigger" aria-expanded="false">
+              <span class="deck-label">Playlist</span>
+              <span class="deck-value">Alarm on Drugs</span>
+            </button>
             <button type="button" class="deck-close" aria-label="Schließen"><span aria-hidden="true">✕</span></button>
-            <span class="deck-label">Playlist</span>
-            <span class="deck-value">Alarm on Drugs</span>
           </div>
 
           <!-- TODO: echte Blog-URL einsetzen, z.B. als Link innerhalb der aufgeklappten Karte -->
-          <div class="deck-card deck-blog" role="button" tabindex="0" aria-label="Zum Blog">
+          <div class="deck-card deck-blog">
+            <button type="button" class="deck-trigger" aria-expanded="false">
+              <span class="deck-label">Schreiben</span>
+              <span class="deck-value">Blog →</span>
+            </button>
             <button type="button" class="deck-close" aria-label="Schließen"><span aria-hidden="true">✕</span></button>
-            <span class="deck-label">Schreiben</span>
-            <span class="deck-value">Blog →</span>
           </div>
 
-          <div class="deck-card deck-portfolio" role="button" tabindex="0" aria-label="Portfolio ansehen">
+          <div class="deck-card deck-portfolio">
+            <button type="button" class="deck-trigger" aria-expanded="false">
+              <span class="deck-label">Portfolio</span>
+              <span class="deck-value">Projekte →</span>
+            </button>
             <button type="button" class="deck-close" aria-label="Schließen"><span aria-hidden="true">✕</span></button>
-            <span class="deck-label">Portfolio</span>
-            <span class="deck-value">Projekte →</span>
+          </div>
           </div>
         </div>
-      </div>
+      </section>
 
       <div class="sections">
         <section>
@@ -87,7 +118,7 @@
           <div class="focus-grid">
             <div class="focus-card">
               <div class="focus-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2f5fd6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
               </div>
               <h3>Koordination</h3>
               <p>Teams, Zeitpläne und Schnittstellen zusammenhalten, damit Projekte liefern.</p>
@@ -95,7 +126,7 @@
 
             <div class="focus-card">
               <div class="focus-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2f5fd6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
               </div>
               <h3>Entwicklung</h3>
               <p>Apps und Tools selbst bauen, vom Prototyp bis zum laufenden Betrieb.</p>
@@ -103,7 +134,7 @@
 
             <div class="focus-card">
               <div class="focus-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2f5fd6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
               </div>
               <h3>Betrieb</h3>
               <p>Prozesse strukturieren und am Laufen halten — technisch wie organisatorisch.</p>
@@ -115,7 +146,7 @@
           <h2 class="section-title">Projekte</h2>
           <div class="projects-list">
             <!-- TODO: echte Projekt-URL einsetzen -->
-            <a class="project-link" href="#" target="_blank" rel="noopener">
+            <a class="project-link" aria-disabled="true">
               <span>
                 <span class="project-name">Alarm on Drugs</span>
                 <span class="project-desc">Mobile App · Expo / React Native</span>
@@ -124,7 +155,7 @@
             </a>
 
             <!-- TODO: weiteres Projekt ausfüllen -->
-            <a class="project-link" href="#" target="_blank" rel="noopener">
+            <a class="project-link" aria-disabled="true">
               <span>
                 <span class="project-name">Weiteres Projekt</span>
                 <span class="project-desc">Kurzbeschreibung ergänzen</span>
@@ -137,18 +168,20 @@
         <section id="kontakt" class="contact-section">
           <h2>Lass uns sprechen</h2>
           <p>Projekt, Idee oder einfach Hallo sagen — melde dich gerne.</p>
-          <nav class="contact-ctas">
+          <div class="contact-ctas">
             <a href="mailto:maneulgyopo@gmail.com">E-Mail</a>
             <!-- TODO: echte LinkedIn-URL einsetzen -->
-            <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+            <a aria-disabled="true">LinkedIn</a>
             <!-- TODO: Lebenslauf-PDF verlinken -->
-            <a href="#" download>Lebenslauf</a>
-          </nav>
+            <a aria-disabled="true">Lebenslauf</a>
+          </div>
         </section>
       </div>
+      </main>
 
       <footer>© 2026 · Joschka Eickhoff</footer>
     </div>
     <script src="js/card-deck.js" defer></script>
+    <script src="js/theme-toggle.js" defer></script>
   </body>
 </html>

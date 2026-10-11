@@ -1,0 +1,26 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "icon-tile-stack",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-11T13:08:10.063Z",
+        "reason": "user confirmed: keeps the icon tile above heading in the Fokus cards"
+      },
+      {
+        "rule": "undersized-ui-text",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-11T13:09:17.185Z",
+        "reason": "detector false positive: .role is 0.42em of a clamp(2.9rem,6vw,4.75rem) title, rendered 19-32px; measured by the detector as 6.72px"
+      }
+    ]
+  }
+}
