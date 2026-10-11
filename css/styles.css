@@ -508,20 +508,24 @@ a[aria-disabled="true"] {
   border-radius: inherit;
   pointer-events: none;
   opacity: 0;
-  background-image: linear-gradient(
-    125deg,
+  /* a glow that enters from the card's top-left corner and spreads into
+     it: a radial gradient centred on that corner whose size grows on hover */
+  background-image: radial-gradient(
+    circle at 0 0,
     var(--glow-a, transparent),
-    var(--glow-b, transparent)
+    var(--glow-b, transparent) 55%,
+    transparent 100%
   );
-  background-size: 240% 240%;
-  background-position: 0% 0%;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: 0% 0%;
   transition:
     opacity 0.6s ease-in,
-    background-position 1.2s ease-in;
+    background-size 1.2s ease-in;
 }
 .deck-card:hover::before {
   opacity: 1;
-  background-position: 100% 100%;
+  background-size: 190% 190%;
 }
 .deck-card.is-active::before {
   opacity: 0;
@@ -533,8 +537,8 @@ a[aria-disabled="true"] {
 .deck-playlist {
   /* the blue of the Portfolio card (--card-from), from a clear wash at the
      start of the sweep to a faint one at its end */
-  --glow-a: color-mix(in srgb, var(--card-from) 24%, transparent);
-  --glow-b: color-mix(in srgb, var(--card-from) 9%, transparent);
+  --glow-a: color-mix(in srgb, var(--card-from) 17%, transparent);
+  --glow-b: color-mix(in srgb, var(--card-from) 6%, transparent);
 }
 /* the blue card: a white band of light that travels across it */
 .deck-portfolio::before {
@@ -544,6 +548,7 @@ a[aria-disabled="true"] {
     rgba(255, 255, 255, 0.3) 50%,
     transparent 70%
   );
+  background-repeat: repeat;
   background-size: 300% 100%;
   background-position: 100% 0;
   /* the gloss takes its time: slower than the tint on the white cards */
@@ -552,6 +557,7 @@ a[aria-disabled="true"] {
     background-position 1.9s ease-in;
 }
 .deck-portfolio:hover::before {
+  background-size: 300% 100%;
   background-position: 0% 0;
 }
 
