@@ -293,13 +293,29 @@
       "description": "Closing panel with three chips.",
       "html": "<div class=\"ds-contact\"><h2>Lass uns sprechen</h2><p>Projekt, Idee oder einfach Hallo sagen.</p></div>",
       "css": ".ds-contact{padding:36px 32px;border-radius:20px;border:1px solid rgba(47,95,214,.2);background:rgba(47,95,214,.06);text-align:center;color:#0f2340}.ds-contact h2{margin:0 0 8px;font:600 1.4rem 'Space Grotesk',sans-serif}.ds-contact p{margin:0;font:400 .95rem/1.6 Inter,sans-serif;color:#46577a}"
+    },
+    {
+      "name": "Hashtag Chip",
+      "kind": "chip",
+      "refersTo": "button-secondary",
+      "description": "Mobile topic tag under the hero buttons; links to blog articles later.",
+      "html": "<a class=\"ds-tag\">#musik</a>",
+      "css": ".ds-tag{display:inline-block;padding:7px 12px;border:1px solid rgba(15,35,64,.15);border-radius:10px;color:#4f6587;font:500 .85rem Inter,sans-serif;text-decoration:none}.ds-tag:hover{border-color:#2f5fd6;color:#2f5fd6}"
+    },
+    {
+      "name": "Stack Card",
+      "kind": "card",
+      "refersTo": "deck-card",
+      "description": "A mobile hero stack card; cards behind show their name in a lower corner.",
+      "html": "<div class=\"ds-stack\"><button class=\"ds-tab\">Blog</button></div>",
+      "css": ".ds-stack{position:relative;width:300px;height:180px;border-radius:19px;background:color-mix(in srgb,#fff 90%,#eef3f8);border:1px solid rgba(15,35,64,.08);box-shadow:0 12px 24px rgba(15,35,64,.12);transform:translate(-6px,32px) rotate(-3deg)}.ds-stack:hover{transform:translate(-6px,38px) rotate(-3deg);background:#fff;box-shadow:0 12px 18px rgba(15,35,64,.26)}.ds-tab{position:absolute;left:16px;bottom:7px;border:0;background:none;color:#4f6587;font:600 .8rem Inter,sans-serif;cursor:pointer}.ds-stack:hover .ds-tab{color:#0f2340}"
     }
   ],
   "narrative": {
     "northStar": "The Pinned Board",
     "overview": "One person's working surface: things placed where they can be picked up. On a wide screen the surface is blue paper and the contents are a fanned deck of cards that pull out toward you. Below 900px the same page runs in one column with a centred hero and the deck is not shown. The two share everything: paper, type, one accent, both themes.",
     "keyCharacteristics": [
-      "One composition logic, two forms: a fan from 900px up, a centred single column below it.",
+      "One composition logic, two forms: a fan from 900px up; below it the hero is itself a small stack of cards you can bring forward.",
       "The phone is the desktop page narrowed, not a second look: same fonts, colours, buttons and panel.",
       "Tokens-only theming: blue paper by day, a night board by night.",
       "Motion is spring-like and rare: the card pull-out on desktop, nothing animates on mobile."
@@ -335,8 +351,9 @@
     ],
     "donts": [
       "Don't add a second accent next to Signal Blue.",
-      "Don't lift a card on hover; marking is not pulling out.",
-      "Don't use hard offset shadows or glows for depth."
+      "Don't lift a desktop card on hover; marking is not pulling out. (Mobile cards behind slide 6px further out on hover.)",
+      "Don't use hard offset shadows or glows for depth.",
+      "Don't colour the cards of the mobile stack; they stay white (a touch dimmer behind), with Signal Blue only on the icon tile."
     ]
   }
 }

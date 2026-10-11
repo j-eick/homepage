@@ -253,6 +253,19 @@ a[aria-disabled="true"] {
 .btn-blog {
   display: none;
 }
+/* the mobile card stack (see mobile.css): on desktop the wrapper is
+   transparent and only the hero card exists */
+.hero-stack {
+  display: contents;
+}
+.stack-extra,
+.stack-tab {
+  display: none;
+}
+/* topic hashtags: mobile only (see mobile.css) */
+.hero-tags {
+  display: none;
+}
 
 .btn-primary {
   background: var(--btn-bg);

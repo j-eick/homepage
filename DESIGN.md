@@ -90,7 +90,7 @@ One person's working surface: things placed where they can be picked up. On a wi
 The tone is direct and quiet. Colour is rare: one signal blue on a cool, low-chroma ground, and the portfolio card as the single saturated object.
 
 **Key Characteristics:**
-- One composition logic, two forms: a fan from 900px up, a centred single column below it.
+- One composition logic, two forms: a fan from 900px up; below it the hero is itself a small stack of cards you can bring forward.
 - The phone is the desktop page narrowed, not a second look: same fonts, colours, buttons and panel.
 - Tokens-only theming: blue paper by day, a night board by night.
 - Motion is spring-like and rare: the card pull-out on desktop, nothing animates on mobile.
@@ -135,7 +135,7 @@ A cool, low-chroma ground with one signal blue.
 
 From 900px: a 1280px container. The hero is a two-column grid, copy left and the card fan right, with the copy allowed to run under the fan's empty lower-left corner. The fan's layout box is its scaled size, so the copy is centred against it (scale 0.7 at 900px, 1 from 1150px). Below the hero, a single 880px column holds the contact panel.
 
-Mobile (below 900px): one column with 20px gutters and a centred hero (centred on both axes in the free height between header and footer). The four hero links are 56px icon buttons in one centred row; their names stay as accessible labels. The deck and the contact panel are not shown, and there is no menu. The copyright sits on the viewport's bottom edge on short pages.
+Mobile (below 900px): one column with 26px gutters. The hero is a stack of three equal cards (white, 19px radius, soft shadow), centred on both axes in the free height between header and footer. The front card carries the name (80% of the narrow-desktop size: clamp(2.16rem, 12vw, 2.96rem)), role, intro, four 56px icon buttons in one centred row (names stay as accessible labels) and a hairline, set apart from the buttons and the chips by generous space, above a row of hashtag chips. The other two cards (Blog, Spotify) sit behind it, staggered 32px and 62px lower and tilted ±3°, so each shows its name in its lower corner; hovering any visible part of such a card brightens that card from its slightly dimmed resting tone to full surface and tightens and deepens its shadow (`0 12px 18px`) and slides it 6px further out of the stack (no outline), clicking anywhere on its visible part (or activating its name by keyboard) pulls that card out of the stack, 46px further out along its tilt (0.24s, easing out), then lays it on top with a slower spring (0.62s) while the old front card slides back into the slot the chosen card left (the tilt and spring are the deck's own). The two cards behind slide out once on load, Spotify first after 0.9s, then Blog after 1.15s, so the front card is seen alone first (not under reduced motion). The deck and the contact panel are not shown, and there is no menu. The copyright sits on the viewport's bottom edge on short pages.
 
 ## Elevation & Depth
 
@@ -159,12 +159,18 @@ Soft, not pill-shaped: 10–12px buttons and chips, 19px deck cards, 20px for th
 - **Primary:** Harbor Ink fill, white text; hover deepens to Deep Signal and never turns the text blue.
 - **Secondary / Ghost:** white fill with a hairline border, or transparent with a quieter border and muted text.
 - **Mobile:** below 900px the hero links are 56px square icon buttons (LinkedIn mark; the letters CV in the display face for the CV; Spotify mark; a page with text lines and a pen for Blog; 26px glyphs) with 16px corners; the text label is visually hidden and stays as `aria-label`. Blog appears here only on mobile; on desktop it is in the header.
+- **Hashtag chips (mobile):** 10px radius, hairline border, muted text at 0.85rem, in a centred wrapping list under the buttons. Placeholder topics until real interests exist; each gets an `href` to its blog articles later. Without `href` they are inert.
 - **Pending links:** a link whose URL is not supplied yet has no `href`, keeps its look, shows a default cursor and `aria-disabled="true"`.
 
 ### Deck card (desktop)
 - A real button covering the whole card, with a separate close button as its sibling.
 - **Hover / Focus:** accent outline and a deeper shadow; focus uses the same outline via `:focus-visible`.
 - **Active:** the card pulls out to the blog card's position along one spring curve (0.56s) and returns in 0.32s.
+
+### Stack card (mobile)
+- **Shape:** the same 19px card as on desktop. The front card is the hero; the other two hold a single action each ("Zum Blog", "Auf Spotify öffnen"; inert placeholders until URLs exist).
+- **Tab:** the card's name with a 16px glyph, 0.8rem at weight 600 in Dusk Label, sticking out in the card's lower corner (left card bottom-left, right card bottom-right); Ink on hover and focus.
+- **States:** hover or focus brightens the card, sharpens its shadow and slides it 6px further out; contents of a card behind are hidden and inert.
 
 ### Contact panel
 - A wide rounded panel in a light accent wash with a 1px accent edge, centred heading, short line and three white chips.
@@ -184,5 +190,6 @@ Soft, not pill-shaped: 10–12px buttons and chips, 19px deck cards, 20px for th
 
 ### Don't:
 - **Don't** add a second accent next to Signal Blue.
-- **Don't** lift a card on hover; marking is not pulling out.
+- **Don't** lift a desktop card on hover; marking is not pulling out. (Mobile cards behind slide 6px further out on hover.)
+- **Don't** colour the cards of the mobile stack; they stay white (a touch dimmer behind), with Signal Blue only on the icon tile.
 - **Don't** use hard offset shadows or glows for depth.
