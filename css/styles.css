@@ -180,6 +180,11 @@ a:hover {
 /* CARD DECK — fanned, desktop only */
 .card-deck {
   position: relative;
+  /* higher than .hero's z-index:1 — .hero's box extends into this area
+     (padding-bottom reserves room for the overlap) and was sitting above
+     the cards in stacking order, silently eating all hover/click events
+     before they ever reached a .deck-card */
+  z-index: 2;
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 32px 48px;
@@ -224,9 +229,19 @@ a:hover {
 
 .deck-card:hover {
   outline-color: var(--accent);
+  /* clearly visible border on top of the subtler outline/lift/shadow,
+     so the hover state can't be missed */
+  border-color: var(--accent);
+  border-width: 3px;
   transform: rotate(var(--deck-rot)) translateY(-6px);
   box-shadow: 0 12px 20px rgba(15, 35, 64, 0.2);
   z-index: 10;
+}
+
+/* the accent-blue border would barely show against deck-portfolio's own
+   blue gradient background, so it gets a white one instead */
+.deck-portfolio:hover {
+  border-color: #fff;
 }
 
 /* deck-base is the convergence anchor: its own position never moves.
