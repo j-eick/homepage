@@ -736,13 +736,14 @@ a[aria-disabled="true"] {
 .deck-contact {
   /* the nearer the row, the higher; within a row the right one on top */
   z-index: 5;
+  --tilt: 30deg;
   --depth: 3;
   --float-dur: 7.5s;
   --float-delay: -5.5s;
   --pull-x: 26px;
   --pull-y: 16px;
-  --own-top: 536px;
-  --own-left: 640px;
+  --own-top: 513px;
+  --own-left: 585px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
   --deck-rot: 4deg;
@@ -752,13 +753,14 @@ a[aria-disabled="true"] {
 .deck-playlist {
   /* the nearer the row, the higher; within a row the right one on top */
   z-index: 4;
+  --tilt: 33deg;
   --depth: 4;
   --float-dur: 9s;
   --float-delay: -1.2s;
   --pull-x: 34px;
   --pull-y: 8px;
-  --own-top: 450px;
-  --own-left: 785px;
+  --own-top: 411px;
+  --own-left: 835px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
   --deck-rot: 2deg;
@@ -768,12 +770,13 @@ a[aria-disabled="true"] {
 .deck-blog {
   /* the nearer the row, the higher; within a row the right one on top */
   z-index: 3;
+  --tilt: 26deg;
   --depth: 5;
   --float-dur: 6.5s;
   --float-delay: -4.3s;
   --pull-x: 40px;
   --pull-y: 0px;
-  --own-top: 450px;
+  --own-top: 416px;
   --own-left: 500px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
@@ -784,13 +787,14 @@ a[aria-disabled="true"] {
 .deck-work {
   /* the nearer the row, the higher; within a row the right one on top */
   z-index: 1;
+  --tilt: 20deg;
   --depth: 9;
   --float-dur: 7s;
   --float-delay: 0s;
   --pull-x: 26px;
   --pull-y: -16px;
-  --own-top: 360px;
-  --own-left: 520px;
+  --own-top: 295px;
+  --own-left: 500px;
   background: var(--surface);
   border-color: var(--border);
   --deck-rot: -4deg;
@@ -800,13 +804,14 @@ a[aria-disabled="true"] {
 .deck-portfolio {
   /* the nearer the row, the higher; within a row the right one on top */
   z-index: 2;
+  --tilt: 44deg;
   --depth: 7;
   --float-dur: 8.5s;
   --float-delay: -2.1s;
   --pull-x: 34px;
   --pull-y: -8px;
-  --own-top: 360px;
-  --own-left: 720px;
+  --own-top: 250px;
+  --own-left: 827px;
   /* a pane's light across the blue card, behind its type */
   background:
     linear-gradient(115deg, rgba(255, 255, 255, 0.2), transparent 42%),
@@ -1051,8 +1056,10 @@ a[aria-disabled="true"] {
     left: var(--own-left);
     width: 270px;
     height: 174px;
-    /* lying flat on the plate = the plate's own inclination (60deg) */
-    --lean: 60deg;
+    /* lying flat on the plate = the plate's own inclination (60deg); the
+       far edge rests on something and stands up --tilt (20 to 45deg, one
+       value per card), so the card is 60deg - tilt from the screen */
+    --lean: calc(60deg - var(--tilt, 0deg));
     transform: rotateX(var(--lean)) rotate(var(--deck-rot));
     pointer-events: auto;
   }
