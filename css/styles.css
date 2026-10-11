@@ -729,7 +729,7 @@ a[aria-disabled="true"] {
 .deck-contact {
   /* the nearer the row, the higher; within a row the right one on top */
   z-index: 4;
-  --tilt: 20deg;
+  --tilt: 25deg;
   --depth: 3;
   --float-dur: 7.5s;
   --float-delay: -5.5s;
@@ -746,14 +746,14 @@ a[aria-disabled="true"] {
 .deck-playlist {
   /* the nearer the row, the higher; within a row the right one on top */
   z-index: 5;
-  --tilt: 20deg;
+  --tilt: 0deg;
   --depth: 4;
   --float-dur: 9s;
   --float-delay: -1.2s;
   --pull-x: 34px;
   --pull-y: 8px;
-  --own-top: 535px;
-  --own-left: 831px;
+  --own-top: 575px;
+  --own-left: 974px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
   --deck-rot: 2deg;
@@ -780,36 +780,36 @@ a[aria-disabled="true"] {
 .deck-work {
   /* the nearer the row, the higher; within a row the right one on top */
   z-index: 1;
-  --tilt: 35deg;
+  --tilt: 30deg;
   --depth: 9;
   --float-dur: 7s;
   --float-delay: 0s;
   --pull-x: 26px;
   --pull-y: -16px;
-  --own-top: 405px;
+  --own-top: 354px;
   --own-left: 521px;
   background: var(--surface);
   border-color: var(--border);
-  --deck-rot: -4deg;
+  --deck-rot: 16deg;
   box-shadow: var(--card-rest);
 }
 
 .deck-portfolio {
   /* the nearer the row, the higher; within a row the right one on top */
   z-index: 2;
-  --tilt: 35deg;
+  --tilt: 30deg;
   --depth: 7;
   --float-dur: 8.5s;
   --float-delay: -2.1s;
   --pull-x: 34px;
   --pull-y: -8px;
-  --own-top: 405px;
+  --own-top: 354px;
   --own-left: 806px;
   /* a pane's light across the blue card, behind its type */
   background:
     linear-gradient(115deg, rgba(255, 255, 255, 0.2), transparent 42%),
     linear-gradient(135deg, var(--card-from), var(--card-to));
-  --deck-rot: -2deg;
+  --deck-rot: 18deg;
   box-shadow: var(--card-rest);
 }
 
