@@ -441,7 +441,7 @@ a[aria-disabled="true"] {
          top follow the pointer a little more than the ones beneath */
   --card-edge: color-mix(in srgb, var(--ink) 16%, var(--surface));
   --card-rest:
-    inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 3px 0 0 var(--card-edge),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 6px 0 0 var(--card-edge),
     0 7px 9px -5px rgba(var(--shadow), 0.22);
   --depth: 0;
   --hx: 0px;
@@ -467,7 +467,7 @@ a[aria-disabled="true"] {
   --hx: 4px;
   --hy: 6px;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 3px 0 0 var(--card-edge),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 6px 0 0 var(--card-edge),
     0 10px 12px -6px rgba(var(--shadow), 0.3);
 }
 .deck-work:hover,
@@ -734,15 +734,15 @@ a[aria-disabled="true"] {
    names stay readable at every width. Cards beneath rest a touch dimmer
    and brighten on hover (see below). */
 .deck-contact {
-  /* left to right, each one over its left neighbour */
+  /* the nearer the row, the higher; within a row the right one on top */
   z-index: 5;
   --depth: 3;
   --float-dur: 7.5s;
   --float-delay: -5.5s;
   --pull-x: 26px;
   --pull-y: 16px;
-  --own-top: 470px;
-  --own-left: 807px;
+  --own-top: 536px;
+  --own-left: 640px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
   --deck-rot: 4deg;
@@ -750,15 +750,15 @@ a[aria-disabled="true"] {
 }
 
 .deck-playlist {
-  /* left to right, each one over its left neighbour */
+  /* the nearer the row, the higher; within a row the right one on top */
   z-index: 4;
   --depth: 4;
   --float-dur: 9s;
   --float-delay: -1.2s;
   --pull-x: 34px;
   --pull-y: 8px;
-  --own-top: 470px;
-  --own-left: 657px;
+  --own-top: 450px;
+  --own-left: 785px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
   --deck-rot: 2deg;
@@ -766,15 +766,15 @@ a[aria-disabled="true"] {
 }
 
 .deck-blog {
-  /* left to right, each one over its left neighbour */
+  /* the nearer the row, the higher; within a row the right one on top */
   z-index: 3;
   --depth: 5;
   --float-dur: 6.5s;
   --float-delay: -4.3s;
   --pull-x: 40px;
   --pull-y: 0px;
-  --own-top: 470px;
-  --own-left: 507px;
+  --own-top: 450px;
+  --own-left: 500px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
   --deck-rot: 0deg;
@@ -782,15 +782,15 @@ a[aria-disabled="true"] {
 }
 
 .deck-work {
-  /* left to right, each one over its left neighbour */
+  /* the nearer the row, the higher; within a row the right one on top */
   z-index: 1;
   --depth: 9;
   --float-dur: 7s;
   --float-delay: 0s;
   --pull-x: 26px;
   --pull-y: -16px;
-  --own-top: 470px;
-  --own-left: 207px;
+  --own-top: 360px;
+  --own-left: 520px;
   background: var(--surface);
   border-color: var(--border);
   --deck-rot: -4deg;
@@ -798,15 +798,15 @@ a[aria-disabled="true"] {
 }
 
 .deck-portfolio {
-  /* left to right, each one over its left neighbour */
+  /* the nearer the row, the higher; within a row the right one on top */
   z-index: 2;
   --depth: 7;
   --float-dur: 8.5s;
   --float-delay: -2.1s;
   --pull-x: 34px;
   --pull-y: -8px;
-  --own-top: 470px;
-  --own-left: 357px;
+  --own-top: 360px;
+  --own-left: 720px;
   /* a pane's light across the blue card, behind its type */
   background:
     linear-gradient(115deg, rgba(255, 255, 255, 0.2), transparent 42%),
@@ -965,22 +965,9 @@ a[aria-disabled="true"] {
         rgba(255, 255, 255, 0.24)
       );
   }
-  /* the cards lie in a row far wider than the fan's layout box, and a
-     reflection is clipped to its box: so it sits on the inner box, which is
-     absolutely positioned and as wide and tall as the row needs. Its axis is
-     half the offset below the box's bottom edge, here just under the row. */
-  .card-deck-inner {
-    -webkit-box-reflect: below -300px
-      linear-gradient(
-        to bottom,
-        transparent calc(100% - 260px),
-        rgba(255, 255, 255, 0.28) calc(100% - 153px)
-      );
-  }
-  /* an open card has left the row: its place would be mirrored empty */
-  .hero.has-open .card-deck-inner {
-    -webkit-box-reflect: initial;
-  }
+  /* no reflection for the cards: three rows fill the plate down to its
+     front edge, so a mirror image would land beyond the glass (and rows one
+     and two would be mirrored across the front card). */
 
   /* the links are bare icons: no fill, no border, only a 44px hit area; the
      row is pulled left by the inset so the first glyph sits on the text edge */
