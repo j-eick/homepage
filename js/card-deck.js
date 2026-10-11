@@ -60,10 +60,23 @@
     var cs = getComputedStyle(card);
     var ownTop = parseFloat(cs.getPropertyValue("--own-top")) || 0;
     var ownLeft = parseFloat(cs.getPropertyValue("--own-left")) || 0;
+    // the open card is as tall as its text needs (never below its resting
+    // height): lay the trigger out at its natural height, with the text
+    // showing, for a moment and read it back
+    var trigger = card.querySelector(".deck-trigger");
+    var text = card.querySelector(".deck-text");
+    var restH = card.offsetHeight;
+    if (text) text.style.display = "block";
+    trigger.style.bottom = "auto";
+    var openH = Math.max(restH, trigger.offsetHeight);
+    trigger.style.bottom = "";
+    if (text) text.style.display = "";
+    card.style.setProperty("--open-h", openH + "px");
+
     var box = deckInner.getBoundingClientRect();
     var scale = box.width / deckInner.offsetWidth || 1;
     var cx = box.left + (ownLeft + card.offsetWidth / 2) * scale;
-    var cy = box.top + (ownTop + card.offsetHeight / 2) * scale;
+    var cy = box.top + (ownTop + openH / 2) * scale;
     var vw = document.documentElement.clientWidth;
     var vh = document.documentElement.clientHeight;
     card.style.setProperty("--modal-x", ((vw / 2 - cx) / scale).toFixed(2) + "px");

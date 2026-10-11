@@ -497,6 +497,8 @@ a[aria-disabled="true"] {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  /* the least air between label, text and value when the card is tall */
+  gap: 12px;
   margin: 0;
   padding: 20px;
   border: 0;
@@ -577,10 +579,12 @@ a[aria-disabled="true"] {
 
 @keyframes deck-pull-out {
   0% {
+    height: 174px;
     transform: translate(var(--from-x, 0px), var(--from-y, 0px))
       rotate(var(--deck-rot)) scale(1);
   }
   100% {
+    height: var(--open-h, 174px);
     transform: translate(var(--modal-x, 0px), var(--modal-y, 0px)) rotate(0deg)
       scale(1.5);
   }
@@ -615,10 +619,12 @@ a[aria-disabled="true"] {
 
 @keyframes deck-push-back {
   0% {
+    height: var(--open-h, 174px);
     transform: translate(var(--modal-x, 0px), var(--modal-y, 0px)) rotate(0deg)
       scale(1.5);
   }
   100% {
+    height: 174px;
     transform: translate(0, 0) rotate(var(--deck-rot)) scale(1);
   }
 }
@@ -637,39 +643,26 @@ a[aria-disabled="true"] {
 .deck-value {
   transform-origin: left bottom;
 }
-/* the body text of a card: only there while the card is open. Counter-scaled
-   like the label and value (0.8 x the card's 1.5 = 1.2x); it is laid out at
-   125% width so that, scaled down, it still spans the card. */
+/* the body text of a card: only there while the card is open. The card
+   grows 1.5x, so the text is set at 0.64rem to read as 0.96rem on screen
+   (1.2x of the label's size), and it flows in the card's real width. The
+   card gets as tall as the text needs (--open-h, measured by card-deck.js). */
 .deck-text {
   display: none;
-  box-sizing: border-box;
-  width: 125%;
-  transform-origin: left top;
+  margin-top: 6px;
   color: var(--ink-soft);
-  font-size: 0.8rem;
-  line-height: 1.45;
+  font-size: 0.64rem;
+  line-height: 1.5;
 }
 .deck-card.is-active .deck-text,
 .deck-card.is-closing .deck-text {
   display: block;
 }
-.deck-text-title {
-  display: block;
-  margin-bottom: 2px;
-  font-family: "Space Grotesk", sans-serif;
-  font-weight: 700;
-  line-height: 1.5;
-  color: var(--ink);
-}
 .deck-card.is-active .deck-text {
-  animation:
-    deck-text-open 0.56s var(--ease-spring) forwards,
-    deck-text-fade-in 0.3s ease 0.18s backwards;
+  animation: deck-text-fade-in 0.3s ease 0.18s backwards;
 }
 .deck-card.is-closing .deck-text {
-  animation:
-    deck-text-close 0.62s var(--ease-return) forwards,
-    deck-text-fade-out 0.18s ease forwards;
+  animation: deck-text-fade-out 0.18s ease forwards;
 }
 @keyframes deck-text-fade-in {
   from {
