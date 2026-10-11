@@ -888,7 +888,7 @@ a[aria-disabled="true"] {
     height: 560px;
     /* the pane's centre sits a good way up the group, so its far half lies
        behind the lower cards and the copy, and its near edge just below them */
-    margin: 0 -72px -143px;
+    margin: 0 -72px -183px;
     border-radius: 36px;
     transform: perspective(1250px) rotateX(60deg);
     transform-origin: 50% 50%;
@@ -931,6 +931,36 @@ a[aria-disabled="true"] {
   }
   .hero-sub {
     max-width: clamp(300px, 36vw, 480px);
+  }
+
+  /* REFLECTION on the glass: the copy and the fan are mirrored just below
+     their lower edge, strongest at the edge and gone within about 125 to
+     150px: the lowest card, and the icons and tags of the copy, so it stays
+     on the pane. It is the real thing mirrored, so the idle drift, the
+     pointer depth and the hover follow along on their own. The mask is read
+     in the unmirrored element: transparent above, light at the bottom.
+     Blink and WebKit only; Firefox simply shows no reflection. */
+  .hero-content {
+    -webkit-box-reflect: below 6px
+      linear-gradient(
+        to bottom,
+        transparent calc(100% - 150px),
+        rgba(255, 255, 255, 0.24)
+      );
+  }
+  /* the fan's box ends about 29px (at full size) below its lowest card; the
+     offset is negative twice that, so the mirror starts at the card's edge */
+  .card-deck {
+    -webkit-box-reflect: below calc(-58px * var(--deck-scale) + 6px)
+      linear-gradient(
+        to bottom,
+        transparent calc(100% - 125px),
+        rgba(255, 255, 255, 0.28)
+      );
+  }
+  /* an open card has left the stack: its place would be mirrored empty */
+  .hero.has-open .card-deck {
+    -webkit-box-reflect: none;
   }
 
   /* the links are bare icons: no fill, no border, only a 44px hit area; the

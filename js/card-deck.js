@@ -6,6 +6,7 @@
     ".deck-work, .deck-contact, .deck-playlist, .deck-blog, .deck-portfolio",
   );
 
+  var heroEl = document.querySelector(".hero");
   var activeCard = null;
   var closingCard = null;
   var closingTimer = null;
@@ -17,6 +18,8 @@
       closingCard = null;
       closingTimer = null;
     }
+    // the stack is whole again: its reflection comes back
+    if (!activeCard && heroEl) heroEl.classList.remove("has-open");
   }
 
   function closeActive() {
@@ -108,6 +111,7 @@
     }
 
     card.classList.add("is-active");
+    if (heroEl) heroEl.classList.add("has-open");
     card.querySelector(".deck-trigger").setAttribute("aria-expanded", "true");
     activeCard = card;
   }
