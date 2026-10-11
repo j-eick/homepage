@@ -818,12 +818,15 @@ a[aria-disabled="true"] {
   border-color: var(--border);
   --deck-rot: 2deg;
   /* it rests on the glass's corner, so it casts no shadow of its own: what
-     carries its thickness is a stronger rim, a darker and deeper slab edge
-     and a thin edge on the right */
-  --card-edge: color-mix(in srgb, var(--ink) 40%, var(--surface));
+     carries its thickness is the slab edge. The card is seen at the plate's
+     60deg, which halves every vertical length, so the edge is drawn 9px
+     deep (about 4.5px on screen) in a mid tone: dark enough to read on the
+     pale plate, not so dark that it shouts where the card hangs over the
+     edge. */
+  --card-edge: color-mix(in srgb, var(--ink) 27%, var(--surface));
   --card-rest:
-    inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 6px 0 0 var(--card-edge),
-    1px 1px 0 0 var(--card-edge);
+    inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 9px 0 0 var(--card-edge),
+    2px 2px 0 0 var(--card-edge);
   box-shadow: var(--card-rest);
 }
 
@@ -1289,5 +1292,17 @@ footer {
   }
   .hero {
     padding: 24px 0;
+  }
+}
+
+/* the flat card lies in the plate's plane, so the plate's 60deg inclination
+   halves everything vertical, type included. The label and the value are
+   stretched back in height (about 1.7x of the 2x that would undo it fully;
+   a little squash is what a lying card should keep), each from the corner
+   it is anchored to. */
+@media (min-width: 900px) {
+  .deck-playlist .deck-label,
+  .deck-playlist .deck-value {
+    scale: 1 1.7;
   }
 }
