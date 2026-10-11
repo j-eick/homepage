@@ -220,21 +220,28 @@ a:hover {
   outline-offset: 2px;
   cursor: pointer;
   /* each specific .deck-* rule below only sets --deck-rot; the actual
-     rotate() transform (and its hover variant) lives here once */
+     rotate() transform (and its hover variant) lives here once.
+     --pull-dx: sideways drift used by the pull-out animation below,
+     derived from this card's own tilt — clockwise tilt drifts left,
+     counter-clockwise drifts right, proportional to the angle. */
+  --pull-dx: calc((var(--deck-rot) / 1deg) * -2px);
   transform: rotate(var(--deck-rot));
   transition:
     outline-color 0.15s ease,
     box-shadow 0.2s cubic-bezier(0.2, 0.8, 0.2, 1),
-    transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1),
-    top 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    /* governs the smooth return to the stack when .is-active is
+       removed — opening itself is driven by the keyframe animation
+       below, not this transition */
+    transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1),
+    top 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-/* subtle hover only — no border, just the accent outline + a small lift */
+/* marks the card without lifting it or raising its z-index — that
+   already made it visually pop above its overlapping neighbors, which
+   read as "pulled out" even on plain hover, before any click */
 .deck-card:hover {
   outline-color: var(--accent);
-  transform: rotate(var(--deck-rot)) translateY(-6px);
-  box-shadow: 0 12px 20px rgba(15, 35, 64, 0.2);
-  z-index: 10;
+  box-shadow: 0 14px 28px rgba(15, 35, 64, 0.22);
 }
 
 /* close button, top-right of each card — only visible once the card is
@@ -266,18 +273,31 @@ a:hover {
 
 /* "pulled out of the stack": rises above its siblings, slides up to the
    topmost (deck-portfolio) card's height, scales up 20%, and straightens
-   out (rotation 0) — same easing as the hover lift, just a touch longer
-   since it travels further */
-.deck-card.is-active,
-.deck-card.is-active:hover {
+   to 0deg. top/box-shadow still ease via the transition above; the
+   transform itself follows an actual path via deck-pull-out below
+   instead of a straight interpolation — it drifts sideways (in the
+   direction of its own original tilt) and overshoots slightly on scale
+   before settling, so it reads as being pulled free rather than just
+   resized in place. animation-fill-mode:forwards holds the end state;
+   removing .is-active falls back to the transition above for a smooth
+   return to the stack. */
+.deck-card.is-active {
   top: calc(157px - 176px * var(--deck-t));
-  transform: scale(1.2) rotate(0deg);
   z-index: 100;
-  transition:
-    outline-color 0.15s ease,
-    box-shadow 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
-    transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
-    top 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  animation: deck-pull-out 0.38s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+@keyframes deck-pull-out {
+  0% {
+    transform: translate(0, 0) rotate(var(--deck-rot)) scale(1);
+  }
+  60% {
+    transform: translate(var(--pull-dx), -14px)
+      rotate(calc(var(--deck-rot) * 0.4)) scale(1.1);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1.2);
+  }
 }
 
 .deck-card.is-active .deck-close {
