@@ -812,21 +812,27 @@ a[aria-disabled="true"] {
   --float-delay: -1.2s;
   --pull-x: 34px;
   --pull-y: 8px;
-  --own-top: 575px;
-  --own-left: 974px;
+  --own-top: 548px;
+  --own-left: 922px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
   --deck-rot: 47deg;
   /* it rests on the glass's corner, so it casts no shadow of its own: what
-     carries its thickness is the slab edge. The card is seen at the plate's
-     60deg, which halves every vertical length, so the edge is drawn 9px
-     deep (about 4.5px on screen) in a mid tone: dark enough to read on the
-     pale plate, not so dark that it shouts where the card hangs over the
-     edge. */
+     carries its thickness is the slab edge. Thickness points straight down
+     on the screen whatever way the card is turned, and on the plate it is
+     9px deep (about 4.5px on screen at the plate's 60deg). The card is
+     turned by --deck-rot in the plate's plane, so the offset is taken back
+     into the card's own coordinates: 9px at -rot from "down", i.e.
+     (9 sin rot, 9 cos rot). The 1px lit rim on the top-left faces and the
+     2px edge on the right use the same direction. */
+  --edge-x: calc(sin(var(--deck-rot)) * 1px);
+  --edge-y: calc(cos(var(--deck-rot)) * 1px);
   --card-edge: color-mix(in srgb, var(--ink) 27%, var(--surface));
   --card-rest:
-    inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 9px 0 0 var(--card-edge),
-    2px 2px 0 0 var(--card-edge);
+    inset var(--edge-x) var(--edge-y) 0 rgba(255, 255, 255, 0.9),
+    calc(var(--edge-x) * 9) calc(var(--edge-y) * 9) 0 0 var(--card-edge),
+    calc(var(--edge-x) * 9 + 2px) calc(var(--edge-y) * 9 + 1px) 0 0
+      var(--card-edge);
   box-shadow: var(--card-rest);
 }
 
