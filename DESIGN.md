@@ -143,6 +143,10 @@ Depth is physical: things lie on a surface and cast soft, offset shadows. No glo
 - **Deck rest** (`box-shadow: 0 16px 32px rgba(15, 35, 64, 0.24)`, stepping up to `0 34px 64px` .40 for the top card): the fan reads as a stack.
 - **Deck hover** (`0 18px 28px rgba(15, 35, 64, 0.42)`, with a brighter surface and a 4px/6px slide along the cascade; no outline): marks a card without raising it above its neighbours.
 
+### Glass plate (desktop)
+
+The whole hero group (copy and fan) sits on one pane of glass: a flat rounded plate with a bright top edge, a soft shade at its lower edge and a band of light that slides across it opposite to the pointer (`--mx`, set on `.hero` by `card-deck.js`). It is two pseudo-elements of `.hero`, grid items spanning both columns, so it is exactly as large as the group at every width. No 3D: the cards stay flat and keep their z-index logic. The light lies on the pane, beneath type and fan, so it never washes out text. Tokens `--glass-*` have dark values. Not on mobile.
+
 ### Named Rules
 **The Resting Weight Rule.** Hover marks an object by brightening it, sharpening its shadow and sliding it a few pixels along its stack; it never raises it above its neighbours. Only the click pulls a card out.
 

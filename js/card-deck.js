@@ -151,8 +151,9 @@
       var box = hero.getBoundingClientRect();
       var mx = point ? (point.x - (box.left + box.width / 2)) / (box.width / 2) : 0;
       var my = point ? (point.y - (box.top + box.height / 2)) / (box.height / 2) : 0;
-      inner.style.setProperty("--mx", Math.max(-1, Math.min(1, mx)).toFixed(3));
-      inner.style.setProperty("--my", Math.max(-1, Math.min(1, my)).toFixed(3));
+      // on the hero, so the fan (inherits) and the glass plate's light share it
+      hero.style.setProperty("--mx", Math.max(-1, Math.min(1, mx)).toFixed(3));
+      hero.style.setProperty("--my", Math.max(-1, Math.min(1, my)).toFixed(3));
     }
 
     function queue() {
