@@ -960,7 +960,7 @@ a[aria-disabled="true"] {
   }
   /* an open card has left the stack: its place would be mirrored empty */
   .hero.has-open .card-deck {
-    -webkit-box-reflect: none;
+    -webkit-box-reflect: initial;
   }
 
   /* the links are bare icons: no fill, no border, only a 44px hit area; the
