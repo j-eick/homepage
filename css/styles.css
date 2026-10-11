@@ -458,11 +458,9 @@ a[aria-disabled="true"] {
     rotate 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* hover marks the card without raising its z-index (that already made it
-   pop above its neighbours and read as "pulled out" before any click): it
-   brightens, its shadow gets crisper and it slides a few pixels further
-   out along the cascade, as if offering itself */
-.deck-card:hover,
+/* the cards on the plate have no hover effect: they lie still under the
+   pointer. Keyboard focus keeps its own mark: it brightens the card and
+   makes its shadow crisper. */
 .deck-card:has(:focus-visible) {
   --hx: 4px;
   --hy: 6px;
@@ -470,17 +468,12 @@ a[aria-disabled="true"] {
     inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 3px 0 0 var(--card-edge),
     0 10px 12px -6px rgba(var(--shadow), 0.3);
 }
-.deck-work:hover,
-.deck-contact:hover,
-.deck-playlist:hover,
-.deck-blog:hover,
 .deck-work:has(:focus-visible),
 .deck-contact:has(:focus-visible),
 .deck-playlist:has(:focus-visible),
 .deck-blog:has(:focus-visible) {
   background: var(--surface);
 }
-.deck-portfolio:hover,
 .deck-portfolio:has(:focus-visible) {
   filter: brightness(1.08);
 }
@@ -735,7 +728,7 @@ a[aria-disabled="true"] {
    and brighten on hover (see below). */
 .deck-contact {
   /* the nearer the row, the higher; within a row the right one on top */
-  z-index: 5;
+  z-index: 4;
   --tilt: 20deg;
   --depth: 3;
   --float-dur: 7.5s;
@@ -743,7 +736,7 @@ a[aria-disabled="true"] {
   --pull-x: 26px;
   --pull-y: 16px;
   --own-top: 535px;
-  --own-left: 595px;
+  --own-left: 586px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
   --deck-rot: 4deg;
@@ -752,15 +745,15 @@ a[aria-disabled="true"] {
 
 .deck-playlist {
   /* the nearer the row, the higher; within a row the right one on top */
-  z-index: 4;
+  z-index: 5;
   --tilt: 20deg;
   --depth: 4;
   --float-dur: 9s;
   --float-delay: -1.2s;
   --pull-x: 34px;
   --pull-y: 8px;
-  --own-top: 434px;
-  --own-left: 761px;
+  --own-top: 535px;
+  --own-left: 831px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
   --deck-rot: 2deg;
@@ -776,8 +769,8 @@ a[aria-disabled="true"] {
   --float-delay: -4.3s;
   --pull-x: 40px;
   --pull-y: 0px;
-  --own-top: 434px;
-  --own-left: 485px;
+  --own-top: 535px;
+  --own-left: 341px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
   --deck-rot: 0deg;
@@ -793,8 +786,8 @@ a[aria-disabled="true"] {
   --float-delay: 0s;
   --pull-x: 26px;
   --pull-y: -16px;
-  --own-top: 316px;
-  --own-left: 495px;
+  --own-top: 405px;
+  --own-left: 521px;
   background: var(--surface);
   border-color: var(--border);
   --deck-rot: -4deg;
@@ -810,8 +803,8 @@ a[aria-disabled="true"] {
   --float-delay: -2.1s;
   --pull-x: 34px;
   --pull-y: -8px;
-  --own-top: 316px;
-  --own-left: 771px;
+  --own-top: 405px;
+  --own-left: 806px;
   /* a pane's light across the blue card, behind its type */
   background:
     linear-gradient(115deg, rgba(255, 255, 255, 0.2), transparent 42%),
