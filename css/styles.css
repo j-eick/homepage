@@ -714,10 +714,10 @@ a[aria-disabled="true"] {
     column-gap: 0;
     padding-top: 56px;
     padding-bottom: 56px;
-    /* the whole hero group (copy + fan) at 75% of its laid-out size; the
-       surrounding box keeps its full size, so this only shrinks what
+    /* the whole hero group (copy + fan) at 100% of its laid-out size; the
+       surrounding box keeps its full size, so this only rescales what
        renders inside it, still centred */
-    transform: scale(0.75);
+    transform: scale(1);
     transform-origin: center;
   }
   .hero-sub {
