@@ -198,6 +198,36 @@
           "#abc3ff",
           "#e6edff"
         ]
+      },
+      "warm-amber": {
+        "role": "secondary",
+        "displayName": "Warm Amber",
+        "canonical": "#e8832a",
+        "tonalRamp": [
+          "#3d1d03",
+          "#6d3606",
+          "#9c4f09",
+          "#cc690d",
+          "#e8832a",
+          "#f0a15c",
+          "#f6c392",
+          "#fbe3cc"
+        ]
+      },
+      "spotify-green": {
+        "role": "secondary",
+        "displayName": "Spotify Green",
+        "canonical": "#17a348",
+        "tonalRamp": [
+          "#06210f",
+          "#0c4220",
+          "#116330",
+          "#17a348",
+          "#2fc462",
+          "#67d890",
+          "#a3e8bd",
+          "#d8f6e4"
+        ]
       }
     },
     "typographyMeta": {
@@ -323,7 +353,7 @@
     "rules": [
       {
         "name": "The One Blue Rule",
-        "body": "Signal Blue is the only accent. New objects get colour from it or from the neutrals, never from a second hue.",
+        "body": "Signal Blue is the only accent for surfaces, fills and text. A warm amber and the Spotify green exist only for small marks, glyphs and washes on mobile; they never fill a button or carry text.",
         "section": "colors"
       },
       {

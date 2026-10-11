@@ -104,6 +104,10 @@ A cool, low-chroma ground with one signal blue.
 - **Deep Signal** (#16306e): the end of the portfolio gradient and the primary button's hover fill.
 - **Night Signal** (#7da2ff): the accent in the dark theme.
 
+### Secondary (mobile artifacts only)
+- **Warm Amber** (#e8832a, dark #ffa557): the dot on the card that lies on top, the lit underline of the brand's words, the `#` of the hashtags, the Blog glyph and tile, and a soft glow in the page's lower-left corner.
+- **Spotify Green** (#17a348, dark #3ddc84): the Spotify mark on the link, the tab and the card tile.
+
 ### Neutral
 - **Blue Paper** (#eef3f8): the page ground in the light theme.
 - **White Card** (#ffffff) and **Sunk Card** (#d7e0ef): card surfaces and the base card under the deck.
@@ -111,7 +115,7 @@ A cool, low-chroma ground with one signal blue.
 - **Night Board** (#0b1322), **Night Card** (#131d33), **Night Ink** (#e6edfb): the dark theme.
 
 ### Named Rules
-**The One Blue Rule.** Signal Blue is the only accent. New objects get colour from it or from the neutrals, never from a second hue.
+**The One Blue Rule.** Signal Blue is the only accent for surfaces, fills and text. A warm amber (#e8832a; #ffa557 in dark) and the Spotify green (#17a348; #3ddc84 in dark) exist only for small marks, glyphs and washes on mobile; they never fill a button or carry text.
 **The Quiet Ground Rule.** The ground stays paper or night in both themes; colour lives on the objects.
 
 ## Typography
@@ -135,7 +139,7 @@ A cool, low-chroma ground with one signal blue.
 
 From 900px: a 1280px container. The hero is a two-column grid, copy left and the card fan right, with the copy allowed to run under the fan's empty lower-left corner. The fan's layout box is its scaled size, so the copy is centred against it (scale 0.7 at 900px, 1 from 1150px). Below the hero, a single 880px column holds the contact panel.
 
-Mobile (below 900px): one column with 26px gutters. The hero is a stack of three equal cards (white, 19px radius, soft shadow), centred on both axes in the free height between header and footer. The front card carries the name (80% of the narrow-desktop size: clamp(2.16rem, 12vw, 2.96rem)), role, intro, four 56px icon buttons in one centred row (names stay as accessible labels) and a hairline, set apart from the buttons and the chips by generous space, above a row of hashtag chips. The other two cards (Blog, Spotify) sit behind it, staggered 32px and 62px lower and tilted ±3°, so each shows its name in its lower corner; hovering any visible part of such a card brightens that card from its slightly dimmed resting tone to full surface and tightens and deepens its shadow (`0 12px 18px`) and slides it 6px further out of the stack (no outline), clicking anywhere on its visible part (or activating its name by keyboard) pulls that card out of the stack, 46px further out along its tilt (0.24s, easing out), then lays it on top with a slower spring (0.62s) while the old front card slides back into the slot the chosen card left (the tilt and spring are the deck's own). The two cards behind slide out once on load, Spotify first after 0.9s, then Blog after 1.15s, so the front card is seen alone first (not under reduced motion). The deck and the contact panel are not shown, and there is no menu. The copyright sits on the viewport's bottom edge on short pages.
+Mobile (below 900px): one column with 26px gutters. The hero is a stack of four equal cards (white, 19px radius, soft shadow), centred on both axes in the free height between header and footer. The front card carries the name (80% of the narrow-desktop size: clamp(2.16rem, 12vw, 2.96rem)), role, intro, the LinkedIn icon button (name stays as accessible label) and a hairline, set apart from the buttons and the chips by generous space, above a row of hashtag chips. The other three cards sit behind it in three slots, staggered 32px, 62px and 92px lower (Spotify right and tilted 3°, CV in the middle and flat, Blog left and tilted -3°), so each shows its name in its lower corner (Spotify right, CV and Blog left); hovering any visible part of such a card brightens that card from its slightly dimmed resting tone to full surface and tightens and deepens its shadow (`0 12px 18px`) and slides it 6px further out of the stack (no outline), clicking anywhere on its visible part (or activating its name by keyboard) pulls that card out of the stack, 46px further out along its tilt (0.24s, easing out), then lays it on top with a slower spring (0.62s) while the old front card slides back into the slot the chosen card left (the tilt and spring are the deck's own). The three cards behind slide out once on load, Spotify first after 0.9s, then CV after 1.15s, then Blog after 1.4s, so the front card is seen alone first (not under reduced motion). The deck and the contact panel are not shown, and there is no menu. The copyright sits on the viewport's bottom edge on short pages.
 
 ## Elevation & Depth
 
@@ -158,7 +162,7 @@ Soft, not pill-shaped: 10–12px buttons and chips, 19px deck cards, 20px for th
 - **Shape:** 12px radius, 13px 22px padding, 0.9rem at weight 600 (primary) or 500.
 - **Primary:** Harbor Ink fill, white text; hover deepens to Deep Signal and never turns the text blue.
 - **Secondary / Ghost:** white fill with a hairline border, or transparent with a quieter border and muted text.
-- **Mobile:** below 900px the hero links are 56px square icon buttons (LinkedIn mark; the letters CV in the display face for the CV; Spotify mark; a page with text lines and a pen for Blog; 26px glyphs) with 16px corners; the text label is visually hidden and stays as `aria-label`. Blog appears here only on mobile; on desktop it is in the header.
+- **Mobile:** below 900px the one hero link left on the card is a 56px square icon button (the LinkedIn mark, 26px) with 16px corners; its text label is visually hidden and stays as `aria-label`. The CV and Spotify buttons are desktop-only; on mobile they are cards.
 - **Hashtag chips (mobile):** 10px radius, hairline border, muted text at 0.85rem, in a centred wrapping list under the buttons. Placeholder topics until real interests exist; each gets an `href` to its blog articles later. Without `href` they are inert.
 - **Pending links:** a link whose URL is not supplied yet has no `href`, keeps its look, shows a default cursor and `aria-disabled="true"`.
 
@@ -167,9 +171,13 @@ Soft, not pill-shaped: 10–12px buttons and chips, 19px deck cards, 20px for th
 - **Hover / Focus:** accent outline and a deeper shadow; focus uses the same outline via `:focus-visible`.
 - **Active:** the card pulls out to the blog card's position along one spring curve (0.56s) and returns in 0.32s.
 
+### Mobile artifacts
+Small marks on the same design, purely decorative and CSS only: a dot in every card's top-right corner (Warm Amber on the card that lies on top, a grey on the cards underneath, fading as a card is laid on top), and the brand `#idea - plan - build` whose three words are underlined in warm amber one after another (2.5s apart, 7.5s loop; not under reduced motion). The LinkedIn link is Signal Blue instead of ink on mobile.
+
 ### Stack card (mobile)
-- **Shape:** the same 19px card as on desktop. The front card is the hero; the other two hold a single action each ("Zum Blog", "Auf Spotify öffnen"; inert placeholders until URLs exist).
-- **Tab:** the card's name with a 16px glyph, 0.8rem at weight 600 in Dusk Label, sticking out in the card's lower corner (left card bottom-left, right card bottom-right); Ink on hover and focus.
+- **Shape:** the same 19px card as on desktop. The front card is the hero; the other three hold a single action each ("Zum Blog", "Lebenslauf (PDF)", "Auf Spotify öffnen"; inert placeholders until the destinations exist). Their glyph tiles take Warm Amber (Blog), Signal Blue (CV) and Spotify Green.
+- **Tab:** the card's name with a 16px glyph, 0.8rem at weight 600 in Dusk Label, sticking out in the card's lower corner (right card bottom-right; middle and left cards bottom-left); Ink on hover and focus.
+- **Focus:** the card container takes script focus after a swap without drawing a ring; the name's button keeps its Signal Blue ring for keyboard users.
 - **States:** hover or focus brightens the card, sharpens its shadow and slides it 6px further out; contents of a card behind are hidden and inert.
 
 ### Contact panel

@@ -2,6 +2,23 @@
    The desktop page on a narrow screen: same paper, same type, same single
    accent, with a centred hero. The card fan does not exist here. */
 
+/* tokens for the small artifacts at the end of this file: a warm second voice
+   (amber) and the Spotify green, both only for marks, glyphs and washes */
+:root {
+  --pill-fg: #fff;
+  --warm: #e8832a;
+  --warm-wash: rgba(232, 131, 42, 0.15);
+  --spotify: #17a348;
+  --spotify-wash: rgba(23, 163, 72, 0.14);
+}
+:root[data-theme="dark"] {
+  --pill-fg: #0b1322;
+  --warm: #ffa557;
+  --warm-wash: rgba(255, 165, 87, 0.11);
+  --spotify: #3ddc84;
+  --spotify-wash: rgba(61, 220, 132, 0.12);
+}
+
 /* the page is a column: header, hero (takes the free height), footer */
 .page {
   display: flex;
@@ -49,7 +66,7 @@ main {
   width: 100%;
   max-width: 480px;
   /* room for the tabs that stick out below the front card */
-  padding-bottom: 66px;
+  padding-bottom: 98px;
 }
 .stack-card {
   grid-area: 1 / 1;
@@ -82,21 +99,26 @@ main {
   justify-content: center;
 }
 .stack-card[data-role="front"] {
-  z-index: 3;
+  z-index: 4;
 }
 .stack-card[data-role="right"] {
-  z-index: 2;
+  z-index: 3;
   --tx: 6px;
   --ty: 32px;
   --rot: 3deg;
 }
+.stack-card[data-role="mid"] {
+  z-index: 2;
+  --tx: 0px;
+  --ty: 62px;
+  --rot: 0deg;
+}
 .stack-card[data-role="left"] {
   z-index: 1;
   --tx: -6px;
-  --ty: 62px;
+  --ty: 92px;
   --rot: -3deg;
 }
-/* cards behind rest a touch dimmer ... */
 .stack-card:not([data-role="front"]) {
   cursor: pointer;
   background: color-mix(in srgb, var(--surface) 90%, var(--bg));
@@ -151,12 +173,14 @@ main {
   position: absolute;
   inset: -8px -8px -4px;
 }
-.stack-card[data-role="left"] .stack-tab {
+.stack-card[data-role="left"] .stack-tab,
+.stack-card[data-role="mid"] .stack-tab {
   left: 16px;
 }
 .stack-card[data-role="right"] .stack-tab {
   right: 16px;
 }
+
 .stack-card:not([data-role="front"]) .stack-tab {
   display: inline-flex;
   opacity: 1;
@@ -206,8 +230,11 @@ main {
   .hero-stack[data-intro] .stack-card[data-role="right"] {
     animation: plate-fan 0.9s var(--ease-spring) 0.9s backwards;
   }
-  .hero-stack[data-intro] .stack-card[data-role="left"] {
+  .hero-stack[data-intro] .stack-card[data-role="mid"] {
     animation: plate-fan 0.9s var(--ease-spring) 1.15s backwards;
+  }
+  .hero-stack[data-intro] .stack-card[data-role="left"] {
+    animation: plate-fan 0.9s var(--ease-spring) 1.4s backwards;
   }
 }
 @keyframes plate-fan {
@@ -236,13 +263,14 @@ main {
   max-width: none;
 }
 
-/* the four links are icon buttons in one row; their names stay for
-   screen readers (aria-label) and are visually hidden */
+/* LinkedIn is the one link left on the front card, an icon button; its name
+   stays for screen readers (aria-label) and is visually hidden. The CV,
+   Spotify and Blog links live on their own cards. */
 .cta-row {
   display: flex;
   justify-content: center;
-  gap: 12px;
 }
+
 .cta-row .btn {
   display: grid;
   place-items: center;
@@ -256,16 +284,10 @@ main {
   width: 26px;
   height: 26px;
 }
-.cta-row .btn .btn-mono {
-  display: block;
-  font-family: "Space Grotesk", system-ui, sans-serif;
-  font-size: 1.2rem;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-  line-height: 1;
-}
-.cta-row .btn-blog {
-  display: grid;
+/* after the shared button rule above, so it wins */
+.cta-row .btn.btn-secondary,
+.cta-row .btn.btn-ghost {
+  display: none;
 }
 .btn-label {
   position: absolute;
@@ -313,4 +335,101 @@ footer {
   margin-top: auto;
   padding: 0 20px 14px;
   line-height: 1.2;
+}
+
+
+/* ------------------------------------------------------------------
+   ARTIFACTS — small technical and personal touches on the same design:
+   a warm wash, drawing marks on the front card, a lit brand pipeline,
+   clearer colours on the links. Nothing here changes layout.
+   ------------------------------------------------------------------ */
+
+/* warmth: a soft amber glow in the lower-left corner of the page */
+.page::before {
+  background:
+    radial-gradient(680px 460px at 82% 6%, var(--accent-wash), transparent 70%),
+    radial-gradient(520px 520px at 6% 60%, var(--ambient-light), transparent 70%),
+    radial-gradient(460px 420px at -8% 104%, var(--warm-wash), transparent 70%);
+}
+
+/* a small dot in every card's top-right corner: warm when the card lies on
+   top of the stack, grey while it waits underneath (it turns warm as the
+   card is laid on top) */
+.stack-card::after {
+  content: "";
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--muted-soft) 55%, transparent);
+  pointer-events: none;
+  transition: background-color 0.35s ease;
+}
+.stack-card[data-role="front"]::after {
+  background: var(--warm);
+}
+
+/* dynamics: the brand's three words are lit one after another, a quiet
+   idea → plan → build pipeline */
+.brand .step {
+  background: linear-gradient(var(--warm), var(--warm)) 0 100% / 0 2px no-repeat;
+  padding-bottom: 1px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .brand .step {
+    animation: step-lit 7.5s ease-in-out infinite;
+  }
+  .brand .step:nth-child(2) {
+    animation-delay: 2.5s;
+  }
+  .brand .step:nth-child(3) {
+    animation-delay: 5s;
+  }
+}
+@keyframes step-lit {
+  0% {
+    background-size: 0 2px;
+  }
+  10%,
+  28% {
+    background-size: 100% 2px;
+  }
+  38%,
+  100% {
+    background-size: 0 2px;
+    background-position: 100% 100%;
+  }
+}
+
+/* clearer colours: the primary link is the accent blue, Spotify is green,
+   the blog is warm; the # of each hashtag picks up the warm tone */
+.cta-row .btn-primary {
+  background: var(--accent);
+  color: var(--pill-fg);
+}
+.cta-row .btn-ghost .btn-icon {
+  color: var(--spotify);
+}
+.stack-card[data-card="spotify"] .stack-tab svg {
+  color: var(--spotify);
+}
+.stack-card[data-card="blog"] .stack-tab svg {
+  color: var(--warm);
+}
+.stack-card[data-card="cv"] .stack-tab svg {
+  color: var(--accent);
+}
+.stack-card[data-card="spotify"] .card-icon {
+  background: var(--spotify-wash);
+  color: var(--spotify);
+}
+.stack-card[data-card="blog"] .card-icon {
+  background: var(--warm-wash);
+  color: var(--warm);
+}
+.tag-hash {
+  color: var(--warm);
+  font-weight: 700;
 }

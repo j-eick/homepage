@@ -27,7 +27,7 @@ Statically hosted site, deployed via Netlify on push to `origin/main`. Content i
 - Plain static HTML/CSS/JS (`index.html`, `css/styles.css`, `js/card-deck.js`); no build step and no framework. Stays that way.
 - Currently German only. The site is intended to offer German and English; the English version and language switch are not built yet.
 - The hero card deck (contact, playlist, blog, portfolio cards) is a binding, continuing element: it stays and is developed further. Interaction today: subtle hover, click pulls a card out to the blog card's position, close via outside click, Escape, or timeout; keyboard operable.
-- Sections today: Hero, card deck and Kontakt panel (from 900px); below 900px a centred hero card stack (Home, Blog, Spotify) with icon buttons and placeholder hashtags. The Fokus and Projekte sections were removed by the owner.
+- Sections today: Hero, card deck and Kontakt panel (from 900px); below 900px a centred hero card stack (Home, Blog, CV, Spotify) with icon buttons and placeholder hashtags. The Fokus and Projekte sections were removed by the owner.
 - Open product facts (not yet supplied; do not invent): the owner's real interests and hobbies (the mobile hashtags are placeholders derived from the playlist, apps, blog and role), LinkedIn URL, CV PDF, Spotify profile and playlist URLs, blog URL, real contact details for the contact card, project URL for "Alarm on Drugs", second project.
 
 ## Brand Commitments

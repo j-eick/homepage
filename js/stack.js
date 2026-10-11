@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  // The mobile hero is a stack of three cards. Two of them stick out behind
+  // The mobile hero is a stack of four cards. Three of them stick out behind
   // the front card with their name. Activating a name pulls that card out of
   // the stack, downward, then lays it on top while the old front card
   // slides back into the slot the chosen card left.
@@ -37,7 +37,7 @@
     render();
     // the tab that had focus is now inert; land on the card that came forward
     card.tabIndex = -1;
-    card.focus({ preventScroll: true });
+    card.focus({ preventScroll: true, focusVisible: false });
   }
 
   function bring(card) {
@@ -58,7 +58,7 @@
     // is on screen
     var fromCard = getComputedStyle(card).transform;
     var fromFront = getComputedStyle(current).transform;
-    var side = slot === "left" ? -1 : 1;
+    var side = { left: -1, mid: 0, right: 1 }[slot];
     // the pull is measured from the card's own slot: 46px further out
     var start = new DOMMatrix(fromCard);
     var pulled =

@@ -31,7 +31,7 @@
   <body>
     <div class="page">
       <header class="nav">
-        <span class="brand">#idea - plan - build</span>
+        <span class="brand">#<span class="step">idea</span> - <span class="step">plan</span> - <span class="step">build</span></span>
         <nav class="nav-links" aria-label="Hauptnavigation">
           <!-- TODO: Blog-URL einsetzen -->
           <a aria-disabled="true">Blog</a>
@@ -65,30 +65,23 @@
             </a>
             <!-- TODO: Lebenslauf-PDF verlinken -->
             <a class="btn btn-secondary" aria-disabled="true" aria-label="Lebenslauf (PDF)">
-              <span class="btn-mono" aria-hidden="true">CV</span>
-              <span class="btn-label">Lebenslauf (PDF)</span>
+              Lebenslauf (PDF)
             </a>
             <!-- TODO: echte Spotify-URL einsetzen -->
             <a class="btn btn-ghost" aria-disabled="true" aria-label="Spotify">
               <svg class="btn-icon btn-icon-always" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.52 17.34c-.24.36-.66.48-1.02.24-2.76-1.68-6.3-2.1-10.44-1.14-.42.12-.78-.18-.9-.54-.12-.42.18-.78.54-.9 4.56-1.02 8.52-.6 11.58 1.32.42.18.48.66.24 1.02zm1.44-3.3c-.3.42-.84.6-1.26.3-3.18-1.92-7.92-2.52-11.58-1.38-.48.12-1.02-.12-1.14-.6-.12-.48.12-1.02.6-1.14 4.26-1.26 9.48-.66 13.08 1.56.36.18.54.84.3 1.26zm.12-3.42C15.3 8.4 8.76 8.16 5.1 9.3c-.6.18-1.2-.18-1.38-.72-.18-.6.18-1.2.72-1.38 4.26-1.26 11.4-1.02 15.84 1.62.54.3.72 1.02.42 1.56-.3.42-1.02.6-1.62.24z"></path></svg>
-              <span class="btn-label">Spotify</span>
-            </a>
-            <!-- TODO: Blog-URL einsetzen. Nur mobil sichtbar; am Desktop steht Blog im Header. -->
-            <a class="btn btn-secondary btn-blog" aria-disabled="true" aria-label="Blog">
-              <svg class="btn-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"></path><path d="M16 9V5a2 2 0 0 0-2-2"></path><path d="M8 8h4M8 12h2"></path><g transform="translate(10 10) scale(0.58)"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></g></svg>
-              <span class="btn-label">Blog</span>
+              Spotify
             </a>
           </div>
 
           <!-- TODO: Platzhalter-Hashtags durch echte Interessen und Hobbys ersetzen und je Tag
                ein href auf die passenden Blog-Artikel setzen. Nur mobil sichtbar. -->
           <ul class="hero-tags" aria-label="Themen">
-            <li><a class="tag" aria-disabled="true">#musik</a></li>
-            <li><a class="tag" aria-disabled="true">#appentwicklung</a></li>
-            <li><a class="tag" aria-disabled="true">#schreiben</a></li>
-            <li><a class="tag" aria-disabled="true">#koordination</a></li>
+            <li><a class="tag" aria-disabled="true"><span class="tag-hash">#</span>musik</a></li>
+            <li><a class="tag" aria-disabled="true"><span class="tag-hash">#</span>appentwicklung</a></li>
+            <li><a class="tag" aria-disabled="true"><span class="tag-hash">#</span>schreiben</a></li>
+            <li><a class="tag" aria-disabled="true"><span class="tag-hash">#</span>koordination</a></li>
           </ul>
-
         </div>
 
         <!-- Weitere Karten des Stapels. Nur mobil sichtbar; die Tabs ragen unten aus dem Stapel. -->
@@ -99,6 +92,15 @@
           <span class="card-label">Schreiben</span>
           <span class="card-value">Blog</span>
           <a class="btn btn-primary" aria-disabled="true">Zum Blog</a>
+        </div>
+
+        <!-- TODO: Lebenslauf-PDF verlinken (Button "Lebenslauf (PDF)") -->
+        <div class="stack-card stack-extra" data-card="cv" data-role="mid" role="group" aria-label="CV">
+          <button type="button" class="stack-tab" aria-label="CV anzeigen"><svg class="btn-icon-always" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><circle cx="12" cy="12.6" r="2.4"></circle><path d="M7.6 19.4c.5-2.2 2.2-3.4 4.4-3.4s3.9 1.2 4.4 3.4"></path></svg><span>CV</span></button>
+          <span class="card-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><circle cx="12" cy="12.6" r="2.4"></circle><path d="M7.6 19.4c.5-2.2 2.2-3.4 4.4-3.4s3.9 1.2 4.4 3.4"></path></svg></span>
+          <span class="card-label">Lebenslauf</span>
+          <span class="card-value">CV</span>
+          <a class="btn btn-primary" aria-disabled="true">Lebenslauf (PDF)</a>
         </div>
 
         <!-- TODO: echte Spotify-Playlist-URL einsetzen (Button "Auf Spotify öffnen") -->

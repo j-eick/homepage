@@ -247,12 +247,6 @@ a[aria-disabled="true"] {
   width: 16px;
   height: 16px;
 }
-.btn .btn-mono {
-  display: none;
-}
-.btn-blog {
-  display: none;
-}
 /* the mobile card stack (see mobile.css): on desktop the wrapper is
    transparent and only the hero card exists */
 .hero-stack {
