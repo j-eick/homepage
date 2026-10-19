@@ -237,28 +237,31 @@ body {
   width: 100%;
   max-width: none;
   margin: 0;
-  padding: 28px 40px;
+  /* the header scales with the hero (--hs), from the design's sizes at a
+     1200px hero; a floor keeps the links readable and the toggle easy to
+     hit when the hero is small */
+  padding: calc(28px * var(--hs)) calc(40px * var(--hs));
 }
 .nav .brand {
   font-family: "Schibsted Grotesk", sans-serif;
   font-weight: 600;
-  font-size: 22px;
+  font-size: max(15px, calc(22px * var(--hs)));
   color: var(--sc-text);
 }
 .nav-links {
-  gap: 32px;
+  gap: max(18px, calc(32px * var(--hs)));
 }
 .nav-links a {
-  font-size: 18px;
+  font-size: max(14px, calc(18px * var(--hs)));
   color: var(--sc-nav);
 }
 .theme-toggle {
-  width: 48px;
-  height: 48px;
+  width: max(36px, calc(48px * var(--hs)));
+  height: max(36px, calc(48px * var(--hs)));
 }
 .theme-toggle svg {
-  width: 22px;
-  height: 22px;
+  width: max(17px, calc(22px * var(--hs)));
+  height: max(17px, calc(22px * var(--hs)));
 }
 :root[data-theme="dark"] .theme-toggle {
   border: 1px solid rgba(0, 0, 0, 0.1);
