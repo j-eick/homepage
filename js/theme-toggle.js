@@ -37,7 +37,10 @@
   });
 
   // without a stored choice, keep following the system live
-  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function (e) {
-    if (!stored()) apply(e.matches ? "dark" : "light");
-  });
+  matchMedia("(prefers-color-scheme: dark)").addEventListener(
+    "change",
+    function (e) {
+      if (!stored()) apply(e.matches ? "dark" : "light");
+    }
+  );
 })();

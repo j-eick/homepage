@@ -77,17 +77,19 @@
     current.style.transition = "none";
 
     // 1. pull the card out of the stack, downward and slightly outward
-    var pull = card.animate(
-      [
-        { transform: fromCard },
-        { transform: pulled },
-      ],
-      { duration: 240, easing: "cubic-bezier(0.25, 0.8, 0.3, 1)", fill: "forwards" },
-    );
+    var pull = card.animate([{ transform: fromCard }, { transform: pulled }], {
+      duration: 240,
+      easing: "cubic-bezier(0.25, 0.8, 0.3, 1)",
+      fill: "forwards"
+    });
     // the front card gives a little, as if the stack were being loosened
     var give = current.animate(
       [{ transform: fromFront }, { transform: "translateY(5px) scale(0.99)" }],
-      { duration: 240, easing: "cubic-bezier(0.25, 0.8, 0.3, 1)", fill: "forwards" },
+      {
+        duration: 240,
+        easing: "cubic-bezier(0.25, 0.8, 0.3, 1)",
+        fill: "forwards"
+      }
     );
 
     pull.onfinish = function () {
@@ -103,15 +105,15 @@
         [
           {
             transform: pulled + " scale(1.02)",
-            boxShadow: "0 30px 40px rgba(" + shadow + ", 0.28)",
+            boxShadow: "0 30px 40px rgba(" + shadow + ", 0.28)"
           },
-          { transform: toCard },
+          { transform: toCard }
         ],
-        { duration: 620, easing: "cubic-bezier(0.3, 1.2, 0.4, 1)" },
+        { duration: 620, easing: "cubic-bezier(0.3, 1.2, 0.4, 1)" }
       );
       var sink = current.animate(
         [{ transform: "translateY(5px) scale(0.99)" }, { transform: toFront }],
-        { duration: 620, easing: "cubic-bezier(0.3, 1.1, 0.4, 1)" },
+        { duration: 620, easing: "cubic-bezier(0.3, 1.1, 0.4, 1)" }
       );
       var done = 0;
       function end() {

@@ -52,7 +52,7 @@
     copy.setAttribute("aria-modal", "false");
     copy.setAttribute(
       "aria-label",
-      (card.querySelector(".deck-value") || {}).textContent || "Karte",
+      (card.querySelector(".deck-value") || {}).textContent || "Karte"
     );
     // the copy's trigger is no longer a button that opens anything
     var copyTrigger = copy.querySelector(".deck-trigger");
@@ -70,9 +70,9 @@
       copy.animate(
         [
           { transform: flip(from, to), opacity: 0.6 },
-          { transform: "none", opacity: 1 },
+          { transform: "none", opacity: 1 }
         ],
-        { duration: OPEN_MS, easing: EASE_OPEN },
+        { duration: OPEN_MS, easing: EASE_OPEN }
       );
     }
 
@@ -111,9 +111,9 @@
       var anim = o.copy.animate(
         [
           { transform: "none", opacity: 1 },
-          { transform: flip(home, to), opacity: 0.6 },
+          { transform: flip(home, to), opacity: 0.6 }
         ],
-        { duration: CLOSE_MS, easing: EASE_CLOSE, fill: "forwards" },
+        { duration: CLOSE_MS, easing: EASE_CLOSE, fill: "forwards" }
       );
       anim.onfinish = done;
       // in case the animation never reports back (a hidden tab, say)

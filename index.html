@@ -64,11 +64,7 @@
       href="css/mobile.css"
       media="(max-width: 899.98px)"
     />
-    <link
-      rel="stylesheet"
-      href="css/desktop.css"
-      media="(min-width: 900px)"
-    />
+    <link rel="stylesheet" href="css/desktop.css" media="(min-width: 900px)" />
   </head>
   <body>
     <div class="page">
@@ -506,7 +502,7 @@
             </div>
           </div>
 
-<!-- Desktop-Szene (ab 900px): eine Glasplatte in echter 3D-Perspektive, die Karten
+          <!-- Desktop-Szene (ab 900px): eine Glasplatte in echter 3D-Perspektive, die Karten
                stehen aus ihr auf. Werte aus dem Claude-Design-Export (page_v2). -->
           <div class="card-deck">
             <!-- Licht: hinter der fernen Plattenkante, auf den Boden vor der Platte, Schatten darunter -->
@@ -520,19 +516,80 @@
                 <div class="pl-sheen"></div>
                 <div class="pl-warm"></div>
                 <div class="pl-cool"></div>
-                <svg class="pl-grain" width="100%" height="100%"><filter id="pl-sand" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="1.15" numOctaves="2" stitchTiles="stitch"></feTurbulence><feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  1.4 0 0 0 -0.55"></feColorMatrix></filter><rect width="100%" height="100%" filter="url(#pl-sand)"></rect></svg>
+                <svg class="pl-grain" width="100%" height="100%">
+                  <filter id="pl-sand" x="0" y="0" width="100%" height="100%">
+                    <feTurbulence
+                      type="fractalNoise"
+                      baseFrequency="1.15"
+                      numOctaves="2"
+                      stitchTiles="stitch"
+                    ></feTurbulence>
+                    <feColorMatrix
+                      type="matrix"
+                      values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  1.4 0 0 0 -0.55"
+                    ></feColorMatrix>
+                  </filter>
+                  <rect
+                    width="100%"
+                    height="100%"
+                    filter="url(#pl-sand)"
+                  ></rect>
+                </svg>
                 <div class="pl-inner"></div>
                 <div class="pl-blots"></div>
-                <svg class="pl-caustic" width="100%" height="100%"><filter id="pl-caustic" x="0" y="0" width="100%" height="100%"><feTurbulence type="turbulence" baseFrequency="0.006 0.012" numOctaves="2" seed="7"></feTurbulence><feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 0.94  0 0 0 0 0.88  -3 0 0 0 1"></feColorMatrix></filter><rect width="100%" height="100%" filter="url(#pl-caustic)"></rect></svg>
+                <svg class="pl-caustic" width="100%" height="100%">
+                  <filter
+                    id="pl-caustic"
+                    x="0"
+                    y="0"
+                    width="100%"
+                    height="100%"
+                  >
+                    <feTurbulence
+                      type="turbulence"
+                      baseFrequency="0.006 0.012"
+                      numOctaves="2"
+                      seed="7"
+                    ></feTurbulence>
+                    <feColorMatrix
+                      type="matrix"
+                      values="0 0 0 0 1  0 0 0 0 0.94  0 0 0 0 0.88  -3 0 0 0 1"
+                    ></feColorMatrix>
+                  </filter>
+                  <rect
+                    width="100%"
+                    height="100%"
+                    filter="url(#pl-caustic)"
+                  ></rect>
+                </svg>
                 <div class="pl-glint"></div>
                 <div class="pl-spot"></div>
                 <!-- Schatten der Karten, auf die Platte gemalt. Lage und Form rechnet desktop.css
                      aus der Position der jeweiligen Karte (for-*): nichts davon steht hier fest. -->
-                <div class="ps for-work"><div class="ps-soft"><i></i></div><div class="ps-line"></div><div class="ps-core"><i></i></div></div>
-                <div class="ps for-portfolio"><div class="ps-soft"><i></i></div><div class="ps-line"></div><div class="ps-core"><i></i></div></div>
-                <div class="ps for-network"><div class="ps-soft"><i></i></div><div class="ps-line"></div><div class="ps-core"><i></i></div></div>
-                <div class="ps for-contact"><div class="ps-soft"><i></i></div><div class="ps-line"></div><div class="ps-core"><i></i></div></div>
-                <div class="ps for-playlist"><div class="ps-flat ps-flat-soft"></div><div class="ps-flat ps-flat-core"></div></div>
+                <div class="ps for-work">
+                  <div class="ps-soft"><i></i></div>
+                  <div class="ps-line"></div>
+                  <div class="ps-core"><i></i></div>
+                </div>
+                <div class="ps for-portfolio">
+                  <div class="ps-soft"><i></i></div>
+                  <div class="ps-line"></div>
+                  <div class="ps-core"><i></i></div>
+                </div>
+                <div class="ps for-network">
+                  <div class="ps-soft"><i></i></div>
+                  <div class="ps-line"></div>
+                  <div class="ps-core"><i></i></div>
+                </div>
+                <div class="ps for-contact">
+                  <div class="ps-soft"><i></i></div>
+                  <div class="ps-line"></div>
+                  <div class="ps-core"><i></i></div>
+                </div>
+                <div class="ps for-playlist">
+                  <div class="ps-flat ps-flat-soft"></div>
+                  <div class="ps-flat ps-flat-core"></div>
+                </div>
               </div>
 
               <div class="deck-card deck-work">
@@ -578,8 +635,20 @@
                   aria-expanded="false"
                 >
                   <span class="deck-head"
-                    ><span class="deck-label">Netzwerk</span><svg class="deck-icon" aria-hidden="true" width="26" height="26" viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="#0A66C2"></rect><path fill="#ffffff" d="M6.94 9.5H4.5V19h2.44V9.5zM5.72 8.33a1.42 1.42 0 1 0 0-2.83 1.42 1.42 0 0 0 0 2.83zM19.5 13.6c0-2.6-1.39-3.8-3.24-3.8a2.8 2.8 0 0 0-2.53 1.39V9.5H11.3c.03.69 0 9.5 0 9.5h2.43v-5.3c0-.28.02-.56.1-.76.22-.56.73-1.14 1.58-1.14 1.11 0 1.56.85 1.56 2.1V19h2.43z"></path></svg></span
-                  >
+                    ><span class="deck-label">Netzwerk</span
+                    ><svg
+                      class="deck-icon"
+                      aria-hidden="true"
+                      width="26"
+                      height="26"
+                      viewBox="0 0 24 24"
+                    >
+                      <rect width="24" height="24" rx="5" fill="#0A66C2"></rect>
+                      <path
+                        fill="#ffffff"
+                        d="M6.94 9.5H4.5V19h2.44V9.5zM5.72 8.33a1.42 1.42 0 1 0 0-2.83 1.42 1.42 0 0 0 0 2.83zM19.5 13.6c0-2.6-1.39-3.8-3.24-3.8a2.8 2.8 0 0 0-2.53 1.39V9.5H11.3c.03.69 0 9.5 0 9.5h2.43v-5.3c0-.28.02-.56.1-.76.22-.56.73-1.14 1.58-1.14 1.11 0 1.56.85 1.56 2.1V19h2.43z"
+                      ></path></svg
+                  ></span>
                   <span class="deck-value">LinkedIn →</span>
                 </button>
                 <button type="button" class="deck-close" aria-label="Schließen">
@@ -612,16 +681,89 @@
                   aria-expanded="false"
                 >
                   <span class="deck-head"
-                    ><span class="deck-label">Playlist</span><svg class="deck-icon" aria-hidden="true" width="26" height="26" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"></circle><g fill="none" stroke="#0b0b0b" stroke-linecap="round"><path d="M6.2 9.2c3.9-1.2 8.1-.9 11.6 1" stroke-width="2.1"></path><path d="M6.9 12.5c3.2-.9 6.6-.6 9.5.9" stroke-width="1.8"></path><path d="M7.6 15.6c2.5-.7 5-.5 7.3.6" stroke-width="1.5"></path></g></svg></span
-                  >
+                    ><span class="deck-label">Playlist</span
+                    ><svg
+                      class="deck-icon"
+                      aria-hidden="true"
+                      width="26"
+                      height="26"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle cx="12" cy="12" r="12" fill="#1DB954"></circle>
+                      <g fill="none" stroke="#0b0b0b" stroke-linecap="round">
+                        <path
+                          d="M6.2 9.2c3.9-1.2 8.1-.9 11.6 1"
+                          stroke-width="2.1"
+                        ></path>
+                        <path
+                          d="M6.9 12.5c3.2-.9 6.6-.6 9.5.9"
+                          stroke-width="1.8"
+                        ></path>
+                        <path
+                          d="M7.6 15.6c2.5-.7 5-.5 7.3.6"
+                          stroke-width="1.5"
+                        ></path>
+                      </g></svg
+                  ></span>
                   <span class="deck-value">Alarm on Drugs</span>
                 </button>
                 <div class="deck-player">
-                  <div class="eq on" aria-hidden="true"><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+                  <div class="eq on" aria-hidden="true">
+                    <span class="bar"></span><span class="bar"></span
+                    ><span class="bar"></span><span class="bar"></span
+                    ><span class="bar"></span>
+                  </div>
                   <div class="deck-keys">
-                    <button type="button" class="ctl" data-player="back" aria-label="Zurück"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2.5v14H6zM20 5v14L9.5 12z"></path></svg></button>
-                    <button type="button" class="ctl on" data-player="play" aria-label="Abspielen" aria-pressed="true"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l12.5-7.5z"></path></svg></button>
-                    <button type="button" class="ctl" data-player="pause" aria-label="Pause" aria-pressed="false"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.5 5h4v14h-4zM13.5 5h4v14h-4z"></path></svg></button>
+                    <button
+                      type="button"
+                      class="ctl"
+                      data-player="back"
+                      aria-label="Zurück"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                      >
+                        <path d="M6 5h2.5v14H6zM20 5v14L9.5 12z"></path>
+                      </svg>
+                    </button>
+                    <button
+                      type="button"
+                      class="ctl on"
+                      data-player="play"
+                      aria-label="Abspielen"
+                      aria-pressed="true"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                      >
+                        <path d="M7 4.5v15l12.5-7.5z"></path>
+                      </svg>
+                    </button>
+                    <button
+                      type="button"
+                      class="ctl"
+                      data-player="pause"
+                      aria-label="Pause"
+                      aria-pressed="false"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                      >
+                        <path d="M6.5 5h4v14h-4zM13.5 5h4v14h-4z"></path>
+                      </svg>
+                    </button>
                   </div>
                 </div>
                 <button type="button" class="deck-close" aria-label="Schließen">

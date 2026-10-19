@@ -77,7 +77,8 @@ main {
   --ty: 0px;
   --rot: 0deg;
   --lift: 0px;
-  transform: translate(var(--tx), calc(var(--ty) + var(--lift))) rotate(var(--rot));
+  transform: translate(var(--tx), calc(var(--ty) + var(--lift)))
+    rotate(var(--rot));
   transition:
     transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
     background-color 0.25s ease,
@@ -277,7 +278,6 @@ footer {
   line-height: 1.2;
 }
 
-
 /* ------------------------------------------------------------------
    ARTIFACTS — small technical and personal touches on the same design:
    a warm wash, drawing marks on the front card, a lit brand pipeline,
@@ -286,9 +286,16 @@ footer {
 
 /* warmth: a soft amber glow in the lower-left corner of the page */
 .page::before {
-  background:
-    radial-gradient(680px 460px at 82% 6%, var(--accent-wash), transparent 70%),
-    radial-gradient(520px 520px at 6% 60%, var(--ambient-light), transparent 70%),
+  background: radial-gradient(
+      680px 460px at 82% 6%,
+      var(--accent-wash),
+      transparent 70%
+    ),
+    radial-gradient(
+      520px 520px at 6% 60%,
+      var(--ambient-light),
+      transparent 70%
+    ),
     radial-gradient(460px 420px at -8% 104%, var(--warm-wash), transparent 70%);
 }
 

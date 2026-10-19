@@ -1,0 +1,11 @@
+# design references, binaries and tool state: not ours to format
+page_v2/
+assets/
+fonts/
+.impeccable/
+.claude/
+.cmem-projects/
+agent-transcripts/
+
+# docs are read by the design tooling (impeccable); keep them as written
+*.md
