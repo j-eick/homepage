@@ -540,57 +540,105 @@ footer {
   filter: blur(6px);
 }
 
-/* the cards' shadows, painted on the pane: a soft penumbra, a contact line
-   along the foot of the card and a darker core (geometry inline, per card) */
-.ps-fill {
-  position: absolute;
+/* the cards' shadows, painted on the pane. Each is worked out from its
+   card's own --x/--y/--w/--h/--rz (the same rule sets them on .deck-* and
+   .for-*), so moving or resizing a card moves its shadow with it. The
+   proportions are the export's, read back from its hand-set values:
+   - soft: the penumbra, from the card's foot back over the plate, 0.716 of
+     the card's height long, leaning 0.148 x height to the left;
+   - line: the contact line along the foot;
+   - core: the darker shadow right behind the foot. The light stands behind
+     the plate's middle (x 580), so the core leans away from it: 0.092 px
+     sideways for every px the card's centre is off that middle. It grows
+     a little towards the front of the plate. */
+.ps {
   inset: 0;
+  /* shared numbers */
+  --sl: calc(var(--h) * 0.716);
+  --sm: calc(30px + var(--h) * 0.148);
+  --cl: calc(var(--h) * 0.301 + var(--y) * 0.0822);
+  --cs: calc((var(--x) + var(--w) / 2 - 580px) * -0.092);
+}
+.ps > * {
+  position: absolute;
 }
 .ps-soft {
+  left: calc(var(--x) - var(--sm));
+  top: calc(var(--y) + var(--h) - var(--sl) - 30px);
+  width: calc(var(--w) + var(--sm) + 30px);
+  height: calc(var(--sl) + 60px);
+  transform-origin: calc(var(--sm) + var(--w) / 2) calc(var(--sl) + 30px);
+  transform: rotate(var(--rz, 0deg));
+  filter: blur(calc(2.6px + var(--h) * 0.0167));
+}
+.ps-soft > i {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(
+    var(--sm) calc(var(--sl) + 30px),
+    calc(var(--sm) + var(--w)) calc(var(--sl) + 30px),
+    calc(var(--w) + 30px) 30px,
+    30px 30px
+  );
   background: linear-gradient(
     to top,
     rgba(var(--sc-shadow), 0.3),
     rgba(var(--sc-shadow), 0.07)
   );
 }
-.ps-core {
-  background: linear-gradient(to top, rgba(40, 46, 58, 0.38), rgba(40, 46, 58, 0));
-}
-.ps-core-front {
-  background: linear-gradient(to top, rgba(40, 46, 58, 0.3), rgba(40, 46, 58, 0));
-}
-.ps-core-warm {
-  background: linear-gradient(
-    to top,
-    rgba(150, 96, 62, 0.38),
-    rgba(150, 96, 62, 0)
-  );
-}
 .ps-line {
+  left: calc(var(--x) + 4px);
+  top: calc(var(--y) + var(--h) - 7px);
+  width: calc(var(--w) - 8px);
   height: 12px;
   border-radius: 6px;
-  transform-origin: 50% 50%;
+  transform: rotate(var(--rz, 0deg));
   background: rgba(8, 22, 26, 0.5);
   filter: blur(3px);
 }
-/* under the flat playlist card */
+.ps-core {
+  left: calc(var(--x) - 60px);
+  top: calc(var(--y) + var(--h) - var(--cl) - 4px);
+  width: calc(var(--w) + 120px);
+  height: calc(var(--cl) + 8px);
+  transform-origin: calc(60px + var(--w) / 2) calc(var(--cl) + 4px);
+  transform: rotate(var(--rz, 0deg));
+  filter: blur(calc(var(--cl) * 0.034));
+}
+.ps-core > i {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(
+    60px calc(var(--cl) + 4px),
+    calc(60px + var(--w)) calc(var(--cl) + 4px),
+    calc(60px + var(--w) - 14px + var(--cs)) 4px,
+    calc(74px + var(--cs)) 4px
+  );
+  background: linear-gradient(
+    to top,
+    rgba(var(--core-rgb, 40, 46, 58), 0.34),
+    rgba(var(--core-rgb, 40, 46, 58), 0)
+  );
+}
+/* under the flat playlist card: the card's own footprint, a touch larger
+   and blurred, and a tighter core just off it toward the viewer */
 .ps-flat {
   border-radius: 24px;
-  transform: rotate(30deg);
+  transform: rotate(var(--rz-flat, 30deg));
 }
 .ps-flat-soft {
-  left: 950px;
-  top: 360px;
-  width: 290px;
-  height: 220px;
+  left: calc(var(--x) - 5px);
+  top: calc(var(--y) - 5px);
+  width: calc(var(--w) + 10px);
+  height: calc(var(--h) + 10px);
   background: rgba(10, 26, 30, 0.22);
   filter: blur(10px);
 }
 .ps-flat-core {
-  left: 951.9px;
-  top: 366.7px;
-  width: 282px;
-  height: 212px;
+  left: calc(var(--x) - 3px);
+  top: calc(var(--y) + 2px);
+  width: calc(var(--w) + 2px);
+  height: calc(var(--h) + 2px);
   background: rgba(10, 26, 30, 0.38);
   filter: blur(3px);
 }
@@ -624,19 +672,26 @@ footer {
   transform-origin: 50% 100%;
   cursor: pointer;
 }
-.deck-work {
+.deck-work,
+.for-work {
   --x: 460px;
   --y: 50px;
   --w: 320px;
   --h: 230px;
   --rz: 5deg;
 }
-.deck-portfolio {
+.deck-portfolio,
+.for-portfolio {
   --x: 810px;
   --y: 40px;
   --w: 310px;
   --h: 230px;
   --rz: 4deg;
+}
+.for-portfolio {
+  --core-rgb: 150, 96, 62;
+}
+.deck-portfolio {
   background: linear-gradient(
     215deg,
     var(--sc-port-a) 0%,
@@ -651,13 +706,15 @@ footer {
     0 1px 2px rgba(0, 0, 0, 0.1);
   color: var(--sc-port-ink);
 }
-.deck-network {
+.deck-network,
+.for-network {
   --x: 290px;
   --y: 385px;
   --w: 320px;
   --h: 210px;
 }
-.deck-contact {
+.deck-contact,
+.for-contact {
   --x: 630px;
   --y: 385px;
   --w: 310px;
@@ -667,7 +724,8 @@ footer {
    under it. It lies on the plate, so the standing Bio card covers it where
    the two meet. */
 .deck-playlist,
-.deck-slab {
+.deck-slab,
+.for-playlist {
   --x: 955px;
   --y: 365px;
   --w: 280px;

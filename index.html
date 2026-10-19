@@ -526,21 +526,13 @@
                 <svg class="pl-caustic" width="100%" height="100%"><filter id="pl-caustic" x="0" y="0" width="100%" height="100%"><feTurbulence type="turbulence" baseFrequency="0.006 0.012" numOctaves="2" seed="7"></feTurbulence><feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 0.94  0 0 0 0 0.88  -3 0 0 0 1"></feColorMatrix></filter><rect width="100%" height="100%" filter="url(#pl-caustic)"></rect></svg>
                 <div class="pl-glint"></div>
                 <div class="pl-spot"></div>
-                <!-- Schatten der Karten, auf die Platte gemalt (je Karte: Halbschatten, Kontaktlinie, Kernschatten) -->
-                <div class="ps" style="left: 396px; top: 85.3px; width: 414px; height: 224.7px; transform-origin: 224px 194.7px; transform: rotate(5deg); filter: blur(6.4px)"><div class="ps-fill ps-soft" style="clip-path: polygon(64px 194.7px, 384px 194.7px, 350px 30px, 30px 30px)"></div></div>
-                <div class="ps-line" style="left: 464px; top: 273px; width: 312px; transform: rotate(5deg)"></div>
-                <div class="ps" style="left: 456px; top: 202.6px; width: 328px; height: 81.4px; transform-origin: 164px 77.4px; transform: rotate(5deg); filter: blur(2.7px)"><div class="ps-fill ps-core" style="clip-path: polygon(4px 77.4px, 324px 77.4px, 305.2px 4px, 15.3px 4px)"></div></div>
-                <div class="ps" style="left: 746px; top: 75.3px; width: 404px; height: 224.7px; transform-origin: 219px 194.7px; transform: rotate(4deg); filter: blur(6.4px)"><div class="ps-fill ps-soft" style="clip-path: polygon(64px 194.7px, 374px 194.7px, 340px 30px, 30px 30px)"></div></div>
-                <div class="ps-line" style="left: 814px; top: 263px; width: 302px; transform: rotate(4deg)"></div>
-                <div class="ps" style="left: 784.3px; top: 193.6px; width: 339.7px; height: 80.4px; transform-origin: 180.7px 76.4px; transform: rotate(4deg); filter: blur(2.6px)"><div class="ps-fill ps-core-warm" style="clip-path: polygon(25.7px 76.4px, 335.7px 76.4px, 284.8px 4px, 4px 4px)"></div></div>
-                <div class="ps" style="left: 228.9px; top: 414.6px; width: 411.1px; height: 210.4px; transform-origin: 221.1px 180.4px; filter: blur(6.1px)"><div class="ps-fill ps-soft" style="clip-path: polygon(61.1px 180.4px, 381.1px 180.4px, 350px 30px, 30px 30px)"></div></div>
-                <div class="ps-line" style="left: 294px; top: 588px; width: 312px"></div>
-                <div class="ps" style="left: 286px; top: 496.1px; width: 328px; height: 102.9px; transform-origin: 164px 98.9px; filter: blur(3.1px)"><div class="ps-fill ps-core-front" style="clip-path: polygon(4px 98.9px, 324px 98.9px, 321.4px 4px, 29.1px 4px)"></div></div>
-                <div class="ps" style="left: 568.9px; top: 414.6px; width: 401.1px; height: 210.4px; transform-origin: 216.1px 180.4px; filter: blur(6.1px)"><div class="ps-fill ps-soft" style="clip-path: polygon(61.1px 180.4px, 371.1px 180.4px, 340px 30px, 30px 30px)"></div></div>
-                <div class="ps-line" style="left: 634px; top: 588px; width: 302px"></div>
-                <div class="ps" style="left: 621.7px; top: 496.1px; width: 322.3px; height: 102.9px; transform-origin: 163.3px 98.9px; filter: blur(3.1px)"><div class="ps-fill ps-core-front" style="clip-path: polygon(8.3px 98.9px, 318.3px 98.9px, 287.1px 4px, 4px 4px)"></div></div>
-                <div class="ps-flat ps-flat-soft"></div>
-                <div class="ps-flat ps-flat-core"></div>
+                <!-- Schatten der Karten, auf die Platte gemalt. Lage und Form rechnet desktop.css
+                     aus der Position der jeweiligen Karte (for-*): nichts davon steht hier fest. -->
+                <div class="ps for-work"><div class="ps-soft"><i></i></div><div class="ps-line"></div><div class="ps-core"><i></i></div></div>
+                <div class="ps for-portfolio"><div class="ps-soft"><i></i></div><div class="ps-line"></div><div class="ps-core"><i></i></div></div>
+                <div class="ps for-network"><div class="ps-soft"><i></i></div><div class="ps-line"></div><div class="ps-core"><i></i></div></div>
+                <div class="ps for-contact"><div class="ps-soft"><i></i></div><div class="ps-line"></div><div class="ps-core"><i></i></div></div>
+                <div class="ps for-playlist"><div class="ps-flat ps-flat-soft"></div><div class="ps-flat ps-flat-core"></div></div>
               </div>
 
               <div class="deck-card deck-work">
