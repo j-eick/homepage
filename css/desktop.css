@@ -39,6 +39,14 @@
    TOKENS — the scene's own colours, per theme
    ------------------------------------------------------------------ */
 :root {
+  /* one scale for the whole hero, and the backdrop follows it:
+     --hs, the hero's scale: three quarters of the width the window
+       offers, capped where the hero is 800px wide (800 / 1200);
+     --bk, the backdrop's scale: 1 when the hero is at its cap, smaller
+       below it. Above the cap nothing grows; a wider or taller window
+       shows more of the room around it. */
+  --hs: min(0.6667, calc(0.75 * (100vw - 40px) / 1200px));
+  --bk: calc(var(--hs) * 1.5);
   --sc-text: var(--ink);
   --sc-text-soft: var(--ink-soft);
   --sc-nav: var(--ink-soft);
@@ -143,26 +151,51 @@ body {
   position: absolute;
 }
 .bd-photo {
-  inset: 0;
+  /* the photo (1225 x 700) at the size the design gives it, 2205 x 1260,
+     times --bk, centred, its top 214px above the page. It does not grow
+     past that: where a big window runs past its edges, they fade into
+     the page's own dark brown. */
+  left: calc(50% - 1102.5px * var(--bk));
+  top: calc(-214px * var(--bk));
+  width: calc(2205px * var(--bk));
+  height: calc(1260px * var(--bk));
   background: url("../assets/images/ai-generated-abstract-blurred-interior-modern-office-space-copy-space-free-photo.jpg")
-    center -214px / auto 1260px no-repeat;
+    center / 100% 100% no-repeat;
   filter: brightness(0.55) saturate(1.1) contrast(1.05);
+  -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 9%,
+      #000 91%,
+      transparent
+    ),
+    linear-gradient(to bottom, #000 80%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 9%,
+      #000 91%,
+      transparent
+    ),
+    linear-gradient(to bottom, #000 80%, transparent);
+  mask-composite: intersect;
 }
 /* the plant at the window, right; mirrored, out of focus like the room */
 .bd-plant {
-  right: 1%;
-  top: 160px;
-  height: 600px;
+  /* by the window in the photo, so it keeps its place in the photo */
+  left: calc(50% + 432px * var(--bk));
+  top: calc(160px * var(--bk));
+  height: calc(600px * var(--bk));
   width: auto;
   transform: scaleX(-1);
   filter: blur(6px) brightness(0.5) saturate(0.85) contrast(1.05);
 }
 .bd-plant-shadow {
-  right: 1%;
-  top: 745px;
-  width: 178px;
-  height: 30px;
-  margin-right: 55px;
+  left: calc(50% + 487px * var(--bk));
+  top: calc(745px * var(--bk));
+  width: calc(178px * var(--bk));
+  height: calc(30px * var(--bk));
   border-radius: 50%;
   background: radial-gradient(
     ellipse at 50% 50%,
@@ -174,7 +207,8 @@ body {
 .bd-warm {
   inset: 0;
   background: radial-gradient(
-    520px 360px at 46% 470px,
+    calc(520px * var(--bk)) calc(360px * var(--bk)) at 46%
+      calc(470px * var(--bk)),
     rgba(255, 160, 90, 0.4),
     rgba(255, 160, 90, 0) 70%
   );
@@ -240,6 +274,8 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* the smaller hero sits in the middle of the free height */
+  justify-content: center;
 }
 
 footer {
@@ -252,11 +288,11 @@ footer {
 
 /* ------------------------------------------------------------------
    HERO — one 1200 x 775 stage: the copy at the top, the scene below it.
-   Laid out at full size and scaled down as a whole below 1240px, so the
-   proportions of the design hold at every desktop width.
+   Laid out at the design's full size and scaled as a whole (--hs), so the
+   perspective and proportions hold at every width: at most 800px wide.
    ------------------------------------------------------------------ */
 .hero {
-  --s: min(1, calc((100vw - 40px) / 1200px));
+  --s: var(--hs);
   position: relative;
   flex: none;
   box-sizing: border-box;
