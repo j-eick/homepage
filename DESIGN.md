@@ -203,3 +203,7 @@ Small marks on the same design, purely decorative and CSS only: a dot in every c
 ### Card glow (desktop)
 
 Hovering a white card lets a light blue glow in from the card's top-left corner and spread into it (`::before`, a radial gradient centred on that corner whose size grows, `ease-in`, 0.6s opacity, 1.2s growth): the blue of the Portfolio card (`--card-from`) at 17% falling to 6%, a tint of light and not a fill. The blue Portfolio card gets a soft band of white light that travels across it instead, like a gloss, a little slower (0.9s and 1.9s). The open card has none. Alarm on Drugs lies on the glass's corner and casts no shadow, so its thickness is carried by a rim (see Layering).
+
+### Dark scene
+
+The dark theme is a warm room: a blurred office photo (`assets/images/`) behind everything on `.page::before`, under a warm brown veil so white type reads; slate cards (`--surface: #343a46`) with orange labels (`--warm: #f0883e`), an orange Portfolio card with dark type, clear grey glass with a warm glow, and dark hashtag pills with an orange rim and glow. The full scene (positions, lift, turn, stacking) is specified in `docs/scene.md`. The playlist card lies flat and sits beneath Bio, which stands up from the plate.

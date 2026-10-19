@@ -3,7 +3,7 @@
 
   var CLOSE_ANIM_MS = 620; // keep in sync with .deck-card.is-closing's animation-duration
   var cards = document.querySelectorAll(
-    ".deck-work, .deck-contact, .deck-playlist, .deck-blog, .deck-portfolio",
+    ".deck-work, .deck-contact, .deck-playlist, .deck-network, .deck-portfolio",
   );
 
   var heroEl = document.querySelector(".hero");

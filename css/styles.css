@@ -472,7 +472,7 @@ a[aria-disabled="true"] {
 .deck-work:has(:focus-visible),
 .deck-contact:has(:focus-visible),
 .deck-playlist:has(:focus-visible),
-.deck-blog:has(:focus-visible) {
+.deck-network:has(:focus-visible) {
   background: var(--surface);
 }
 .deck-portfolio:has(:focus-visible) {
@@ -491,7 +491,7 @@ a[aria-disabled="true"] {
 .deck-work.is-active,
 .deck-contact.is-active,
 .deck-playlist.is-active,
-.deck-blog.is-active {
+.deck-network.is-active {
   background: var(--surface);
 }
 /* keyboard focus keeps its visible ring */
@@ -537,7 +537,7 @@ a[aria-disabled="true"] {
   transition: none;
 }
 .deck-work,
-.deck-blog,
+.deck-network,
 .deck-contact,
 .deck-playlist {
   /* the blue of the Portfolio card (--card-from), from a clear wash at the
@@ -796,35 +796,36 @@ a[aria-disabled="true"] {
    and brighten on hover (see below). */
 .deck-contact {
   /* the nearer the row, the higher; within a row the right one on top */
-  z-index: 4;
-  --tilt: 25deg;
+  z-index: 5;
+  --tilt: 34deg;
   --depth: 3;
   --float-dur: 7.5s;
   --float-delay: -5.5s;
   --pull-x: 26px;
   --pull-y: 16px;
-  --own-top: 510px;
-  --own-left: 676px;
+  --own-top: 500px;
+  --own-left: 728px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
-  --deck-rot: 4deg;
+  --deck-rot: 1deg;
   box-shadow: var(--card-rest);
 }
 
 .deck-playlist {
-  /* behind Bio (4), so that it slips partly under it */
-  z-index: 3;
+  /* it lies flat on the plate and Bio (5) stands up from it, so where they
+     overlap Bio covers it */
+  z-index: 4;
   --tilt: 0deg;
   --depth: 4;
   --float-dur: 9s;
   --float-delay: -1.2s;
   --pull-x: 34px;
   --pull-y: 8px;
-  --own-top: 540px;
-  --own-left: 896px;
+  --own-top: 522px;
+  --own-left: 978px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
-  --deck-rot: 47deg;
+  --deck-rot: 22deg;
   /* it rests on the glass's corner and casts no shadow. Its thickness is a
      rim: a hairline outline all round, a lit inner top edge, and a slab
      edge 9px deep (about 4.5px on screen at the plate's 60deg) that always
@@ -842,56 +843,56 @@ a[aria-disabled="true"] {
   box-shadow: var(--card-rest);
 }
 
-.deck-blog {
+.deck-network {
   /* the nearer the row, the higher; within a row the right one on top */
   z-index: 3;
-  --tilt: 20deg;
+  --tilt: 34deg;
   --depth: 5;
   --float-dur: 6.5s;
   --float-delay: -4.3s;
   --pull-x: 40px;
   --pull-y: 0px;
-  --own-top: 510px;
-  --own-left: 431px;
+  --own-top: 500px;
+  --own-left: 430px;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
   border-color: var(--border);
-  --deck-rot: 0deg;
+  --deck-rot: -1deg;
   box-shadow: var(--card-rest);
 }
 
 .deck-work {
   /* the nearer the row, the higher; within a row the right one on top */
   z-index: 1;
-  --tilt: 30deg;
+  --tilt: 40deg;
   --depth: 9;
   --float-dur: 7s;
   --float-delay: 0s;
   --pull-x: 26px;
   --pull-y: -16px;
-  --own-top: 374px;
-  --own-left: 506px;
+  --own-top: 330px;
+  --own-left: 566px;
   background: var(--surface);
   border-color: var(--border);
-  --deck-rot: 16deg;
+  --deck-rot: -2deg;
   box-shadow: var(--card-rest);
 }
 
 .deck-portfolio {
   /* the nearer the row, the higher; within a row the right one on top */
   z-index: 2;
-  --tilt: 30deg;
+  --tilt: 40deg;
   --depth: 7;
   --float-dur: 8.5s;
   --float-delay: -2.1s;
   --pull-x: 34px;
   --pull-y: -8px;
-  --own-top: 374px;
-  --own-left: 781px;
+  --own-top: 330px;
+  --own-left: 836px;
   /* a pane's light across the blue card, behind its type */
   background:
     linear-gradient(115deg, rgba(255, 255, 255, 0.2), transparent 42%),
     linear-gradient(135deg, var(--card-from), var(--card-to));
-  --deck-rot: 18deg;
+  --deck-rot: 1deg;
   box-shadow: var(--card-rest);
 }
 
@@ -913,7 +914,7 @@ a[aria-disabled="true"] {
   color: var(--ink);
 }
 
-.deck-blog .deck-value,
+.deck-network .deck-value,
 .deck-portfolio .deck-value {
   font-weight: 700;
   font-size: 1.15rem;
@@ -1144,7 +1145,7 @@ a[aria-disabled="true"] {
     /* the cards are a little smaller than the open card's base size, so
        five of them fit side by side on the plate; the modal still grows to
        1.5x of the full size */
-    --card-scale: 0.85;
+    --card-scale: 0.95;
     transform: rotateX(var(--plane)) rotate(var(--deck-rot))
       rotateX(var(--lift)) scale(var(--card-scale));
     pointer-events: auto;
@@ -1155,7 +1156,7 @@ a[aria-disabled="true"] {
      flat card on the corner has none, and an open card drops it. */
   .deck-work,
   .deck-portfolio,
-  .deck-blog,
+  .deck-network,
   .deck-contact {
     -webkit-box-reflect: below 3px
       linear-gradient(to bottom, transparent 64%, rgba(255, 255, 255, 0.136));
@@ -1308,4 +1309,163 @@ footer {
   .hero {
     padding: 24px 0;
   }
+}
+
+/* ------------------------------------------------------------------
+   SCENE DETAILS (all themes): the network card's LinkedIn badge, the
+   playlist card's Spotify dot, equalizer and player keys. Decorative.
+   ------------------------------------------------------------------ */
+.deck-badge,
+.deck-spotify {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+}
+.deck-badge {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  background: #0a66c2;
+  color: #fff;
+  font-family: "Inter", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.deck-spotify {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--spotify);
+  box-shadow: inset 0 0 0 3px color-mix(in srgb, var(--spotify) 60%, #000);
+}
+.deck-playlist .deck-trigger {
+  padding-bottom: 58px;
+}
+.deck-player {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.deck-eq {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 18px;
+}
+.deck-eq i {
+  display: block;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--warm);
+}
+.deck-eq i:nth-child(1) { height: 60%; }
+.deck-eq i:nth-child(2) { height: 100%; }
+.deck-eq i:nth-child(3) { height: 45%; }
+.deck-eq i:nth-child(4) { height: 80%; }
+.deck-keys {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.deck-key {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ink) 10%, transparent);
+  color: var(--ink-soft);
+  font-size: 0.6rem;
+  line-height: 1;
+}
+.deck-key-play {
+  width: 32px;
+  height: 32px;
+  background: var(--warm);
+  color: #1a1410;
+}
+/* the open card is about its content: the player stays on the resting card */
+.deck-card.is-active .deck-player {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  /* the icon row is gone on the desktop scene: the cards carry the links */
+  .cta-row {
+    display: none;
+  }
+  .deck-value {
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+}
+
+/* ------------------------------------------------------------------
+   DARK SCENE — the dark theme is a warm room: a blurred office photo
+   behind everything, darkened by a warm veil; slate cards with orange
+   labels, an orange Portfolio card, clear grey glass, dark hashtag pills
+   with an orange glow.
+   ------------------------------------------------------------------ */
+:root[data-theme="dark"] {
+  --bg: #15110e;
+  --ink: #f6f2ec;
+  --ink-soft: #ddd5ca;
+  --muted: #c4baad;
+  --muted-soft: #a99f93;
+  --surface: #343a46;
+  --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.2);
+  --warm: #f0883e;
+  --glass-a: rgba(214, 218, 224, 0.18);
+  --glass-b: rgba(214, 218, 224, 0.07);
+  --glass-edge: rgba(255, 255, 255, 0.38);
+  --glass-thick: rgba(210, 214, 222, 0.32);
+  --glass-glow: rgba(255, 196, 140, 0.22);
+  --glass-sheen: rgba(255, 236, 214, 0.14);
+  --card-from: #d48b5c;
+  --card-to: #b5643a;
+}
+:root[data-theme="dark"] .page::before {
+  background:
+    linear-gradient(rgba(22, 15, 10, 0.52), rgba(16, 11, 8, 0.7)),
+    url("../assets/images/ai-generated-abstract-blurred-interior-modern-office-space-copy-space-free-photo.jpg")
+      center / cover no-repeat;
+}
+:root[data-theme="dark"] .nav-links a {
+  color: var(--ink);
+}
+:root[data-theme="dark"] .theme-toggle {
+  border-color: transparent;
+  background: #fff;
+  color: #1a1410;
+}
+:root[data-theme="dark"] .deck-label {
+  color: var(--warm);
+}
+:root[data-theme="dark"] .deck-portfolio .deck-label {
+  color: rgba(26, 20, 16, 0.65);
+}
+:root[data-theme="dark"] .deck-portfolio .deck-value {
+  color: #15110e;
+}
+:root[data-theme="dark"] .tag {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border-color: rgba(240, 136, 62, 0.55);
+  background: #23262d;
+  color: var(--ink);
+  font-size: 1rem;
+  box-shadow: 0 0 14px rgba(240, 136, 62, 0.32);
+}
+:root[data-theme="dark"] footer {
+  color: var(--ink-soft);
 }
