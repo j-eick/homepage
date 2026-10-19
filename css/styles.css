@@ -78,13 +78,15 @@
   --spotify-wash: rgba(23, 163, 72, 0.14);
   /* the glass plate under the hero group (desktop): fill, bright edge, the
      light that glides across it, and the soft shade at its lower edge */
-  --glass-a: rgba(255, 255, 255, 0.7);
-  --glass-b: rgba(255, 255, 255, 0.24);
+  /* the pane is tinted a cool sea-glass green, so it stands apart from the
+     blue-white page behind it */
+  --glass-a: rgba(150, 208, 204, 0.6);
+  --glass-b: rgba(196, 232, 228, 0.34);
   --glass-edge: rgba(255, 255, 255, 0.9);
   --glass-shade: rgba(15, 35, 64, 0.07);
   --glass-sheen: rgba(255, 255, 255, 0.6);
-  --glass-glow: rgba(255, 255, 255, 0.35);
-  --glass-thick: rgba(140, 170, 215, 0.5);
+  --glass-glow: rgba(255, 255, 255, 0.5);
+  --glass-thick: rgba(74, 150, 156, 0.55);
   /* motion curves for the card-deck pull-out/push-back — both swing
      gently past their target and settle back (a soft spring, not a
      hard stop), just toned down a lot from a textbook "back" ease so
@@ -367,6 +369,9 @@ a[aria-disabled="true"] {
   padding: 7px 12px;
   border: 1px solid var(--border-strong);
   border-radius: 10px;
+  /* its own fill, so the chip is a small card of its own and does not
+     show what lies behind it (the plate, the reflection) */
+  background: var(--surface);
   color: var(--muted);
   font-size: 0.85rem;
   font-weight: 500;
@@ -1213,13 +1218,13 @@ footer {
    by the inline script in <head> (stored choice, else the system setting). */
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --glass-a: rgba(255, 255, 255, 0.075);
-  --glass-b: rgba(255, 255, 255, 0.02);
+  --glass-a: rgba(110, 200, 196, 0.16);
+  --glass-b: rgba(110, 200, 196, 0.05);
   --glass-edge: rgba(255, 255, 255, 0.2);
   --glass-shade: rgba(0, 0, 0, 0.35);
   --glass-sheen: rgba(255, 255, 255, 0.13);
   --glass-glow: rgba(255, 255, 255, 0.07);
-  --glass-thick: rgba(110, 145, 215, 0.2);
+  --glass-thick: rgba(70, 160, 168, 0.32);
   --bg: #0b1322;
   --ink: #e6edfb;
   --ink-soft: #b4c0da;
