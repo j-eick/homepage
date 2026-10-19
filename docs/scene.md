@@ -1,3 +1,7 @@
+> **Superseded (2026-10-20):** the desktop scene now follows the Claude
+> Design export in `page_v2/` (see DESIGN.md, "Desktop scene v2", and
+> `css/desktop.css`). This file records the earlier screenshot-based pass.
+
 # Scene spec (desktop, dark theme)
 
 The reference is a 1440 × 1080 screenshot mock (2026-10-20). Positions are

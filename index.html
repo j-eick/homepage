@@ -64,9 +64,29 @@
       href="css/mobile.css"
       media="(max-width: 899.98px)"
     />
+    <link
+      rel="stylesheet"
+      href="css/desktop.css"
+      media="(min-width: 900px)"
+    />
   </head>
   <body>
     <div class="page">
+      <!-- Hintergrund der Desktop-Szene (dunkles Theme): Büro-Foto, Pflanze am Fenster, Licht -->
+      <div class="backdrop" aria-hidden="true">
+        <div class="bd-photo"></div>
+        <div class="bd-plant-shadow"></div>
+        <img
+          class="bd-plant"
+          src="assets/images/plant-window.webp"
+          alt=""
+          width="329"
+          height="688"
+        />
+        <div class="bd-warm"></div>
+        <div class="bd-vignette"></div>
+        <div class="bd-left"></div>
+      </div>
       <header class="nav">
         <span class="brand"
           ># <span class="step">idea</span> - <span class="step">plan</span> -
@@ -486,58 +506,58 @@
             </div>
           </div>
 
+<!-- Desktop-Szene (ab 900px): eine Glasplatte in echter 3D-Perspektive, die Karten
+               stehen aus ihr auf. Werte aus dem Claude-Design-Export (page_v2). -->
           <div class="card-deck">
+            <!-- Licht: hinter der fernen Plattenkante, auf den Boden vor der Platte, Schatten darunter -->
+            <div class="scene-bias" aria-hidden="true"></div>
+            <div class="scene-spill" aria-hidden="true"></div>
+            <div class="scene-shadow" aria-hidden="true"></div>
+
             <div class="card-deck-inner">
-              <!-- TODO: zeigt noch keine echten Kontaktdaten an — nur das Pop-out selbst ist implementiert. -->
-              <div class="deck-card deck-contact">
-                <button
-                  type="button"
-                  class="deck-trigger"
-                  aria-expanded="false"
-                >
-                  <span class="deck-label">Bio</span>
-                  <span class="deck-value">Kontaktdaten</span>
-                </button>
-                <button type="button" class="deck-close" aria-label="Schließen">
-                  <span aria-hidden="true">✕</span>
-                </button>
+              <div class="plate-edge" aria-hidden="true"></div>
+              <div class="plate" aria-hidden="true">
+                <div class="pl-sheen"></div>
+                <div class="pl-warm"></div>
+                <div class="pl-cool"></div>
+                <svg class="pl-grain" width="100%" height="100%"><filter id="pl-sand" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="1.15" numOctaves="2" stitchTiles="stitch"></feTurbulence><feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  1.4 0 0 0 -0.55"></feColorMatrix></filter><rect width="100%" height="100%" filter="url(#pl-sand)"></rect></svg>
+                <div class="pl-inner"></div>
+                <div class="pl-blots"></div>
+                <svg class="pl-caustic" width="100%" height="100%"><filter id="pl-caustic" x="0" y="0" width="100%" height="100%"><feTurbulence type="turbulence" baseFrequency="0.006 0.012" numOctaves="2" seed="7"></feTurbulence><feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 0.94  0 0 0 0 0.88  -3 0 0 0 1"></feColorMatrix></filter><rect width="100%" height="100%" filter="url(#pl-caustic)"></rect></svg>
+                <div class="pl-glint"></div>
+                <div class="pl-spot"></div>
+                <!-- Schatten der Karten, auf die Platte gemalt (je Karte: Halbschatten, Kontaktlinie, Kernschatten) -->
+                <div class="ps" style="left: 396px; top: 85.3px; width: 414px; height: 224.7px; transform-origin: 224px 194.7px; transform: rotate(5deg); filter: blur(6.4px)"><div class="ps-fill ps-soft" style="clip-path: polygon(64px 194.7px, 384px 194.7px, 350px 30px, 30px 30px)"></div></div>
+                <div class="ps-line" style="left: 464px; top: 273px; width: 312px; transform: rotate(5deg)"></div>
+                <div class="ps" style="left: 456px; top: 202.6px; width: 328px; height: 81.4px; transform-origin: 164px 77.4px; transform: rotate(5deg); filter: blur(2.7px)"><div class="ps-fill ps-core" style="clip-path: polygon(4px 77.4px, 324px 77.4px, 305.2px 4px, 15.3px 4px)"></div></div>
+                <div class="ps" style="left: 746px; top: 75.3px; width: 404px; height: 224.7px; transform-origin: 219px 194.7px; transform: rotate(4deg); filter: blur(6.4px)"><div class="ps-fill ps-soft" style="clip-path: polygon(64px 194.7px, 374px 194.7px, 340px 30px, 30px 30px)"></div></div>
+                <div class="ps-line" style="left: 814px; top: 263px; width: 302px; transform: rotate(4deg)"></div>
+                <div class="ps" style="left: 784.3px; top: 193.6px; width: 339.7px; height: 80.4px; transform-origin: 180.7px 76.4px; transform: rotate(4deg); filter: blur(2.6px)"><div class="ps-fill ps-core-warm" style="clip-path: polygon(25.7px 76.4px, 335.7px 76.4px, 284.8px 4px, 4px 4px)"></div></div>
+                <div class="ps" style="left: 228.9px; top: 414.6px; width: 411.1px; height: 210.4px; transform-origin: 221.1px 180.4px; filter: blur(6.1px)"><div class="ps-fill ps-soft" style="clip-path: polygon(61.1px 180.4px, 381.1px 180.4px, 350px 30px, 30px 30px)"></div></div>
+                <div class="ps-line" style="left: 294px; top: 588px; width: 312px"></div>
+                <div class="ps" style="left: 286px; top: 496.1px; width: 328px; height: 102.9px; transform-origin: 164px 98.9px; filter: blur(3.1px)"><div class="ps-fill ps-core-front" style="clip-path: polygon(4px 98.9px, 324px 98.9px, 321.4px 4px, 29.1px 4px)"></div></div>
+                <div class="ps" style="left: 568.9px; top: 414.6px; width: 401.1px; height: 210.4px; transform-origin: 216.1px 180.4px; filter: blur(6.1px)"><div class="ps-fill ps-soft" style="clip-path: polygon(61.1px 180.4px, 371.1px 180.4px, 340px 30px, 30px 30px)"></div></div>
+                <div class="ps-line" style="left: 634px; top: 588px; width: 302px"></div>
+                <div class="ps" style="left: 621.7px; top: 496.1px; width: 322.3px; height: 102.9px; transform-origin: 163.3px 98.9px; filter: blur(3.1px)"><div class="ps-fill ps-core-front" style="clip-path: polygon(8.3px 98.9px, 318.3px 98.9px, 287.1px 4px, 4px 4px)"></div></div>
+                <div class="ps-flat ps-flat-soft"></div>
+                <div class="ps-flat ps-flat-core"></div>
               </div>
 
-              <!-- TODO: echte Spotify-Playlist-URL einsetzen, z.B. als Link innerhalb der aufgeklappten Karte -->
-              <div class="deck-card deck-playlist">
+              <div class="deck-card deck-work">
                 <button
                   type="button"
                   class="deck-trigger"
                   aria-expanded="false"
                 >
-                  <span class="deck-label">Playlist</span>
-                  <span class="deck-spotify" aria-hidden="true"></span>
-                  <span class="deck-value">Alarm on Drugs</span>
-                  <!-- decorative: an equalizer and the player's keys -->
-                  <span class="deck-player" aria-hidden="true">
-                    <span class="deck-eq"><i></i><i></i><i></i><i></i></span>
-                    <span class="deck-keys">
-                      <span class="deck-key">⏮</span>
-                      <span class="deck-key deck-key-play">▶</span>
-                      <span class="deck-key">⏸</span>
-                    </span>
-                  </span>
-                </button>
-                <button type="button" class="deck-close" aria-label="Schließen">
-                  <span aria-hidden="true">✕</span>
-                </button>
-              </div>
-
-              <!-- TODO: echte LinkedIn-URL einsetzen, z.B. als Link innerhalb der aufgeklappten Karte -->
-              <div class="deck-card deck-network">
-                <button
-                  type="button"
-                  class="deck-trigger"
-                  aria-expanded="false"
-                >
-                  <span class="deck-label">Netzwerk</span>
-                  <span class="deck-badge" aria-hidden="true">in</span>
-                  <span class="deck-value">LinkedIn →</span>
+                  <span class="deck-label">Aktuelle Beschäftigung</span>
+                  <span class="deck-text"
+                    >Verantwortlich für IT und Medientechnik eines
+                    Universitätsinstituts mit mehreren Standorten. Key-User für
+                    Klinik-IT. Prozessoptimierung, Bedarfsmanagement, technische
+                    Leitung von Webinaren und hybriden Events. Aufbau eines
+                    Freelancer-Pools.</span
+                  >
+                  <span class="deck-value">Technical Operations</span>
                 </button>
                 <button type="button" class="deck-close" aria-label="Schließen">
                   <span aria-hidden="true">✕</span>
@@ -558,22 +578,60 @@
                 </button>
               </div>
 
-              <div class="deck-card deck-work">
+              <!-- TODO: echte LinkedIn-URL einsetzen, z.B. als Link innerhalb der aufgeklappten Karte -->
+              <div class="deck-card deck-network">
                 <button
                   type="button"
                   class="deck-trigger"
                   aria-expanded="false"
                 >
-                  <span class="deck-label">Aktuelle Beschäftigung</span>
-                  <span class="deck-text"
-                    >Verantwortlich für IT und Medientechnik eines
-                    Universitätsinstituts mit mehreren Standorten. Key-User für
-                    Klinik-IT. Prozessoptimierung, Bedarfsmanagement, technische
-                    Leitung von Webinaren und hybriden Events. Aufbau eines
-                    Freelancer-Pools.</span
+                  <span class="deck-head"
+                    ><span class="deck-label">Netzwerk</span><svg class="deck-icon" aria-hidden="true" width="26" height="26" viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="#0A66C2"></rect><path fill="#ffffff" d="M6.94 9.5H4.5V19h2.44V9.5zM5.72 8.33a1.42 1.42 0 1 0 0-2.83 1.42 1.42 0 0 0 0 2.83zM19.5 13.6c0-2.6-1.39-3.8-3.24-3.8a2.8 2.8 0 0 0-2.53 1.39V9.5H11.3c.03.69 0 9.5 0 9.5h2.43v-5.3c0-.28.02-.56.1-.76.22-.56.73-1.14 1.58-1.14 1.11 0 1.56.85 1.56 2.1V19h2.43z"></path></svg></span
                   >
-                  <span class="deck-value">Technical Operations</span>
+                  <span class="deck-value">LinkedIn →</span>
                 </button>
+                <button type="button" class="deck-close" aria-label="Schließen">
+                  <span aria-hidden="true">✕</span>
+                </button>
+              </div>
+
+              <!-- TODO: zeigt noch keine echten Kontaktdaten an — nur das Pop-out selbst ist implementiert. -->
+              <div class="deck-card deck-contact">
+                <button
+                  type="button"
+                  class="deck-trigger"
+                  aria-expanded="false"
+                >
+                  <span class="deck-label">Bio</span>
+                  <span class="deck-value">Kontaktdaten</span>
+                </button>
+                <button type="button" class="deck-close" aria-label="Schließen">
+                  <span aria-hidden="true">✕</span>
+                </button>
+              </div>
+
+              <!-- die Playlist-Karte liegt flach auf der Platte; darunter ihre Kante -->
+              <div class="deck-slab" aria-hidden="true"></div>
+              <!-- TODO: echte Spotify-Playlist-URL einsetzen, z.B. als Link innerhalb der aufgeklappten Karte -->
+              <div class="deck-card deck-playlist">
+                <button
+                  type="button"
+                  class="deck-trigger"
+                  aria-expanded="false"
+                >
+                  <span class="deck-head"
+                    ><span class="deck-label">Playlist</span><svg class="deck-icon" aria-hidden="true" width="26" height="26" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"></circle><g fill="none" stroke="#0b0b0b" stroke-linecap="round"><path d="M6.2 9.2c3.9-1.2 8.1-.9 11.6 1" stroke-width="2.1"></path><path d="M6.9 12.5c3.2-.9 6.6-.6 9.5.9" stroke-width="1.8"></path><path d="M7.6 15.6c2.5-.7 5-.5 7.3.6" stroke-width="1.5"></path></g></svg></span
+                  >
+                  <span class="deck-value">Alarm on Drugs</span>
+                </button>
+                <div class="deck-player">
+                  <div class="eq on" aria-hidden="true"><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+                  <div class="deck-keys">
+                    <button type="button" class="ctl" data-player="back" aria-label="Zurück"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2.5v14H6zM20 5v14L9.5 12z"></path></svg></button>
+                    <button type="button" class="ctl on" data-player="play" aria-label="Abspielen" aria-pressed="true"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l12.5-7.5z"></path></svg></button>
+                    <button type="button" class="ctl" data-player="pause" aria-label="Pause" aria-pressed="false"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.5 5h4v14h-4zM13.5 5h4v14h-4z"></path></svg></button>
+                  </div>
+                </div>
                 <button type="button" class="deck-close" aria-label="Schließen">
                   <span aria-hidden="true">✕</span>
                 </button>

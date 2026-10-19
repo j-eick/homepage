@@ -117,6 +117,8 @@ A cool, low-chroma ground with one signal blue.
 **Display Font:** Space Grotesk (self-hosted, with system fallbacks)
 **Body Font:** Inter (self-hosted)
 
+**Desktop scene (from 900px):** Geist 600 for the name (96px, 0.94, -0.045em), Hanken Grotesk for body, nav and hashtags, Schibsted Grotesk 600 for the brand line, Archivo 125% wide (600–700, 27px) for card values. All self-hosted variable fonts (`fonts/*-var.woff2`, OFL), from the Claude Design export in `page_v2/`. Mobile keeps Space Grotesk and Inter.
+
 **Character:** A grotesque with some attitude for the name and titles, a neutral workhorse for reading. The same pairing on every screen size.
 
 ### Hierarchy
@@ -207,3 +209,7 @@ Hovering a white card lets a light blue glow in from the card's top-left corner 
 ### Dark scene
 
 The dark theme is a warm room: a blurred office photo (`assets/images/`) behind everything on `.page::before`, under a warm brown veil so white type reads; slate cards (`--surface: #343a46`) with orange labels (`--warm: #f0883e`), an orange Portfolio card with dark type, clear grey glass with a warm glow, and dark hashtag pills with an orange rim and glow. The full scene (positions, lift, turn, stacking) is specified in `docs/scene.md`. The playlist card lies flat and sits beneath Bio, which stands up from the plate.
+
+### Desktop scene v2 (from 900px)
+
+The desktop page is the Claude Design export "Pflanze 2 – rechts am Fenster" (`page_v2/`), rebuilt in plain HTML/CSS in `css/desktop.css` (linked only from 900px). One 1200 × 775 stage: name and subtitle top left, the hashtags on the plate's far edge (with a faint reflection), and a real 3D rig: a glass plate (1160 × 640, `rotateX(56deg)` about its near edge, `perspective: 1240px`, origin 50% 69px) with a slab edge 16px below it, light behind its far edge and spilling onto the floor, and the cards' shadows painted on the pane. Four cards stand up from the plate (`rotateX(-25deg)` about their near edge, turned 0–5° in its plane); the playlist card lies flat, turned 30°, with its own slab, and since all share one 3D space the standing Bio card covers it where they meet. Below 1240px the stage scales down as a whole. The dark theme is the export as designed (office photo, the plant at the window, slate cards, an orange Portfolio card); the light theme keeps the same scene on pale paper with white cards, a blue Portfolio card and the sea-glass plate. Opening a card lifts a copy of it out of the 3D scene into a layer above the page and grows it to the middle of the viewport (FLIP, `card-deck.js`); the playlist card's play/pause keys switch its equalizer on and off.

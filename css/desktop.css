@@ -1,0 +1,979 @@
+/* DESKTOP SCENE — from 900px (linked with a media attribute in index.html).
+   Built from the Claude Design export in page_v2/ ("Pflanze 2 – rechts am
+   Fenster"): its values (sizes, colours, shadows, the 3D rig) are carried
+   over here as classes. The dark theme is the reference; the light theme
+   keeps the same scene in the page's light palette. Below 900px mobile.css
+   takes over and none of this exists. */
+
+@font-face {
+  font-family: "Geist";
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url("../fonts/geist-latin-var.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+  src: url("../fonts/archivo-latin-var.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Hanken Grotesk";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("../fonts/hanken-grotesk-latin-var.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Schibsted Grotesk";
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url("../fonts/schibsted-grotesk-latin-var.woff2") format("woff2");
+}
+
+/* ------------------------------------------------------------------
+   TOKENS — the scene's own colours, per theme
+   ------------------------------------------------------------------ */
+:root {
+  --sc-text: var(--ink);
+  --sc-text-soft: var(--ink-soft);
+  --sc-nav: var(--ink-soft);
+  --sc-accent: #e0731f;
+  --sc-card-a: #ffffff;
+  --sc-card-b: #f4f7fb;
+  --sc-card-c: #eaeff6;
+  --sc-card-ink: #142036;
+  --sc-card-border: rgba(15, 35, 64, 0.1);
+  --sc-card-rim: rgba(255, 255, 255, 0.9);
+  --sc-card-slab: #c9d3e2;
+  --sc-port-a: #4f7fe6;
+  --sc-port-b: #2f5fd6;
+  --sc-port-c: #1f469f;
+  --sc-port-ink: #ffffff;
+  --sc-port-label: rgba(255, 255, 255, 0.8);
+  --sc-port-slab: #16306e;
+  --sc-port-glow: rgba(47, 95, 214, 0.16);
+  --sc-tag-bg: #ffffff;
+  --sc-tag-ink: #33415c;
+  --sc-tag-border: rgba(224, 115, 31, 0.55);
+  --sc-tag-glow: rgba(224, 115, 31, 0.14);
+  --sc-plate-a: rgba(150, 208, 204, 0.45);
+  --sc-plate-b: rgba(130, 196, 192, 0.5);
+  --sc-plate-c: rgba(110, 182, 180, 0.55);
+  --sc-plate-edge: rgba(90, 160, 160, 0.45);
+  --sc-plate-border: rgba(255, 255, 255, 0.85);
+  --sc-shadow: 30, 60, 80;
+  --sc-ctl-bg: rgba(15, 35, 64, 0.06);
+  --sc-ctl-border: rgba(15, 35, 64, 0.14);
+  --sc-ctl-ink: #33415c;
+  --sc-bias: 0.35;
+}
+:root[data-theme="dark"] {
+  --sc-text: #f6f3ee;
+  --sc-text-soft: #ddd6cd;
+  --sc-nav: #e6e0d8;
+  --sc-accent: #ff9a4d;
+  --sc-card-a: #4b5364;
+  --sc-card-b: #3b4250;
+  --sc-card-c: #353b47;
+  --sc-card-ink: #f2f4f8;
+  --sc-card-border: rgba(220, 232, 255, 0.14);
+  --sc-card-rim: rgba(240, 246, 255, 0.28);
+  --sc-card-slab: #1f242d;
+  --sc-port-a: #cf9268;
+  --sc-port-b: #b07049;
+  --sc-port-c: #965b3a;
+  --sc-port-ink: #1a0d05;
+  --sc-port-label: #2e1505;
+  --sc-port-slab: #55290f;
+  --sc-port-glow: rgba(176, 112, 73, 0.18);
+  --sc-tag-bg: #1b2029;
+  --sc-tag-ink: #e6eaf0;
+  --sc-tag-border: rgba(255, 154, 77, 0.75);
+  --sc-tag-glow: rgba(255, 140, 60, 0.22);
+  --sc-plate-a: rgba(120, 136, 165, 0.3);
+  --sc-plate-b: rgba(84, 98, 126, 0.4);
+  --sc-plate-c: rgba(60, 70, 94, 0.5);
+  --sc-plate-edge: rgba(70, 82, 110, 0.3);
+  --sc-plate-border: rgba(205, 220, 250, 0.6);
+  --sc-shadow: 14, 34, 38;
+  --sc-ctl-bg: rgba(255, 255, 255, 0.08);
+  --sc-ctl-border: rgba(255, 255, 255, 0.16);
+  --sc-ctl-ink: #f2f4f8;
+  --sc-bias: 0.85;
+}
+
+/* ------------------------------------------------------------------
+   PAGE, BACKDROP, HEADER, FOOTER
+   ------------------------------------------------------------------ */
+body {
+  font-family: "Hanken Grotesk", system-ui, sans-serif;
+}
+:root[data-theme="dark"] body {
+  background: #2a2725;
+}
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: clip;
+}
+/* the photo and the lights replace the old ambient wash */
+.page::before {
+  display: none;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+/* the room is the dark theme; the light theme stays on its pale paper */
+:root[data-theme="dark"] .backdrop {
+  display: block;
+}
+.backdrop > * {
+  position: absolute;
+}
+.bd-photo {
+  inset: 0;
+  background: url("../assets/images/ai-generated-abstract-blurred-interior-modern-office-space-copy-space-free-photo.jpg")
+    center -214px / auto 1260px no-repeat;
+  filter: brightness(0.55) saturate(1.1) contrast(1.05);
+}
+/* the plant at the window, right; mirrored, out of focus like the room */
+.bd-plant {
+  right: 1%;
+  top: 160px;
+  height: 600px;
+  width: auto;
+  transform: scaleX(-1);
+  filter: blur(6px) brightness(0.5) saturate(0.85) contrast(1.05);
+}
+.bd-plant-shadow {
+  right: 1%;
+  top: 745px;
+  width: 178px;
+  height: 30px;
+  margin-right: 55px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0) 70%
+  );
+  filter: blur(8px);
+}
+.bd-warm {
+  inset: 0;
+  background: radial-gradient(
+    520px 360px at 46% 470px,
+    rgba(255, 160, 90, 0.4),
+    rgba(255, 160, 90, 0) 70%
+  );
+}
+.bd-vignette {
+  inset: 0;
+  background: radial-gradient(
+    ellipse 90% 80% at 50% 45%,
+    rgba(10, 8, 6, 0) 50%,
+    rgba(10, 8, 6, 0.55) 100%
+  );
+}
+.bd-left {
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(14, 12, 10, 0.45) 0%,
+    rgba(14, 12, 10, 0) 55%
+  );
+}
+
+.nav {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 28px 40px;
+}
+.nav .brand {
+  font-family: "Schibsted Grotesk", sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--sc-text);
+}
+.nav-links {
+  gap: 32px;
+}
+.nav-links a {
+  font-size: 18px;
+  color: var(--sc-nav);
+}
+.theme-toggle {
+  width: 48px;
+  height: 48px;
+}
+.theme-toggle svg {
+  width: 22px;
+  height: 22px;
+}
+:root[data-theme="dark"] .theme-toggle {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #fff;
+  color: #121110;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+footer {
+  position: relative;
+  z-index: 1;
+  padding: 72px 24px 36px;
+  font-size: 17px;
+  color: var(--sc-text-soft);
+}
+
+/* ------------------------------------------------------------------
+   HERO — one 1200 x 775 stage: the copy at the top, the scene below it.
+   Laid out at full size and scaled down as a whole below 1240px, so the
+   proportions of the design hold at every desktop width.
+   ------------------------------------------------------------------ */
+.hero {
+  --s: min(1, calc((100vw - 40px) / 1200px));
+  position: relative;
+  flex: none;
+  box-sizing: border-box;
+  width: 1200px;
+  max-width: none;
+  height: 775px;
+  margin: 0 0 calc((var(--s) - 1) * 775px);
+  padding: 0;
+  transform: scale(var(--s));
+  transform-origin: 50% 0;
+}
+.hero-stack {
+  display: contents;
+}
+.hero-content {
+  display: block;
+  max-width: none;
+  padding: 36px 0 0 192px;
+}
+.hero-title {
+  display: block;
+  font-family: "Geist", sans-serif;
+  font-weight: 600;
+  font-size: 96px;
+  line-height: 0.94;
+  letter-spacing: -0.045em;
+  color: var(--sc-text);
+}
+.hero-title .name {
+  max-height: none;
+}
+.hero-sub {
+  margin: 32px 0 0;
+  max-width: none;
+  font-size: 22px;
+  line-height: 1.3;
+  color: var(--sc-text-soft);
+}
+/* the cards carry the links: no icon row on the desktop scene */
+.cta-row {
+  display: none;
+}
+
+/* the hashtags stand on the plate's far edge, left of the cards */
+.hero-tags {
+  position: absolute;
+  z-index: 2;
+  left: 192px;
+  top: 321px;
+  width: auto;
+  min-width: 0;
+  max-width: 330px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  /* their reflection on the glass, faint and fading away from them */
+  -webkit-box-reflect: below 10px
+    linear-gradient(to bottom, transparent 30%, rgba(255, 255, 255, 0.12));
+}
+.tag {
+  display: block;
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--sc-tag-border);
+  background: var(--sc-tag-bg);
+  color: var(--sc-tag-ink);
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.3;
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.04),
+    0 4px 12px var(--sc-tag-glow);
+}
+.tag-hash {
+  color: var(--sc-accent);
+  font-weight: 400;
+}
+
+/* ------------------------------------------------------------------
+   SCENE — perspective box (1200 x 400) and the rig, the plate that lies
+   in it (rotateX 56deg about its near edge). The cards stand up from the
+   plate inside the same 3D space, so the browser sorts them by depth.
+   ------------------------------------------------------------------ */
+.card-deck {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 375px;
+  width: 1200px;
+  height: 400px;
+  perspective: 1240px;
+  perspective-origin: 50% 69px;
+}
+.scene-bias,
+.scene-spill,
+.scene-shadow {
+  position: absolute;
+  pointer-events: none;
+}
+/* the light source behind the far edge of the plate */
+.scene-bias {
+  left: 120px;
+  right: 120px;
+  top: -80px;
+  height: 210px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at 50% 60%,
+    rgba(255, 145, 70, 0.8) 0%,
+    rgba(255, 200, 160, 0.28) 40%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  opacity: var(--sc-bias);
+  filter: blur(30px);
+}
+/* light spilling onto the floor below the near edge */
+.scene-spill {
+  left: 60px;
+  right: 60px;
+  top: 340px;
+  height: 110px;
+  background: radial-gradient(
+    ellipse at 50% 20%,
+    rgba(255, 145, 70, 0.34) 0%,
+    rgba(255, 255, 255, 0) 72%
+  );
+  filter: blur(10px);
+}
+.scene-shadow {
+  left: 50px;
+  right: 50px;
+  top: 354px;
+  height: 56px;
+  background: radial-gradient(
+    ellipse at 50% 22%,
+    rgba(35, 55, 75, 0.34) 0%,
+    rgba(0, 0, 0, 0) 68%
+  );
+  filter: blur(5px);
+}
+
+.card-deck-inner {
+  position: absolute;
+  left: 20px;
+  top: -280px;
+  width: 1160px;
+  height: 640px;
+  transform-origin: 50% 100%;
+  transform: rotateX(56deg);
+  transform-style: preserve-3d;
+}
+
+/* the glass: a slab edge 16px under the pane, then the pane */
+.plate-edge,
+.plate {
+  position: absolute;
+  inset: 0;
+  border-radius: 52px;
+  pointer-events: none;
+}
+.plate-edge {
+  background: var(--sc-plate-edge);
+  box-shadow:
+    inset 0 0 0 2px rgba(190, 208, 245, 0.6),
+    0 0 26px rgba(255, 140, 60, 0.14);
+  transform: translateZ(-16px);
+}
+.plate {
+  box-sizing: border-box;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    var(--sc-plate-a) 0%,
+    var(--sc-plate-b) 60%,
+    var(--sc-plate-c) 100%
+  );
+  border: 1.5px solid var(--sc-plate-border);
+  box-shadow:
+    inset 0 3px 0 #ffffff,
+    inset 0 16px 18px -14px rgba(210, 225, 255, 0.38),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(0, 0, 0, 0.35);
+}
+.plate > * {
+  position: absolute;
+}
+.pl-sheen,
+.pl-warm,
+.pl-cool,
+.pl-grain,
+.pl-inner,
+.pl-blots,
+.pl-caustic,
+.pl-glint {
+  inset: 0;
+}
+.pl-sheen {
+  background: linear-gradient(
+    112deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(230, 240, 255, 0.28) 41%,
+    rgba(255, 255, 255, 0) 52%
+  );
+}
+.pl-warm {
+  background: radial-gradient(
+    240px 170px at 84% 44%,
+    rgba(255, 150, 80, 0.12),
+    rgba(255, 255, 255, 0) 70%
+  );
+}
+.pl-cool {
+  background: radial-gradient(
+    ellipse 75% 95% at 96% 0%,
+    rgba(230, 238, 255, 0.14),
+    rgba(255, 255, 255, 0) 62%
+  );
+}
+.pl-grain {
+  opacity: 0.16;
+  -webkit-mask-image: linear-gradient(
+    200deg,
+    #000 0%,
+    rgba(0, 0, 0, 0.55) 45%,
+    rgba(0, 0, 0, 0.12) 100%
+  );
+  mask-image: linear-gradient(
+    200deg,
+    #000 0%,
+    rgba(0, 0, 0, 0.55) 45%,
+    rgba(0, 0, 0, 0.12) 100%
+  );
+}
+.pl-inner {
+  border-radius: 52px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 0 80px rgba(255, 255, 255, 0.35);
+}
+.pl-blots {
+  background:
+    radial-gradient(
+      ellipse 32% 20% at 72% 28%,
+      rgba(255, 236, 218, 0.06),
+      rgba(255, 236, 218, 0) 70%
+    ),
+    radial-gradient(
+      ellipse 26% 16% at 36% 70%,
+      rgba(200, 220, 255, 0.04),
+      rgba(200, 220, 255, 0) 70%
+    );
+}
+.pl-caustic {
+  opacity: 0.1;
+  -webkit-mask-image: linear-gradient(200deg, #000 0%, rgba(0, 0, 0, 0.3) 100%);
+  mask-image: linear-gradient(200deg, #000 0%, rgba(0, 0, 0, 0.3) 100%);
+}
+.pl-glint {
+  background: linear-gradient(
+    118deg,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(255, 255, 255, 0.5) 59%,
+    rgba(255, 255, 255, 0.12) 65%,
+    rgba(255, 255, 255, 0) 72%
+  );
+}
+.pl-spot {
+  left: 60%;
+  top: -8%;
+  width: 48%;
+  height: 36%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(255, 255, 255, 0.65),
+    rgba(255, 255, 255, 0) 70%
+  );
+  filter: blur(6px);
+}
+
+/* the cards' shadows, painted on the pane: a soft penumbra, a contact line
+   along the foot of the card and a darker core (geometry inline, per card) */
+.ps-fill {
+  position: absolute;
+  inset: 0;
+}
+.ps-soft {
+  background: linear-gradient(
+    to top,
+    rgba(var(--sc-shadow), 0.3),
+    rgba(var(--sc-shadow), 0.07)
+  );
+}
+.ps-core {
+  background: linear-gradient(to top, rgba(40, 46, 58, 0.38), rgba(40, 46, 58, 0));
+}
+.ps-core-front {
+  background: linear-gradient(to top, rgba(40, 46, 58, 0.3), rgba(40, 46, 58, 0));
+}
+.ps-core-warm {
+  background: linear-gradient(
+    to top,
+    rgba(150, 96, 62, 0.38),
+    rgba(150, 96, 62, 0)
+  );
+}
+.ps-line {
+  height: 12px;
+  border-radius: 6px;
+  transform-origin: 50% 50%;
+  background: rgba(8, 22, 26, 0.5);
+  filter: blur(3px);
+}
+/* under the flat playlist card */
+.ps-flat {
+  border-radius: 24px;
+  transform: rotate(30deg);
+}
+.ps-flat-soft {
+  left: 950px;
+  top: 360px;
+  width: 290px;
+  height: 220px;
+  background: rgba(10, 26, 30, 0.22);
+  filter: blur(10px);
+}
+.ps-flat-core {
+  left: 951.9px;
+  top: 366.7px;
+  width: 282px;
+  height: 212px;
+  background: rgba(10, 26, 30, 0.38);
+  filter: blur(3px);
+}
+
+/* ------------------------------------------------------------------
+   CARDS — each stands up from the plate about its near edge
+   (rotateX -25deg), turned a little in the plate's plane (--rz). The
+   playlist card lies flat on the glass instead.
+   ------------------------------------------------------------------ */
+.deck-card {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w);
+  height: var(--h);
+  box-sizing: border-box;
+  border-radius: 22px;
+  background: linear-gradient(
+    215deg,
+    var(--sc-card-a) 0%,
+    var(--sc-card-b) 45%,
+    var(--sc-card-c) 100%
+  );
+  border: 1px solid var(--sc-card-border);
+  box-shadow:
+    inset -1px 1px 0 var(--sc-card-rim),
+    0 6px 0 var(--sc-card-slab),
+    0 1px 2px rgba(0, 0, 0, 0.1);
+  color: var(--sc-card-ink);
+  transform: rotateZ(var(--rz, 0deg)) rotateX(-25deg) translateZ(1px);
+  transform-origin: 50% 100%;
+  cursor: pointer;
+}
+.deck-work {
+  --x: 460px;
+  --y: 50px;
+  --w: 320px;
+  --h: 230px;
+  --rz: 5deg;
+}
+.deck-portfolio {
+  --x: 810px;
+  --y: 40px;
+  --w: 310px;
+  --h: 230px;
+  --rz: 4deg;
+  background: linear-gradient(
+    215deg,
+    var(--sc-port-a) 0%,
+    var(--sc-port-b) 55%,
+    var(--sc-port-c) 100%
+  );
+  border-color: rgba(255, 210, 180, 0.28);
+  box-shadow:
+    inset -1px 1px 0 rgba(255, 230, 210, 0.2),
+    0 6px 0 var(--sc-port-slab),
+    0 0 40px var(--sc-port-glow),
+    0 1px 2px rgba(0, 0, 0, 0.1);
+  color: var(--sc-port-ink);
+}
+.deck-network {
+  --x: 290px;
+  --y: 385px;
+  --w: 320px;
+  --h: 210px;
+}
+.deck-contact {
+  --x: 630px;
+  --y: 385px;
+  --w: 310px;
+  --h: 210px;
+}
+/* flat on the glass, turned 30deg; its slab is a second, darker card just
+   under it. It lies on the plate, so the standing Bio card covers it where
+   the two meet. */
+.deck-playlist,
+.deck-slab {
+  --x: 955px;
+  --y: 365px;
+  --w: 280px;
+  --h: 210px;
+}
+.deck-playlist {
+  transform: rotateZ(30deg) translateZ(4px);
+  transform-origin: 50% 50%;
+}
+.deck-slab {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w);
+  height: var(--h);
+  border-radius: 22px;
+  background: var(--sc-card-slab);
+  transform: rotateZ(30deg) translateZ(1px);
+  pointer-events: none;
+}
+
+/* the whole card is one button; the close control and the player are its
+   siblings, not children, so no control sits inside another */
+.deck-trigger {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 30px 32px;
+  border: 0;
+  border-radius: inherit;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.deck-trigger:focus-visible {
+  outline: 2px solid var(--sc-accent);
+  outline-offset: 4px;
+}
+.deck-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+.deck-icon {
+  flex: none;
+}
+.deck-label {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--sc-accent);
+}
+.deck-value {
+  font-family: "Archivo", sans-serif;
+  font-stretch: 125%;
+  font-weight: 600;
+  font-size: 27px;
+  line-height: 1.15;
+  color: inherit;
+}
+.deck-portfolio .deck-label {
+  font-weight: 600;
+  color: var(--sc-port-label);
+}
+.deck-portfolio .deck-value {
+  font-weight: 700;
+}
+.deck-playlist .deck-trigger {
+  padding: 24px 26px 76px;
+}
+.deck-playlist .deck-value {
+  font-size: 22px;
+}
+.deck-text,
+.deck-close {
+  display: none;
+}
+
+/* a quiet glow when the pointer comes over a card: it enters from the
+   card's top-left corner. The orange card gets a band of white light. */
+.deck-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background-image: radial-gradient(
+    circle at 0 0,
+    color-mix(in srgb, var(--sc-accent) 22%, transparent),
+    color-mix(in srgb, var(--sc-accent) 6%, transparent) 55%,
+    transparent 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 0% 0%;
+  transition:
+    opacity 0.6s ease-in,
+    background-size 1.2s ease-in;
+}
+.deck-card:hover::before {
+  opacity: 1;
+  background-size: 190% 190%;
+}
+.deck-portfolio::before {
+  background-image: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 70%
+  );
+  background-repeat: repeat;
+  background-size: 300% 100%;
+  background-position: 100% 0;
+  transition:
+    opacity 0.9s ease-in,
+    background-position 1.9s ease-in;
+}
+.deck-portfolio:hover::before {
+  background-size: 300% 100%;
+  background-position: 0% 0;
+}
+
+/* the player on the playlist card */
+.deck-player {
+  position: absolute;
+  left: 26px;
+  right: 26px;
+  bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.eq {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 24px;
+}
+.eq .bar {
+  width: 4px;
+  border-radius: 2px;
+  background: var(--sc-accent);
+  transform-origin: 50% 100%;
+  animation: eqbar 0.9s ease-in-out infinite alternate;
+  animation-play-state: paused;
+  opacity: 0.55;
+}
+.eq .bar:nth-child(1) {
+  height: 14px;
+}
+.eq .bar:nth-child(2) {
+  height: 22px;
+  animation-delay: -0.3s;
+  animation-duration: 0.7s;
+}
+.eq .bar:nth-child(3) {
+  height: 10px;
+  animation-delay: -0.6s;
+  animation-duration: 1.1s;
+}
+.eq .bar:nth-child(4) {
+  height: 18px;
+  animation-delay: -0.15s;
+  animation-duration: 0.8s;
+}
+.eq .bar:nth-child(5) {
+  height: 12px;
+  animation-delay: -0.45s;
+  animation-duration: 1s;
+}
+.eq.on .bar {
+  animation-play-state: running;
+  opacity: 1;
+}
+@keyframes eqbar {
+  0% {
+    transform: scaleY(0.35);
+  }
+  100% {
+    transform: scaleY(1.15);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .eq .bar {
+    animation: none;
+  }
+}
+.deck-keys {
+  display: flex;
+  gap: 8px;
+}
+.ctl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--sc-ctl-border);
+  background: var(--sc-ctl-bg);
+  color: var(--sc-ctl-ink);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+.ctl:hover {
+  background: color-mix(in srgb, var(--sc-ctl-ink) 16%, transparent);
+}
+.ctl.on {
+  background: #ff9a4d;
+  border-color: #ff9a4d;
+  color: #1a0d05;
+}
+
+/* ------------------------------------------------------------------
+   OPEN CARD — a copy of the card, lifted out of the 3D scene into a layer
+   above the page and grown from where the card stands to the middle of
+   the viewport (card-deck.js). The card in the scene waits invisibly.
+   ------------------------------------------------------------------ */
+.deck-modal-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+.deck-card.is-modal {
+  position: relative;
+  left: auto;
+  top: auto;
+  width: calc(var(--w) * 1.45);
+  height: auto;
+  min-height: calc(var(--h) * 1.35);
+  transform: none;
+  pointer-events: auto;
+  cursor: default;
+  box-shadow:
+    inset -1px 1px 0 var(--sc-card-rim),
+    0 30px 80px rgba(0, 0, 0, 0.35);
+}
+.deck-card.is-modal::before {
+  display: none;
+}
+.is-modal .deck-trigger {
+  position: relative;
+  inset: auto;
+  min-height: inherit;
+  gap: 22px;
+  padding: 40px 44px;
+  cursor: default;
+}
+.is-modal .deck-label {
+  font-size: 15px;
+}
+.is-modal .deck-value {
+  font-size: 32px;
+}
+.is-modal .deck-text {
+  display: block;
+  font-size: 17px;
+  line-height: 1.55;
+  color: inherit;
+  opacity: 0.86;
+}
+.is-modal .deck-player {
+  display: none;
+}
+.is-modal .deck-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: color-mix(in srgb, currentColor 14%, transparent);
+  color: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+.is-modal .deck-close:hover {
+  background: color-mix(in srgb, currentColor 26%, transparent);
+}
+/* while its copy is open, the card in the scene keeps its place unseen */
+.deck-card.is-lifted {
+  visibility: hidden;
+}
+.is-modal .deck-close:focus-visible {
+  outline: 2px solid var(--sc-accent);
+  outline-offset: 2px;
+}

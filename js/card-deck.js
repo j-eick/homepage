@@ -1,177 +1,168 @@
 (function () {
   "use strict";
 
-  var CLOSE_ANIM_MS = 620; // keep in sync with .deck-card.is-closing's animation-duration
-  var cards = document.querySelectorAll(
-    ".deck-work, .deck-contact, .deck-playlist, .deck-network, .deck-portfolio",
-  );
+  // Desktop scene: the cards stand in a real 3D rig (css/desktop.css), so an
+  // open card cannot simply be moved within it. Opening lifts a copy of the
+  // card into a layer above the page and grows it from the card's place on
+  // screen to the middle of the viewport (a FLIP animation); the card in the
+  // scene waits invisibly until the copy has flown back.
 
-  var heroEl = document.querySelector(".hero");
-  var activeCard = null;
-  var closingCard = null;
-  var closingTimer = null;
+  var OPEN_MS = 560;
+  var CLOSE_MS = 480;
+  var EASE_OPEN = "cubic-bezier(0.3, 1.18, 0.4, 1)"; // soft spring, as before
+  var EASE_CLOSE = "cubic-bezier(0.22, 0.61, 0.24, 1)"; // quick release, soft landing
 
-  // drops .is-closing once its animation has finished playing
-  function finishClosing(card) {
-    card.classList.remove("is-closing");
-    if (closingCard === card) {
-      closingCard = null;
-      closingTimer = null;
+  var cards = document.querySelectorAll(".card-deck .deck-card");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  var layer = null;
+  var open = null; // { card, copy, trigger }
+
+  function getLayer() {
+    if (!layer) {
+      layer = document.createElement("div");
+      layer.className = "deck-modal-layer";
+      document.body.appendChild(layer);
     }
-    // the stack is whole again: its reflection comes back
-    if (!activeCard && heroEl) heroEl.classList.remove("has-open");
+    return layer;
   }
 
-  function closeActive() {
-    if (!activeCard) return;
-    var card = activeCard;
-    activeCard = null;
-
-    var trigger = card.querySelector(".deck-trigger");
-    trigger.setAttribute("aria-expanded", "false");
-    // the close button disappears with .is-active; hand focus back to the
-    // card's trigger so keyboard users don't land on <body>
-    if (card.contains(document.activeElement)) trigger.focus();
-
-    // only one card closes at a time; if another was already mid-close,
-    // let it land on its final (stack) position before this one starts
-    if (closingCard && closingCard !== card) {
-      clearTimeout(closingTimer);
-      finishClosing(closingCard);
-    }
-
-    // swapping the classes in the same tick hands off from is-active's
-    // animation to is-closing's without any jump — is-closing's 0% is
-    // exactly is-active's held 100% state
-    card.classList.remove("is-active");
-    card.classList.add("is-closing");
-    closingCard = card;
-    closingTimer = setTimeout(function () {
-      finishClosing(card);
-    }, CLOSE_ANIM_MS);
-  }
-
-  var deckInner = document.querySelector(".card-deck-inner");
-
-  // The card opens as a modal: it grows to 1.5x and moves to the centre of the
-  // viewport. The CSS can't know where the card sits on screen, so the
-  // translation is worked out here, in the card's own (unscaled) pixels.
-  // The centre is taken from the card's laid-out place in the fan, so the
-  // idle drift and the hover slide don't skew it.
-  function placeModal(card) {
-    if (!deckInner) return;
-    var cs = getComputedStyle(card);
-    var ownTop = parseFloat(cs.getPropertyValue("--own-top")) || 0;
-    var ownLeft = parseFloat(cs.getPropertyValue("--own-left")) || 0;
-    // the open card is as tall as its text needs (never below its resting
-    // height): lay the trigger out at its natural height, with the text
-    // showing, for a moment and read it back
-    var trigger = card.querySelector(".deck-trigger");
-    var text = card.querySelector(".deck-text");
-    var restH = card.offsetHeight;
-    if (text) text.style.display = "block";
-    trigger.style.bottom = "auto";
-    var openH = Math.max(restH, trigger.offsetHeight);
-    trigger.style.bottom = "";
-    if (text) text.style.display = "";
-    card.style.setProperty("--open-h", openH + "px");
-
-    var box = deckInner.getBoundingClientRect();
-    var scale = box.width / deckInner.offsetWidth || 1;
-    var cx = box.left + (ownLeft + card.offsetWidth / 2) * scale;
-    var cy = box.top + (ownTop + openH / 2) * scale;
-    var vw = document.documentElement.clientWidth;
-    var vh = document.documentElement.clientHeight;
-    card.style.setProperty("--modal-x", ((vw / 2 - cx) / scale).toFixed(2) + "px");
-    card.style.setProperty("--modal-y", ((vh / 2 - cy) / scale).toFixed(2) + "px");
+  // the transform that puts `to` (the copy at rest) onto `from` (the card
+  // as the scene shows it): its screen box, centred and scaled to fit
+  function flip(from, to) {
+    var dx = from.left + from.width / 2 - (to.left + to.width / 2);
+    var dy = from.top + from.height / 2 - (to.top + to.height / 2);
+    var sx = from.width / to.width;
+    var sy = from.height / to.height;
+    return (
+      "translate(" + dx + "px, " + dy + "px) scale(" + sx + ", " + sy + ")"
+    );
   }
 
   function openCard(card) {
-    if (activeCard === card) return;
-    closeActive();
+    if (open && open.card === card) return;
+    if (open) closeCard(true);
 
-    // the active card stops drifting; start the move from wherever the drift
-    // had put it, so it doesn't jump when the animation is dropped
-    var cs = getComputedStyle(card);
-    card.style.setProperty(
-      "--from-x",
-      (parseFloat(cs.left) - (parseFloat(cs.getPropertyValue("--own-left")) || 0)).toFixed(2) + "px",
-    );
-    card.style.setProperty(
-      "--from-y",
-      (parseFloat(cs.top) - (parseFloat(cs.getPropertyValue("--own-top")) || 0)).toFixed(2) + "px",
-    );
-    placeModal(card);
+    var trigger = card.querySelector(".deck-trigger");
+    var from = card.getBoundingClientRect();
 
-    // re-opening a card that's still mid-close: drop the stale closing
-    // state so it doesn't linger and remove .is-active again later
-    if (closingCard === card) {
-      clearTimeout(closingTimer);
-      finishClosing(card);
+    var copy = card.cloneNode(true);
+    copy.classList.add("is-modal");
+    copy.setAttribute("role", "dialog");
+    copy.setAttribute("aria-modal", "false");
+    copy.setAttribute(
+      "aria-label",
+      (card.querySelector(".deck-value") || {}).textContent || "Karte",
+    );
+    // the copy's trigger is no longer a button that opens anything
+    var copyTrigger = copy.querySelector(".deck-trigger");
+    copyTrigger.removeAttribute("aria-expanded");
+    copyTrigger.setAttribute("tabindex", "-1");
+    // the size variables come from the card's own class (--w / --h)
+    getLayer().appendChild(copy);
+
+    card.classList.add("is-lifted");
+    trigger.setAttribute("aria-expanded", "true");
+    open = { card: card, copy: copy, trigger: trigger };
+
+    var to = copy.getBoundingClientRect();
+    if (!reduce.matches) {
+      copy.animate(
+        [
+          { transform: flip(from, to), opacity: 0.6 },
+          { transform: "none", opacity: 1 },
+        ],
+        { duration: OPEN_MS, easing: EASE_OPEN },
+      );
     }
 
-    card.classList.add("is-active");
-    if (heroEl) heroEl.classList.add("has-open");
-    card.querySelector(".deck-trigger").setAttribute("aria-expanded", "true");
-    activeCard = card;
+    var close = copy.querySelector(".deck-close");
+    if (close) {
+      close.addEventListener("click", function (event) {
+        event.stopPropagation();
+        closeCard();
+      });
+      close.focus({ preventScroll: true });
+    }
+  }
+
+  // instant: drop the copy at once (another card is opening)
+  function closeCard(instant) {
+    if (!open) return;
+    var o = open;
+    open = null;
+    o.trigger.setAttribute("aria-expanded", "false");
+
+    var finished = false;
+    function done() {
+      if (finished) return;
+      finished = true;
+      o.copy.remove();
+      o.card.classList.remove("is-lifted");
+    }
+    var hadFocus = o.copy.contains(document.activeElement);
+
+    if (instant || reduce.matches) {
+      done();
+    } else {
+      var to = o.copy.getBoundingClientRect();
+      // the card is hidden but laid out: its box is where the copy lands
+      var home = o.card.getBoundingClientRect();
+      var anim = o.copy.animate(
+        [
+          { transform: "none", opacity: 1 },
+          { transform: flip(home, to), opacity: 0.6 },
+        ],
+        { duration: CLOSE_MS, easing: EASE_CLOSE, fill: "forwards" },
+      );
+      anim.onfinish = done;
+      // in case the animation never reports back (a hidden tab, say)
+      setTimeout(done, CLOSE_MS + 80);
+    }
+    if (hadFocus) o.trigger.focus({ preventScroll: true });
   }
 
   cards.forEach(function (card) {
     card.addEventListener("click", function (event) {
-      if (event.target.closest(".deck-close")) {
-        closeActive();
-        return;
-      }
+      // the player's keys work on their own
+      if (event.target.closest(".deck-player")) return;
       openCard(card);
     });
   });
 
   document.addEventListener("click", function (event) {
-    if (activeCard && !activeCard.contains(event.target)) {
-      closeActive();
-    }
-  });
-
-  window.addEventListener("resize", function () {
-    if (activeCard) placeModal(activeCard);
+    if (!open) return;
+    if (open.copy.contains(event.target)) return;
+    if (open.card.contains(event.target)) return;
+    closeCard();
   });
 
   document.addEventListener("keydown", function (event) {
-    if (event.key === "Escape") closeActive();
+    if (event.key === "Escape") closeCard();
   });
 
-  // Pointer depth: while the mouse moves over the hero, the fan follows it
-  // a little (CSS turns --mx/--my into a few pixels and a fraction of a degree,
-  // more for the top cards). Mouse only, and not under reduced motion.
-  var hero = document.querySelector(".hero");
-  var inner = document.querySelector(".card-deck-inner");
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-  if (hero && inner) {
-    var frame = 0;
-    var point = null;
+  window.addEventListener("resize", function () {
+    if (open) closeCard(true);
+  });
 
-    function apply() {
-      frame = 0;
-      var box = hero.getBoundingClientRect();
-      var mx = point ? (point.x - (box.left + box.width / 2)) / (box.width / 2) : 0;
-      var my = point ? (point.y - (box.top + box.height / 2)) / (box.height / 2) : 0;
-      // on the hero, so the fan (inherits) and the glass plate's light share it
-      hero.style.setProperty("--mx", Math.max(-1, Math.min(1, mx)).toFixed(3));
-      hero.style.setProperty("--my", Math.max(-1, Math.min(1, my)).toFixed(3));
-    }
-
-    function queue() {
-      if (!frame) frame = requestAnimationFrame(apply);
-    }
-
-    hero.addEventListener("pointermove", function (event) {
-      if (event.pointerType !== "mouse" || reduce.matches) return;
-      point = { x: event.clientX, y: event.clientY };
-      queue();
-    });
-    hero.addEventListener("pointerleave", function () {
-      point = null;
-      queue();
+  // the playlist card's player: play and pause switch the equalizer on and
+  // off; "back" starts it again. Decorative, no audio.
+  var player = document.querySelector(".card-deck .deck-player");
+  if (player) {
+    var eq = player.querySelector(".eq");
+    var play = player.querySelector('[data-player="play"]');
+    var pause = player.querySelector('[data-player="pause"]');
+    var setPlaying = function (on) {
+      eq.classList.toggle("on", on);
+      play.classList.toggle("on", on);
+      pause.classList.toggle("on", !on);
+      play.setAttribute("aria-pressed", String(on));
+      pause.setAttribute("aria-pressed", String(!on));
+    };
+    player.addEventListener("click", function (event) {
+      var key = event.target.closest("[data-player]");
+      if (!key) return;
+      setPlaying(key.getAttribute("data-player") !== "pause");
     });
   }
 })();
