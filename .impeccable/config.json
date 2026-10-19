@@ -20,6 +20,36 @@
         ],
         "createdAt": "2026-10-11T13:09:17.185Z",
         "reason": "detector false positive: .role is 0.42em of a clamp(2.9rem,6vw,4.75rem) title, rendered 19-32px; measured by the detector as 6.72px"
+      },
+      {
+        "rule": "overused-font",
+        "value": "geist",
+        "createdAt": "2026-10-19T22:56:28.019Z",
+        "reason": "Font of the user's Claude Design export (page_v2) that the user asked to integrate; documented in DESIGN.md"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "archivo",
+        "createdAt": "2026-10-19T23:07:27.773Z",
+        "reason": "Archivo is documented in DESIGN.md typography (desktop scene, from the user's Claude Design export page_v2); the detector reads a stale design.json sidecar"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "hanken grotesk",
+        "createdAt": "2026-10-19T23:16:08.573Z",
+        "reason": "Documented in DESIGN.md typography (desktop scene, from the user's Claude Design export page_v2); the detector reads a stale design.json sidecar"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "schibsted grotesk",
+        "createdAt": "2026-10-19T23:16:08.593Z",
+        "reason": "Documented in DESIGN.md typography (desktop scene, from the user's Claude Design export page_v2); the detector reads a stale design.json sidecar"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "geist",
+        "createdAt": "2026-10-19T23:16:08.611Z",
+        "reason": "Documented in DESIGN.md typography (desktop scene, from the user's Claude Design export page_v2); the detector reads a stale design.json sidecar"
       }
     ]
   }
