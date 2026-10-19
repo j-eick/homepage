@@ -83,8 +83,6 @@
   --glass-edge: rgba(255, 255, 255, 0.9);
   --glass-shade: rgba(15, 35, 64, 0.07);
   --glass-sheen: rgba(255, 255, 255, 0.6);
-  /* the plate's surface: a fine frosted grain (fractal noise, dark flecks) */
-  --glass-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.06 0 0 0 0 0.14 0 0 0 0 0.25 1.5 0 0 0 -0.73'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   --glass-glow: rgba(255, 255, 255, 0.35);
   --glass-thick: rgba(140, 170, 215, 0.5);
   /* motion curves for the card-deck pull-out/push-back — both swing
@@ -993,10 +991,7 @@ a[aria-disabled="true"] {
   }
   .hero::before {
     z-index: -1;
-    /* the grain is the top layer and tiles in the plate's own plane, so it
-       takes the plate's perspective: it is finer in the distance */
     background:
-      var(--glass-grain) 0 0 / 260px 260px,
       radial-gradient(
         520px 220px at 50% 0%,
         var(--glass-glow),
@@ -1223,7 +1218,6 @@ footer {
   --glass-edge: rgba(255, 255, 255, 0.2);
   --glass-shade: rgba(0, 0, 0, 0.35);
   --glass-sheen: rgba(255, 255, 255, 0.13);
-  --glass-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1.5 0 0 0 -0.85'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   --glass-glow: rgba(255, 255, 255, 0.07);
   --glass-thick: rgba(110, 145, 215, 0.2);
   --bg: #0b1322;
